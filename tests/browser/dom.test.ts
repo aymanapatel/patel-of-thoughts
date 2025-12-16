@@ -1,4 +1,4 @@
-/// <reference types="vitest" />
+import { describe, expect, it } from 'vitest';
 
 describe('browser playground', () => {
   it('updates document title', () => {

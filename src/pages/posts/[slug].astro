@@ -178,7 +178,9 @@ function formatDate(date: Date): string {
   .post-sidebar {
     position: relative;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-sm);
   }
 
   @media (min-width: 1024px) {
@@ -192,6 +194,15 @@ function formatDate(date: Date): string {
   }
 
   /* TOC Styles */
+  :global(.toc-shell) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-sm);
+    width: 100%;
+  }
+
   :global(.toc) {
     position: relative;
     padding: var(--space-md) var(--space-lg);
@@ -202,11 +213,18 @@ function formatDate(date: Date): string {
     flex-direction: column;
     gap: var(--space-sm);
     width: 100%;
-    transition: padding var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+    transition: opacity var(--transition-fast), transform var(--transition-fast), max-height var(--transition-fast),
+      padding var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
   }
 
-  :global(.toc-closed) {
-    padding: var(--space-sm) var(--space-md);
+  :global(.toc-shell.toc-closed .toc) {
+    opacity: 0;
+    transform: translateX(10px);
+    max-height: 0;
+    padding: 0;
+    border-width: 0;
+    margin: 0;
+    pointer-events: none;
   }
 
   :global(.toc-header) {
@@ -219,45 +237,6 @@ function formatDate(date: Date): string {
     margin: 0;
     font-size: var(--font-size-base);
     font-weight: 600;
-  }
-
-  :global(.toc-closed .toc-title) {
-    display: none;
-  }
-
-  :global(.toc-toggle) {
-    margin-left: auto;
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-xs);
-    padding: var(--space-xs) var(--space-sm);
-    background-color: var(--color-bg);
-    color: var(--color-text);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    cursor: pointer;
-    transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast);
-  }
-
-  :global(.toc-toggle:hover),
-  :global(.toc-toggle:focus-visible) {
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-    background-color: var(--color-bg-secondary);
-    outline: none;
-  }
-
-  :global(.toc-toggle:focus-visible) {
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent) 25%, transparent);
-  }
-
-  :global(.toc-toggle-icon) {
-    display: inline-flex;
-    transition: transform var(--transition-fast);
-  }
-
-  :global(.toc-toggle-icon.is-open) {
-    transform: rotate(90deg);
   }
 
   :global(.toc-panel) {
@@ -311,32 +290,71 @@ function formatDate(date: Date): string {
     padding-left: var(--space-md);
   }
 
+  :global(.toc-toggle) {
+    margin-left: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-sm);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast),
+      transform var(--transition-fast);
+  }
+
+  :global(.toc-toggle:hover),
+  :global(.toc-toggle:focus-visible) {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background-color: var(--color-bg-secondary);
+    outline: none;
+  }
+
+  :global(.toc-toggle:focus-visible) {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent) 25%, transparent);
+  }
+
+  :global(.toc-toggle-icon) {
+    display: inline-flex;
+    transition: transform var(--transition-fast);
+  }
+
+  :global(.toc-toggle-icon.is-open) {
+    transform: rotate(90deg);
+  }
+
+  :global(.toc-toggle-floating) {
+    position: sticky;
+    bottom: 0;
+    right: 0;
+    align-self: flex-end;
+    z-index: 2;
+  }
   @media (max-width: 1023px) {
     .post-sidebar {
       order: -1;
     }
 
-    :global(.toc) {
-      flex-direction: row;
-      align-items: center;
-      gap: var(--space-xs);
+    :global(.toc-shell) {
+      width: auto;
+      align-items: stretch;
     }
 
-    :global(.toc-closed) {
-      padding: var(--space-xs) var(--space-sm);
-      align-items: flex-end;
+    :global(.toc) {
+      flex-direction: column;
     }
 
     :global(.toc-panel) {
       width: 100%;
     }
 
-    :global(.toc-toggle) {
-      position: sticky;
-      right: 0;
-      top: 0;
-      margin-left: auto;
-      z-index: 1;
+    :global(.toc-toggle-floating) {
+      position: fixed;
+      bottom: var(--space-md);
+      right: var(--space-md);
     }
   }
 </style>

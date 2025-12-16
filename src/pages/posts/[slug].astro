@@ -364,9 +364,10 @@ function formatDate(date: Date): string {
     :global(.toc-toggle-floating) {
       position: fixed;
       bottom: var(--space-md);
-      left: 50%;
-      right: auto;
-      transform: translateX(-50%);
+      right: var(--space-md);
+      left: auto;
+      transform: none;
+      box-shadow: 0 8px 30px color-mix(in srgb, var(--color-bg) 35%, transparent);
     }
 
     :global(.toc-shell.toc-out-of-view .toc-toggle-floating) {
@@ -375,9 +376,10 @@ function formatDate(date: Date): string {
 
     :global(.toc-shell.toc-out-of-view .toc) {
       position: fixed;
-      left: 50%;
+      right: var(--space-md);
+      left: auto;
       bottom: calc(var(--space-xl) * 2);
-      transform: translateX(-50%);
+      transform: none;
       width: min(92vw, 420px);
       max-height: 50vh;
       overflow: auto;

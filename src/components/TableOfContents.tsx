@@ -1,4 +1,4 @@
-import { useEffect, useId, useState, type MouseEvent } from 'react';
+import { useEffect, useId, useRef, useState, type MouseEvent } from 'react';
 
 interface Heading {
     depth: number;
@@ -13,7 +13,9 @@ interface Props {
 export default function TableOfContents({ headings }: Props) {
     const [activeId, setActiveId] = useState<string>('');
     const [isOpen, setIsOpen] = useState<boolean>(true);
+    const [isOutOfView, setIsOutOfView] = useState<boolean>(false);
     const tocPanelId = useId();
+    const sentinelRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -57,54 +59,78 @@ export default function TableOfContents({ headings }: Props) {
         return null;
     }
 
+    useEffect(() => {
+        const sentinelEl = sentinelRef.current;
+        if (!sentinelEl) return;
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    setIsOutOfView(!entry.isIntersecting);
+                });
+            },
+            {
+                threshold: 0.05,
+            }
+        );
+
+        observer.observe(sentinelEl);
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
+
     const toggleToc = () => setIsOpen((prev) => !prev);
 
     return (
-        <div className={`toc-shell ${isOpen ? 'toc-open' : 'toc-closed'}`}>
-            <nav className="toc" aria-label="Table of Contents">
-                <div className="toc-header">
-                    <h3 className="toc-title">Table of Contents</h3>
-                </div>
-                <div
-                    id={tocPanelId}
-                    className={`toc-panel ${isOpen ? 'is-open' : 'is-closed'}`}
-                    aria-hidden={!isOpen}
+        <>
+            <div className="toc-visibility-sentinel" ref={sentinelRef} aria-hidden="true" />
+            <div className={`toc-shell ${isOpen ? 'toc-open' : 'toc-closed'} ${isOutOfView ? 'toc-out-of-view' : ''}`}>
+                <nav className="toc" aria-label="Table of Contents">
+                    <div className="toc-header">
+                        <h3 className="toc-title">Table of Contents</h3>
+                    </div>
+                    <div
+                        id={tocPanelId}
+                        className={`toc-panel ${isOpen ? 'is-open' : 'is-closed'}`}
+                        aria-hidden={!isOpen}
+                    >
+                        <ul className="toc-list">
+                            {tocHeadings.map((heading) => (
+                                <li
+                                    key={heading.slug}
+                                    className={`toc-item toc-depth-${heading.depth} ${activeId === heading.slug ? 'active' : ''}`}
+                                >
+                                    <a href={`#${heading.slug}`} onClick={(e) => handleClick(e, heading.slug)}>
+                                        {heading.text}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </nav>
+                <button
+                    type="button"
+                    className={`toc-toggle toc-toggle-floating ${isOpen ? 'is-open' : ''}`}
+                    aria-expanded={isOpen}
+                    aria-controls={tocPanelId}
+                    onClick={toggleToc}
                 >
-                    <ul className="toc-list">
-                        {tocHeadings.map((heading) => (
-                            <li
-                                key={heading.slug}
-                                className={`toc-item toc-depth-${heading.depth} ${activeId === heading.slug ? 'active' : ''
-                                    }`}
-                            >
-                                <a href={`#${heading.slug}`} onClick={(e) => handleClick(e, heading.slug)}>
-                                    {heading.text}
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            </nav>
-            <button
-                type="button"
-                className={`toc-toggle toc-toggle-floating ${isOpen ? 'is-open' : ''}`}
-                aria-expanded={isOpen}
-                aria-controls={tocPanelId}
-                onClick={toggleToc}
-            >
-                <span className="toc-toggle-label">{isOpen ? 'Close TOC' : 'Open TOC'}</span>
-                <span className={`toc-toggle-icon ${isOpen ? 'is-open' : ''}`} aria-hidden="true">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M8.25 4.75L15.25 11.75L8.25 18.75"
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
-                </span>
-            </button>
-        </div>
+                    <span className="toc-toggle-label">{isOpen ? 'Close TOC' : 'Open TOC'}</span>
+                    <span className={`toc-toggle-icon ${isOpen ? 'is-open' : ''}`} aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8.25 4.75L15.25 11.75L8.25 18.75"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                    </span>
+                </button>
+            </div>
+        </>
     );
 }

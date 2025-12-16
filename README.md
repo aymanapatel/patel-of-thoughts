@@ -44,6 +44,19 @@ npm run build
 npm run preview
 ```
 
+### Testing
+
+```bash
+# Run Vitest in Node/JS-DOM mode
+npm run test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Execute browser mode tests powered by Playwright
+npm run test:browser
+```
+
 ## 📝 Writing Posts
 
 ### Creating a New Post

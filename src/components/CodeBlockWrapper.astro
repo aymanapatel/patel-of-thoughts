@@ -1,0 +1,91 @@
+---
+import '../styles/prose.css';
+
+const { class: className } = Astro.props;
+---
+
+<div class:list={['code-block-wrapper', className]}>
+  <slot />
+</div>
+
+<script>
+  // Add copy buttons to all code blocks
+  document.addEventListener('DOMContentLoaded', () => {
+    const codeBlocks = document.querySelectorAll('pre');
+    
+    codeBlocks.forEach((block) => {
+      // Create copy button
+      const button = document.createElement('button');
+      button.className = 'copy-button';
+      button.textContent = 'Copy';
+      button.setAttribute('aria-label', 'Copy code');
+      
+      // Make pre position relative for absolute button
+      block.style.position = 'relative';
+      
+      // Add button to code block
+      block.appendChild(button);
+      
+      // Copy functionality
+      button.addEventListener('click', async () => {
+        const code = block.querySelector('code');
+        if (code) {
+          try {
+            await navigator.clipboard.writeText(code.textContent || '');
+            button.textContent = 'Copied!';
+            button.classList.add('copied');
+            
+            setTimeout(() => {
+              button.textContent = 'Copy';
+              button.classList.remove('copied');
+            }, 2000);
+          } catch (err) {
+            console.error('Failed to copy:', err);
+            button.textContent = 'Failed';
+            setTimeout(() => {
+              button.textContent = 'Copy';
+            }, 2000);
+          }
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .code-block-wrapper {
+    position: relative;
+  }
+
+  :global(.copy-button) {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-xs);
+    font-family: var(--font-sans);
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity var(--transition-fast), background-color var(--transition-fast);
+    z-index: 10;
+  }
+
+  :global(pre:hover .copy-button) {
+    opacity: 1;
+  }
+
+  :global(.copy-button:hover) {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+  }
+
+  :global(.copy-button.copied) {
+    background-color: var(--color-accent);
+    color: white;
+    border-color: var(--color-accent);
+  }
+</style>

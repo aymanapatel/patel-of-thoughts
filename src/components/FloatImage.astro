@@ -1,0 +1,56 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  side?: 'left' | 'right';
+  width?: string;
+  caption?: string;
+}
+
+const { src, alt, side = 'left', width = '300px', caption } = Astro.props;
+---
+
+<figure class={`float-image float-${side}`} style={`max-width: ${width}`}>
+  <img src={src} alt={alt} />
+  {caption && <figcaption>{caption}</figcaption>}
+</figure>
+
+<style>
+  .float-image {
+    margin: var(--space-md);
+  }
+
+  .float-left {
+    float: left;
+    margin-left: 0;
+  }
+
+  .float-right {
+    float: right;
+    margin-right: 0;
+  }
+
+  .float-image img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    display: block;
+  }
+
+  figcaption {
+    margin-top: var(--space-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* Mobile: stack vertically */
+  @media (max-width: 768px) {
+    .float-image {
+      float: none !important;
+      max-width: 100% !important;
+      margin: var(--space-lg) 0;
+    }
+  }
+</style>

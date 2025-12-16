@@ -1,0 +1,76 @@
+---
+interface Props {
+  src: string;
+  type?: 'video' | 'gif';
+  poster?: string;
+  alt: string;
+  caption?: string;
+}
+
+const { src, type = 'video', poster, alt, caption } = Astro.props;
+---
+
+<div class="scroll-media-container">
+  <div class="scroll-media-sticky">
+    {type === 'video' ? (
+      <video
+        src={src}
+        poster={poster}
+        controls
+        loop
+        muted
+        playsinline
+        aria-label={alt}
+      >
+        Your browser does not support the video tag.
+      </video>
+    ) : (
+      <img src={src} alt={alt} />
+    )}
+    {caption && <p class="media-caption">{caption}</p>}
+  </div>
+</div>
+
+<style>
+  .scroll-media-container {
+    margin: var(--space-2xl) 0;
+    min-height: 400px;
+    position: relative;
+  }
+
+  .scroll-media-sticky {
+    position: sticky;
+    top: 2rem;
+    max-width: 100%;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .scroll-media-sticky video,
+  .scroll-media-sticky img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .media-caption {
+    margin-top: var(--space-sm);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    text-align: center;
+    font-style: italic;
+  }
+
+  /* Mobile: remove sticky behavior */
+  @media (max-width: 768px) {
+    .scroll-media-sticky {
+      position: relative;
+      top: 0;
+    }
+
+    .scroll-media-container {
+      min-height: auto;
+    }
+  }
+</style>

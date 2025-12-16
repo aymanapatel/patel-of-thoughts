@@ -1,0 +1,128 @@
+---
+title: "Getting Started with This Blog"
+description: "Learn how to write posts, use components, and make the most of this minimal MDX blog."
+date: "2024-01-15"
+tags: ["tutorial", "getting-started"]
+draft: false
+---
+
+import Demo from '../../components/Demo.astro';
+import InteractiveCounter from '../../components/examples/InteractiveCounter';
+
+Welcome to your new minimal, elegant blog! This post will guide you through the basics of writing content and using the available features.
+
+## Writing Posts
+
+Posts are written in MDX, which means you can use standard Markdown syntax along with React components. All posts live in `src/content/posts/` and include frontmatter metadata at the top.
+
+### Frontmatter Fields
+
+Every post should include:
+
+- **title** (required): The post title
+- **description** (required): A brief summary
+- **date** (required): Publication date in ISO format
+- **tags**: Array of tags for categorization
+- **draft**: Set to `true` to hide in production
+- **updated**: Optional update date
+- **heroImage**: Optional header image URL
+
+## Code Blocks
+
+Code blocks are automatically syntax-highlighted using Shiki. Hover over any code block to see the copy button:
+
+```typescript
+interface BlogPost {
+  title: string;
+  description: string;
+  date: Date;
+  tags: string[];
+}
+
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat('en-US').format(date);
+}
+```
+
+You can use multiple languages:
+
+```python
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+# Calculate first 10 Fibonacci numbers
+for i in range(10):
+    print(f"F({i}) = {fibonacci(i)}")
+```
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```
+
+## Interactive Components
+
+Since we're using MDX, you can embed React components directly in your posts:
+
+<Demo title="Interactive Counter">
+  <InteractiveCounter client:load />
+</Demo>
+
+This counter is a fully interactive React component rendered within the post!
+
+## Styling and Typography
+
+The blog uses a comfortable reading width and clean typography. Text is easy on the eyes with proper spacing and hierarchy.
+
+### Lists
+
+Unordered lists:
+- Item one
+- Item two
+- Item three with more text to show how it wraps
+
+Ordered lists:
+1. First step
+2. Second step
+3. Third step
+
+### Blockquotes
+
+> This is a blockquote. Use them to highlight important information or quotes from other sources. They stand out from the regular text with a left border and different styling.
+
+### Tables
+
+| Feature | Supported | Notes |
+|---------|-----------|-------|
+| Markdown | ✅ | Full support |
+| MDX | ✅ | With React components |
+| Syntax highlighting | ✅ | Via Shiki |
+| Dark mode | ✅ | Auto theme toggle |
+
+## Features
+
+This blog includes several nice-to-have features out of the box:
+
+1. **Table of Contents**: Auto-generated from headings (see the sidebar →)
+2. **Reading Progress**: The blue bar at the top shows your reading progress
+3. **Reading Time**: Automatically calculated for each post
+4. **Dark Mode**: Toggle between light and dark themes
+5. **RSS Feed**: Available at `/rss.xml`
+6. **Tags**: Organize and filter posts by topic
+
+## Next Steps
+
+Check out the comprehensive example post to see more advanced features like:
+- Float images with text wrap
+- Sticky scrolling media
+- And more!
+
+Happy blogging! 🚀

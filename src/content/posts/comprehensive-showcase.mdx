@@ -1,0 +1,247 @@
+---
+title: "Comprehensive Feature Showcase"
+description: "A complete demonstration of all blog features including float images, sticky media, code blocks, and interactive components."
+date: "2024-01-20"
+updated: "2024-01-22"
+tags: ["showcase", "features", "tutorial"]
+draft: false
+---
+
+import FloatImage from '../../components/FloatImage.astro';
+import ScrollMedia from '../../components/ScrollMedia.astro';
+import Demo from '../../components/Demo.astro';
+import InteractiveCounter from '../../components/examples/InteractiveCounter';
+
+This post demonstrates every feature available in this minimal, elegant MDX blog. Use it as a reference when writing your own posts!
+
+## Table of Contents Auto-Generation
+
+Notice the table of contents in the sidebar (on desktop) or above (on mobile)! It's automatically generated from your heading structure and updates as you scroll. Click any heading to jump to that section.
+
+## Rich Typography
+
+The blog features comfortable reading with proper line length (around 65 characters), generous line height, and a clear heading hierarchy. Everything is designed to be **easy on the eyes**.
+
+### Code Syntax Highlighting
+
+Code blocks use Shiki for beautiful syntax highlighting with a built-in copy button. Hover over any code block to reveal it:
+
+```javascript
+// React component example
+import { useState, useEffect } from 'react';
+
+export default function ThemeToggle() {
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
+
+  return (
+    <button onClick={toggleTheme}>
+      {theme === 'light' ? '🌙' : '☀️'}
+    </button>
+  );
+}
+```
+
+Multiple languages are supported:
+
+```go
+package main
+
+import "fmt"
+
+func fibonacci(n int) int {
+    if n <= 1 {
+        return n
+    }
+    return fibonacci(n-1) + fibonacci(n-2)
+}
+
+func main() {
+    for i := 0; i < 10; i++ {
+        fmt.Printf("F(%d) = %d\n", i, fibonacci(i))
+    }
+}
+```
+
+```css
+/* Modern CSS with custom properties */
+:root {
+  --color-primary: #3b82f6;
+  --color-secondary: #8b5cf6;
+  --spacing-unit: 0.25rem;
+}
+
+.button {
+  background: linear-gradient(135deg, 
+    var(--color-primary), 
+    var(--color-secondary)
+  );
+  padding: calc(var(--spacing-unit) * 2) 
+           calc(var(--spacing-unit) * 4);
+  border-radius: calc(var(--spacing-unit) * 2);
+  transition: transform 0.2s ease;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+```
+
+## Float Images with Text Wrap
+
+<FloatImage 
+  src="https://picsum.photos/400/300" 
+  alt="Beautiful landscape" 
+  side="right"
+  width="350px"
+  caption="A placeholder image floating right"
+/>
+
+This is an example of a floating image. The `FloatImage` component allows you to position images to the left or right with text wrapping around them. This creates a more magazine-style layout that's perfect for storytelling.
+
+On desktop, the text flows naturally around the image, creating an elegant reading experience. On mobile devices, the image automatically stacks vertically to maintain readability.
+
+You can control the side (`left` or `right`), width, and even add captions. The component handles all the responsive behavior automatically, so you don't need to worry about how it looks on different screen sizes.
+
+This is particularly useful for blog posts with multiple images or when you want to maintain visual interest while keeping the text flowing. The spacing is carefully tuned to ensure the image doesn't feel cramped or disconnected from the content.
+
+## Sticky Scrolling Media
+
+Below is a demonstration of the `ScrollMedia` component, which creates an elegant sticky effect as you scroll through the accompanying text.
+
+<ScrollMedia 
+  src="https://picsum.photos/600/400" 
+  alt="Sticky media demo"
+  type="gif"
+  caption="This image stays visible while you scroll"
+/>
+
+### How It Works
+
+The sticky media component uses CSS `position: sticky` to keep the media element visible while you scroll through the text. This creates a modern, interactive feel that's perfect for:
+
+- **Tutorials**: Keep a reference image visible while users read instructions
+- **Product showcases**: Display a product while describing its features
+- **Before/after comparisons**: Show results while explaining the process
+
+The component works with both images and videos, and automatically adjusts for mobile devices where sticky behavior might not be ideal.
+
+### Best Practices
+
+When using sticky media:
+1. Provide enough text content for the effect to be noticeable
+2. Use high-quality images that are relevant to the surrounding content
+3. Consider the mobile experience - it switches to regular stacking
+4. Add meaningful captions to provide context
+
+This section has enough text to demonstrate the sticky behavior. As you scroll down, notice how the image stays in view until you've read past this entire section.
+
+## Interactive React Components
+
+One of the most powerful features is the ability to embed interactive React components directly in your posts:
+
+<Demo title="Interactive Counter Component">
+  <InteractiveCounter client:load />
+</Demo>
+
+This counter is a fully functional React component with state management, event handlers, and dynamic rendering. You can create any React component and use it within your MDX posts!
+
+### Use Cases for Components
+
+- **Interactive demos**: Show how a UI component works
+- **Data visualizations**: Embed charts and graphs
+- **Calculators**: Build interactive tools
+- **Forms**: Collect feedback or input
+- **Games**: Create mini interactive experiences
+
+The `Demo` component provides a nice container with an optional title, perfect for showcasing your React creations.
+
+## Lists and Links
+
+### Unordered Lists
+
+Here's what this blog includes:
+- Full MDX support with React components
+- Automatic table of contents with scrollspy
+- Reading progress indicator
+- Built-in dark mode
+- Shiki syntax highlighting with copy button
+- RSS feed generation
+- SEO-optimized pages
+- Responsive design
+- Fast static site generation
+
+### Ordered Lists
+
+To deploy this blog:
+1. Install dependencies with `npm install`
+2. Build the site with `npm run build`
+3. Deploy the `dist` folder to your hosting provider
+4. Configure environment variables for analytics (optional)
+5. Set up your custom domain
+
+### Links
+
+Check out the [Astro documentation](https://docs.astro.build) for more information on what you can do with MDX and Astro components.
+
+## Blockquotes
+
+> "Simplicity is the ultimate sophistication." — Leonardo da Vinci
+
+Blockquotes are perfect for highlighting important information, quotes, or callouts. They're styled to stand out from the regular text while maintaining the overall aesthetic.
+
+## Tables
+
+Tables are fully supported with clean styling:
+
+| Component | Purpose | Props |
+|-----------|---------|-------|
+| `FloatImage` | Side-by-side images | `src`, `alt`, `side`, `width`, `caption` |
+| `ScrollMedia` | Sticky media | `src`, `type`, `alt`, `poster`, `caption` |
+| `Demo` | Component preview | `title`, `children` |
+| `TableOfContents` | Navigation | `headings` |
+| `ReadingProgress` | Progress bar | None |
+
+## Horizontal Rules
+
+Use horizontal rules to separate major sections:
+
+---
+
+## Performance and SEO
+
+This blog is built with performance and SEO in mind:
+
+- **Static Generation**: All pages are pre-rendered for instant loading
+- **Minimal JavaScript**: Only loads what's necessary for interactivity
+- **Optimized Images**: Responsive and properly sized
+- **Semantic HTML**: Proper heading hierarchy and structure
+- **Meta Tags**: Complete Open Graph and Twitter Card support
+- **RSS Feed**: Automatic feed generation for subscribers
+
+## Conclusion
+
+This comprehensive showcase demonstrates all the features available in this minimal MDX blog. You can:
+
+✅ Write in Markdown with full MDX support  
+✅ Embed interactive React components  
+✅ Use beautiful syntax highlighting  
+✅ Create floating images with text wrap  
+✅ Add sticky scrolling media  
+✅ Navigate with auto-generated TOC  
+✅ Track reading progress  
+✅ Switch between light and dark themes  
+
+Happy writing! 🎉

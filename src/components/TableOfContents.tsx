@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useId, useState, type MouseEvent } from 'react';
 
 interface Heading {
     depth: number;
@@ -12,6 +12,8 @@ interface Props {
 
 export default function TableOfContents({ headings }: Props) {
     const [activeId, setActiveId] = useState<string>('');
+    const [isOpen, setIsOpen] = useState<boolean>(true);
+    const tocPanelId = useId();
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -37,7 +39,7 @@ export default function TableOfContents({ headings }: Props) {
         };
     }, [headings]);
 
-    const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, slug: string) => {
+    const handleClick = (e: MouseEvent<HTMLAnchorElement>, slug: string) => {
         e.preventDefault();
         const element = document.getElementById(slug);
         if (element) {
@@ -55,22 +57,52 @@ export default function TableOfContents({ headings }: Props) {
         return null;
     }
 
+    const toggleToc = () => setIsOpen((prev) => !prev);
+
     return (
-        <nav className="toc">
-            <h3 className="toc-title">Table of Contents</h3>
-            <ul className="toc-list">
-                {tocHeadings.map((heading) => (
-                    <li
-                        key={heading.slug}
-                        className={`toc-item toc-depth-${heading.depth} ${activeId === heading.slug ? 'active' : ''
-                            }`}
-                    >
-                        <a href={`#${heading.slug}`} onClick={(e) => handleClick(e, heading.slug)}>
-                            {heading.text}
-                        </a>
-                    </li>
-                ))}
-            </ul>
+        <nav className={`toc ${isOpen ? 'toc-open' : 'toc-closed'}`}>
+            <div className="toc-header">
+                <h3 className="toc-title">Table of Contents</h3>
+                <button
+                    type="button"
+                    className="toc-toggle"
+                    aria-expanded={isOpen}
+                    aria-controls={tocPanelId}
+                    onClick={toggleToc}
+                >
+                    <span className="toc-toggle-label">{isOpen ? 'Close TOC' : 'Open TOC'}</span>
+                    <span className={`toc-toggle-icon ${isOpen ? 'is-open' : ''}`} aria-hidden="true">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8.25 4.75L15.25 11.75L8.25 18.75"
+                                stroke="currentColor"
+                                strokeWidth="1.5"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
+                    </span>
+                </button>
+            </div>
+            <div
+                id={tocPanelId}
+                className={`toc-panel ${isOpen ? 'is-open' : 'is-closed'}`}
+                aria-hidden={!isOpen}
+            >
+                <ul className="toc-list">
+                    {tocHeadings.map((heading) => (
+                        <li
+                            key={heading.slug}
+                            className={`toc-item toc-depth-${heading.depth} ${activeId === heading.slug ? 'active' : ''
+                                }`}
+                        >
+                            <a href={`#${heading.slug}`} onClick={(e) => handleClick(e, heading.slug)}>
+                                {heading.text}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </nav>
     );
 }

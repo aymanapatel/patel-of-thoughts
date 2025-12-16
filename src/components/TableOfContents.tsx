@@ -14,6 +14,7 @@ export default function TableOfContents({ headings }: Props) {
     const [activeId, setActiveId] = useState<string>('');
     const [isOpen, setIsOpen] = useState<boolean>(true);
     const [isOutOfView, setIsOutOfView] = useState<boolean>(false);
+    const hasCollapsedOnScroll = useRef<boolean>(false);
     const tocPanelId = useId();
     const sentinelRef = useRef<HTMLDivElement | null>(null);
 
@@ -78,6 +79,24 @@ export default function TableOfContents({ headings }: Props) {
 
         return () => {
             observer.disconnect();
+        };
+    }, []);
+
+    useEffect(() => {
+        const collapseOnFirstScroll = () => {
+            if (hasCollapsedOnScroll.current) return;
+            const isMobile = window.matchMedia('(max-width: 1023px)').matches;
+            if (!isMobile) return;
+            if (window.scrollY > 0) {
+                setIsOpen(false);
+                hasCollapsedOnScroll.current = true;
+            }
+        };
+
+        window.addEventListener('scroll', collapseOnFirstScroll, { passive: true });
+
+        return () => {
+            window.removeEventListener('scroll', collapseOnFirstScroll);
         };
     }, []);
 

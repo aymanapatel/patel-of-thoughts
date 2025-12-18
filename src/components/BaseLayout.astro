@@ -1,7 +1,7 @@
 ---
-import ThemeToggle from './ThemeToggle';
-import CodeBlockWrapper from './CodeBlockWrapper.astro';
-import '../styles/global.css';
+import ThemeToggle from "./ThemeToggle";
+import CodeBlockWrapper from "./CodeBlockWrapper.astro";
+import "../styles/global.css";
 
 interface Props {
   title: string;
@@ -9,41 +9,47 @@ interface Props {
 }
 
 const { title, description } = Astro.props;
-const site_title = import.meta.env.PUBLIC_SITE_TITLE || 'Minimal MDX Blog';
-const site_description = import.meta.env.PUBLIC_SITE_DESCRIPTION || 'A fast, clean blog';
-const site_url = import.meta.env.PUBLIC_SITE_URL || 'https://example.com';
+const site_title = import.meta.env.PUBLIC_SITE_TITLE || "Patel of thought";
+const site_description =
+  import.meta.env.PUBLIC_SITE_DESCRIPTION || "A fast, clean blog";
+const site_url = import.meta.env.PUBLIC_SITE_URL || "https://example.com";
 const title_text = title ? `${title} | ${site_title}` : site_title;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    
+
     <!-- SEO -->
     <title>{title_text}</title>
     <meta name="description" content={description || site_description} />
-    
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title_text} />
     <meta property="og:description" content={description || site_description} />
     <meta property="og:url" content={site_url} />
-    
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title_text} />
-    <meta name="twitter:description" content={description || site_description} />
-    
+    <meta
+      name="twitter:description"
+      content={description || site_description}
+    />
+
     <!-- Theme initialization script (runs before page render to prevent flash) -->
     <script is:inline>
-      const savedTheme = localStorage.getItem('theme');
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      const theme = savedTheme || (prefersDark ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', theme);
+      const savedTheme = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)",
+      ).matches;
+      const theme = savedTheme || (prefersDark ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
     </script>
   </head>
   <body>
@@ -59,15 +65,16 @@ const title_text = title ? `${title} | ${site_title}` : site_title;
           </nav>
         </div>
       </header>
-      
+
       <main>
         <slot />
       </main>
-      
+
       <footer class="site-footer">
         <div class="container">
           <p class="text-secondary text-small">
-            © {new Date().getFullYear()} {site_title}. Built with <a href="https://astro.build">Astro</a>.
+            © {new Date().getFullYear()}
+            {site_title}. Built with <a href="https://astro.build">Astro</a>.
           </p>
         </div>
       </footer>
@@ -82,30 +89,30 @@ const title_text = title ? `${title} | ${site_title}` : site_title;
     margin-bottom: var(--space-2xl);
     background-color: var(--color-bg-secondary);
   }
-  
+
   .nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-  
+
   .site-title {
     font-size: var(--font-size-xl);
     font-weight: 700;
     color: var(--color-text);
   }
-  
+
   .site-title:hover {
     text-decoration: none;
     color: var(--color-accent);
   }
-  
+
   .nav-links {
     display: flex;
     align-items: center;
     gap: var(--space-lg);
   }
-  
+
   :global(.theme-toggle) {
     background: none;
     border: 1px solid var(--color-border);
@@ -120,15 +127,15 @@ const title_text = title ? `${title} | ${site_title}` : site_title;
     width: 2.5rem;
     height: 2.5rem;
   }
-  
+
   :global(.theme-toggle:hover) {
     border-color: var(--color-accent);
   }
-  
+
   main {
     min-height: 60vh;
   }
-  
+
   .site-footer {
     margin-top: var(--space-2xl);
     padding: var(--space-2xl) 0;

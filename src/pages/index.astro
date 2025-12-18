@@ -1,54 +1,69 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../components/BaseLayout.astro';
+import { getCollection } from "astro:content";
+import BaseLayout from "../components/BaseLayout.astro";
 
-// Get all posts and filter out drafts in production
-const allPosts = await getCollection('posts', ({ data }) => {
-  return import.meta.env.PROD ? !data.draft : true;
+// Get all posts and filter out drafts
+const allPosts = await getCollection("posts", ({ data }) => {
+  return !data.draft;
 });
 
 // Sort posts by date (newest first)
-const posts = allPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const posts = allPosts.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
 
 function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   }).format(date);
 }
 ---
 
-<BaseLayout title="" description="A minimal, elegant blog built with Astro and MDX">
+<BaseLayout
+  title=""
+  description="A minimal, elegant blog built with Astro and MDX"
+>
   <div class="container">
     <div class="home-header">
       <h1>Recent Posts</h1>
-      <p class="text-secondary">Thoughts on web development, design, and technology.</p>
+      <p class="text-secondary">
+        Thoughts on technology and software development. Either learning from
+        mistakes or going into a rabbit hole!
+      </p>
     </div>
-    
+
     <div class="posts-list">
-      {posts.map((post) => (
-        <article class="post-card card">
-          <a href={`/posts/${post.slug}`} class="post-link">
-            <h2 class="post-title">{post.data.title}</h2>
-            <p class="post-description text-secondary">{post.data.description}</p>
-            
-            <div class="post-meta">
-              <time datetime={post.data.date.toISOString()} class="text-small text-secondary">
-                {formatDate(post.data.date)}
-              </time>
-              
-              {post.data.tags.length > 0 && (
-                <div class="post-tags">
-                  {post.data.tags.map((tag) => (
-                    <span class="tag">{tag}</span>
-                  ))}
-                </div>
-              )}
-            </div>
-          </a>
-        </article>
-      ))}
+      {
+        posts.map((post) => (
+          <article class="post-card card">
+            <a href={`/posts/${post.slug.split("/").pop()}`} class="post-link">
+              <h2 class="post-title">{post.data.title}</h2>
+              <p class="post-description text-secondary">
+                {post.data.description}
+              </p>
+
+              <div class="post-meta">
+                <time
+                  datetime={post.data.date.toISOString()}
+                  class="text-small text-secondary"
+                >
+                  {formatDate(post.data.date)}
+                </time>
+
+                {post.data.tags.length > 0 && (
+                  <div class="post-tags">
+                    {post.data.tags.map((tag) => (
+                      <span class="tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </a>
+          </article>
+        ))
+      }
     </div>
   </div>
 </BaseLayout>
@@ -57,35 +72,37 @@ function formatDate(date: Date): string {
   .home-header {
     margin-bottom: var(--space-2xl);
   }
-  
+
   .home-header h1 {
     margin-top: 0;
     margin-bottom: var(--space-sm);
   }
-  
+
   .posts-list {
     display: flex;
     flex-direction: column;
     gap: var(--space-xl);
   }
-  
+
   .post-card {
-    transition: transform var(--transition-fast), border-color var(--transition-fast);
+    transition:
+      transform var(--transition-fast),
+      border-color var(--transition-fast);
   }
-  
+
   .post-card:hover {
     transform: translateY(-2px);
   }
-  
+
   .post-link {
     display: block;
     color: inherit;
   }
-  
+
   .post-link:hover {
     text-decoration: none;
   }
-  
+
   .post-title {
     margin-top: 0;
     margin-bottom: var(--space-sm);
@@ -95,29 +112,29 @@ function formatDate(date: Date): string {
     color: var(--color-text);
     transition: color var(--transition-fast);
   }
-  
+
   .post-link:hover .post-title {
     color: var(--color-accent);
   }
-  
+
   .post-description {
     margin-bottom: var(--space-md);
     line-height: var(--line-height-relaxed);
   }
-  
+
   .post-meta {
     display: flex;
     align-items: center;
     gap: var(--space-md);
     flex-wrap: wrap;
   }
-  
+
   .post-tags {
     display: flex;
     gap: var(--space-sm);
     flex-wrap: wrap;
   }
-  
+
   .tag {
     display: inline-block;
     padding: 0.25rem 0.5rem;

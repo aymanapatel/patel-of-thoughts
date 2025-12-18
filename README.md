@@ -1,4 +1,4 @@
-# Minimal MDX Blog
+# Patel of thought
 
 A fast, clean, and elegant blog built with **Astro + MDX + React**. Features automatic table of contents with scrollspy, Shiki syntax highlighting with copy buttons, rich content components, and optional analytics integration.
 
@@ -121,6 +121,7 @@ Add several paragraphs here to see the sticky effect...
 - `type`: `"video"` or `"gif"` (default: `"video"`)
 - `poster`: Poster image for videos
 - `caption`: Optional caption
+- `width`: CSS width value for the sticky container (default: `"100%"`)
 
 ### Interactive React Components
 

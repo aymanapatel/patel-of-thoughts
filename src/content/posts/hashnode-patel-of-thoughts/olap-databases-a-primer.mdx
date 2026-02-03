@@ -5,8 +5,8 @@ seoTitle: "OLAP vs OLTP and the evolution of OLAP"
 date: 2024-02-04
 cuid: cls7aai55000009kxeczw9add
 slug: olap-databases-a-primer
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1707037589864/1d9b62cf-9fb7-435e-8623-35fb7f310bd4.png
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1707037855331/10685957-3d1a-4b41-97cb-f4e73cd99762.png
+cover: /images/hashnode/1d9b62cf-9fb7-435e-8623-35fb7f310bd4.png
+ogImage: /images/hashnode/10685957-3d1a-4b41-97cb-f4e73cd99762.png
 tags: ["databases", "olap"]
 
 ---
@@ -25,7 +25,7 @@ Firstly, we'll look into the **Shared-\*** architectures (Shared Disk vs Shared 
 
 ## Shared-Everything Architecture
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1707024036959/981f8044-b1f5-4edc-b8c6-6f7b2b368ba7.png align="center")
+![](/images/hashnode/981f8044-b1f5-4edc-b8c6-6f7b2b368ba7.png)
 
 This is a single node architecture. Everything is shared. Example would be a UNIX OS where all things is in same machine. This is great for co-location but not good for fault tolerance and performance. Single server means single point of failure, hence ***no fault tolerance*.** All data in one machine without partitioning means ***performance degradation with larger data.***
 
@@ -33,7 +33,7 @@ Shared-Disk and Shared-Nothing provides some improvements in each of the criteri
 
 ## Shared-Nothing Architecture
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1707023870022/3285f406-43b8-404c-9c91-9b8658ebfd39.png align="center")
+![](/images/hashnode/3285f406-43b8-404c-9c91-9b8658ebfd39.png)
 
 Each Database node shares:
 
@@ -52,7 +52,7 @@ Shared-Nothing is harder to scale data capacity due to tightly-coupled storage l
 
 ## Shared-Disk Architecture
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1707023859340/6eae1261-f74f-4d49-aaa9-3c120370a006.png align="center")
+![](/images/hashnode/6eae1261-f74f-4d49-aaa9-3c120370a006.png)
 
 Each Database node shares the compute layer:
 
@@ -83,7 +83,7 @@ Hence, the traditional databases such as MySQL, Oracle, Postgres used row-orient
 
 Here data is stored as rows at storage layer.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1707032388586/55871359-4b33-48d3-ae2a-69c083f8a95b.png align="center")
+![](/images/hashnode/55871359-4b33-48d3-ae2a-69c083f8a95b.png)
 
 For example
 
@@ -112,7 +112,7 @@ Some implementation that were done to move row-oriented to column oriented-datab
 
 Same data is stored as columns at storage layer.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1707032406194/a3faab17-47ed-4b18-b35e-6ddf01bcb7de.png align="center")
+![](/images/hashnode/a3faab17-47ed-4b18-b35e-6ddf01bcb7de.png)
 
 For example
 
@@ -160,7 +160,7 @@ And examples for column-oriented data stores:
 
 ## 1990s - 1st first generation OLAPs - DATA CUBES
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1707020229495/9086e02f-8df6-4348-b14a-14dfc303942b.png align="center")
+![](/images/hashnode/9086e02f-8df6-4348-b14a-14dfc303942b.png)
 
 Here the data from disparate sources are fetched and combined into a data cube.  
 These are then aggregated which can then be queried for analyitcal purposes.
@@ -170,7 +170,7 @@ Also, since data sources were from different sources, it lead to higher data dup
 
 Examples:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1707036188914/5177ab8a-dd1e-470c-bef8-aafb9021cd6f.png align="center")
+![](/images/hashnode/5177ab8a-dd1e-470c-bef8-aafb9021cd6f.png)
 
 | Tool | Note |
 | --- | --- |
@@ -183,7 +183,7 @@ Examples:
 
 ## 2000s - Second Generation Architectures
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1707019243762/a3807a2c-e780-4cd5-baec-8baea8a66748.png align="center")
+![](/images/hashnode/a3807a2c-e780-4cd5-baec-8baea8a66748.png)
 
 In 2000s, there was a new paradigm of ETL (**E**xtract, **T**ransform, **L**oad)
 
@@ -199,7 +199,7 @@ A hidden fact is most of these data-warehosues were forks of traditional Databas
 
 Examples:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1707036200559/392ccc38-66d4-4111-ac2d-40e4f408aeb0.png align="center")
+![](/images/hashnode/392ccc38-66d4-4111-ac2d-40e4f408aeb0.png)
 
 | DB | Note |
 | --- | --- |
@@ -212,7 +212,7 @@ Examples:
 
 ## 2010s and now: Rise of Decoupled OLAPs
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1707020354226/ed42c162-b9ff-4e1e-abd1-9152c1d70ad6.png align="center")
+![](/images/hashnode/ed42c162-b9ff-4e1e-abd1-9152c1d70ad6.png)
 
 1. Send Data to a decoupled Object Storage
     
@@ -229,7 +229,7 @@ Modern OLAP has moved away from traditional ETL workflow to a ELT workflow, wher
 
 Examples:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1707036244312/d23247de-5f7c-4236-a7fb-397d11702646.png align="center")
+![](/images/hashnode/d23247de-5f7c-4236-a7fb-397d11702646.png)
 
 | DB | What | Integration |
 | --- | --- | --- |
@@ -250,17 +250,17 @@ Examples:
 
 The three phases as discussed in the 2000s database section can be represented here:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1707035613754/68e3ecc1-800c-4a08-852b-10c8dd4a7c56.png align="center")
+![](/images/hashnode/68e3ecc1-800c-4a08-852b-10c8dd4a7c56.png)
 
 1. **ELT**
     
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1707035630304/668ce0af-5ff3-44e7-8191-d5b153d0a0af.png align="center")
+![](/images/hashnode/668ce0af-5ff3-44e7-8191-d5b153d0a0af.png)
 
 1. DBT: Implementing ELT in real-world
     
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1707035650948/5b0a6bf4-3b69-4091-a1de-d115acda7876.png align="center")
+![](/images/hashnode/5b0a6bf4-3b69-4091-a1de-d115acda7876.png)
 
 ### Advantages of ELT vs ETL
 

@@ -5,8 +5,8 @@ seoTitle: "Redis is not just a Cache"
 date: 2024-02-24
 cuid: clt0de3v3000108i97eku2f2m
 slug: redis-is-not-just-a-cache
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1708796582341/142b59b7-9e32-4a22-954c-234f528b2860.png
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1708796603206/6472c987-fe60-4b4d-93da-a03f61ddf443.png
+cover: /images/hashnode/142b59b7-9e32-4a22-954c-234f528b2860.png
+ogImage: /images/hashnode/6472c987-fe60-4b4d-93da-a03f61ddf443.png
 tags: ["redis", "databases", "caching", "caching-strategies"]
 
 ---
@@ -30,7 +30,7 @@ Before we go further, here is a primer on different caching strategies:
 
 ### Cache-aside
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708795242526/92e7fbf5-b899-4197-9d4a-a4ce439e2b6f.png align="left")
+![](/images/hashnode/92e7fbf5-b899-4197-9d4a-a4ce439e2b6f.png)
 
 Most popular caching strategy where cache is a fast storage layer and application server takes read/write to storage based on cache response.
 
@@ -46,19 +46,19 @@ Most popular caching strategy where cache is a fast storage layer and applicatio
 
 ### Write-through cache
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708795275970/383aca04-458a-4d31-ae16-614f368f1541.png align="left")
+![](/images/hashnode/383aca04-458a-4d31-ae16-614f368f1541.png)
 
 Here the cache is in middle of application and database. And all write happen through cache to database **at exact time**
 
 ### Write-behind cache
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708795353029/08c5a05d-f5d4-4f06-abb5-32365b275707.png align="center")
+![](/images/hashnode/08c5a05d-f5d4-4f06-abb5-32365b275707.png)
 
 Similar to *Write-through cache*, cache is in between application and database. But the key difference is that cache batches up writes coming from application and flushes to database at a later time.
 
 ### Read-through cache
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708795407849/2ac40c88-d5b8-4540-a6f5-e26ff7447928.png align="center")
+![](/images/hashnode/2ac40c88-d5b8-4540-a6f5-e26ff7447928.png)
 
 Cache comes in between application and database, but the reads are the operation that occurs here which are driven from database.
 
@@ -315,20 +315,20 @@ An example of creating a Redis Stream, Consumer Group and Read for a Consumer
 
 1. **Add data to Redis Stream**
     
-    ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708795525623/20678aed-29ba-43f7-9de9-b05976d822d1.png align="center")
+    ![](/images/hashnode/20678aed-29ba-43f7-9de9-b05976d822d1.png)
     
 2. **Create consumer group**
     
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708795516224/e39f6b0f-d2ea-4002-a339-11fc321f3baa.png align="left")
+![](/images/hashnode/e39f6b0f-d2ea-4002-a339-11fc321f3baa.png)
 
 1. **Add data to Redis Stream** and **Read from Consumer**
     
-    ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708795536534/28c416b3-265f-4002-9559-1b4f476f17a7.png align="center")
+    ![](/images/hashnode/28c416b3-265f-4002-9559-1b4f476f17a7.png)
     
 2. **Read the Consumer has received. They can ACK or CLAIM too!**
     
-    ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708795543939/e9e36c2b-dc4d-46f0-be58-4d79cca8372b.png align="center")
+    ![](/images/hashnode/e9e36c2b-dc4d-46f0-be58-4d79cca8372b.png)
     
 
 ## Redis Pub/Sub
@@ -337,7 +337,7 @@ Similar to radio broadcast, a Broadcaster can **PUBLISH** a message to Redis, wh
 
 Can check via Redis Insights
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708795455847/00429986-9cd5-4d05-99af-47ed1e813cba.png align="left")
+![](/images/hashnode/00429986-9cd5-4d05-99af-47ed1e813cba.png)
 
 # Redis Search
 
@@ -375,7 +375,7 @@ Redis Search also has other building blocks for creating full-text systems such 
 
 Mongo had become popular to store data as JSON BLOBs in the 2010s. This was useful in many e-commerce applications to store database as a JSON store which can be served directly via an API without need to do database JOINs or serializing/deserializing while serving. Note that this use-case became less popular as ACID is not necessarily guaranteed.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708795441053/b9128dab-1904-4880-bc5b-df1c2dd50758.png align="left")
+![](/images/hashnode/b9128dab-1904-4880-bc5b-df1c2dd50758.png)
 
 # Redis as a Vector Database
 

@@ -5,7 +5,7 @@ seoTitle: "Client Hello - Security all the way down"
 date: 2023-10-01
 cuid: cln7ig0xs000109l54x6b1xpt
 slug: client-hello-security-all-the-way-down
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1696163646532/a386f57b-f55d-466c-ae31-515fdbe34fd8.jpeg
+cover: /images/hashnode/a386f57b-f55d-466c-ae31-515fdbe34fd8.jpeg
 tags: ["cloudflare", "security"]
 
 ---
@@ -56,13 +56,13 @@ A prerequisite for any TLS connection is the TCP handshake. As it is a topic in 
 
 ## Basic TLS
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696160651967/d9825b8b-9a3f-4784-8505-da3e359663b8.png align="center")
+![](/images/hashnode/d9825b8b-9a3f-4784-8505-da3e359663b8.png)
 
 The above is the initial SYN/ACK between client and server
 
 After that, there is a ClientHello and ServerHello (refer to the below diagram)
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696164036463/efd6fa79-be9b-4700-8901-d5015e0189fa.png align="center")
+![](/images/hashnode/efd6fa79-be9b-4700-8901-d5015e0189fa.png)
 
 1. **ClientHello:** Cipher Suite, TLS version client supports, client random, SNI and ALN info
     
@@ -96,7 +96,7 @@ This concept of encrypting before handshake was not considered in earlier TLS ve
 
 ## ESNI
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696164113640/93535cb7-cd46-4a01-81dd-4cf5de0e980e.png align="center")
+![](/images/hashnode/93535cb7-cd46-4a01-81dd-4cf5de0e980e.png)
 
 ESNI was the first version of encrypting SNI. It evolved to what we have today which is **ClientHello**
 
@@ -113,7 +113,7 @@ This negates the whole security aspect of SNT as plain-text DNS is easily tracea
 
 # Final puzzle Piece: ECH
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696164148121/bfc5aac1-ccf1-43d8-b1b9-4448f71a3b0d.png align="center")
+![](/images/hashnode/bfc5aac1-ccf1-43d8-b1b9-4448f71a3b0d.png)
 
 What ECH as the final draft proposes is to divide **ClientHello,** into 2 parts:
 
@@ -167,17 +167,17 @@ Check if your browser has ECH enabled using this [link](https://defo.ie/ech-chec
 
 (Chrome, can be achieved by enabling `chrome://flags` under `encrypted-client-hello`)
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696166257636/980ca28c-87be-4c9b-a4a0-29f110230ee6.jpeg align="center")
+![](/images/hashnode/980ca28c-87be-4c9b-a4a0-29f110230ee6.jpeg)
 
 * Before enabling ECH
     
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696166283045/46c35d56-2295-4743-ab2d-caca52309c6a.jpeg align="center")
+![](/images/hashnode/46c35d56-2295-4743-ab2d-caca52309c6a.jpeg)
 
 * After enabling ECH
     
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696166311499/ec19fdff-febe-4db6-94e4-6e2f7189e9e2.jpeg align="center")
+![](/images/hashnode/ec19fdff-febe-4db6-94e4-6e2f7189e9e2.jpeg)
 
 # No free lunch
 

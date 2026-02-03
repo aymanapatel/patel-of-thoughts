@@ -5,8 +5,8 @@ seoTitle: "ABCs of Databases"
 date: 2024-01-14
 cuid: clrdq18xe000309l70dicg13h
 slug: abcs-of-databases
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1705249300114/52941de8-909d-40d4-ae0b-a4c1c839877b.png
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1705250314073/3efb035b-f59f-44c8-a9f3-22571ab8f80d.png
+cover: /images/hashnode/52941de8-909d-40d4-ae0b-a4c1c839877b.png
+ogImage: /images/hashnode/3efb035b-f59f-44c8-a9f3-22571ab8f80d.png
 tags: ["postgresql", "nosql", "databases", "sql", "cap-theorem"]
 
 ---
@@ -40,7 +40,7 @@ Just putting the acronym out there:
 
 # ACID
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1705249498944/2c94a09d-9982-40ef-99e3-c40b78f740c9.jpeg align="center")
+![](/images/hashnode/2c94a09d-9982-40ef-99e3-c40b78f740c9.jpeg)
 
 ## 1.a. Atomicity
 
@@ -82,7 +82,7 @@ Similarly to Atomicity; Durability uses `REDO/UNDO` or **Shadow Paging** mechani
 
 # BASE
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1705249530139/5be0e449-c8ff-4340-9e6b-13641b1a0f7c.jpeg align="center")
+![](/images/hashnode/5be0e449-c8ff-4340-9e6b-13641b1a0f7c.jpeg)
 
 Before we go into BASE; we need to know the history of misnomers in database. BASE and NoSQL are really what they are intended to be. Just for sake of blog, I have added this section. This acronym (BASE) should be taken by grain of salt. This is marketing gimmick in order to hide the real important concepts such as CAP (and later PACLEC) and the OG ACID.
 
@@ -102,7 +102,7 @@ As there are multiple machines in NoSQL databases due to various reasons such as
 
 # CAP
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1705249570779/bfc0cf9b-f587-48e0-9ee8-2129ff306ccd.jpeg align="center")
+![](/images/hashnode/bfc0cf9b-f587-48e0-9ee8-2129ff306ccd.jpeg)
 
 ## 3.a. Consistency
 
@@ -112,7 +112,7 @@ C in ACID is meant for transaction as a series of steps inside the single node; 
 
 > Formal definition of linearizability: If operation B started after operation A successfully completed, then operation B must see the the system in the same state as it was on completion of operation A, or a newer state.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1705249583483/077ea9dd-8025-4bb0-be6a-2e57a3d34d95.png align="center")
+![](/images/hashnode/077ea9dd-8025-4bb0-be6a-2e57a3d34d95.png)
 
 In the diagram, there are 5 steps which ensure data is distributed consistently.
 
@@ -135,7 +135,7 @@ Consistency in CAP in simple terms:
 
 ## 3.b. Availability
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1705249589564/846f1822-6dcb-4c83-a7d5-fa2aa9a7275a.png align="center")
+![](/images/hashnode/846f1822-6dcb-4c83-a7d5-fa2aa9a7275a.png)
 
 Consider that one of databases is down and consider the diagram:
 
@@ -152,11 +152,11 @@ Availability in CAP in simple terms:
 
 ## 3.c. Partition Tolerance
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1705249602401/bad3d541-b9b0-4473-9abc-7434c9288bc2.png align="center")
+![](/images/hashnode/bad3d541-b9b0-4473-9abc-7434c9288bc2.png)
 
 In the diagram above; the network is down. In this case Server A and Server B are on their own. So what do they do? They read from their own databases. *Server B's* database thinks of itself as the primary database and it cannot connect to the primary database to get the latest info. When the network is established, the database have a reconciliation process wherein the data is brought to a "consistent". Note the asterisks; the consistent can become messy. Some databases look into lamport clocks to figure to the last update. If things are even more messy, then the application code does some woodo magic to make the data consistent enough.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1705249609356/26c5d9ca-03f8-4741-a816-dfaa9bcf42f2.png align="center")
+![](/images/hashnode/26c5d9ca-03f8-4741-a816-dfaa9bcf42f2.png)
 
 Partition Network tolerance in CAP in simple terms:
 
@@ -178,7 +178,7 @@ These systems will always give an answer, even if it is not the latest. Social m
 
 The following VEN diagram is the list of databases supporting CA, CP and AP schemes.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1705249617984/f8ba5a7a-0ea4-4e07-983e-c5c9712a9367.png align="left")
+![](/images/hashnode/f8ba5a7a-0ea4-4e07-983e-c5c9712a9367.png)
 
 ### Critique of CAP theorem
 
@@ -197,7 +197,7 @@ And yes, it is an acronym with a `IF/ELSE` statement.
 * (E)lse; (L)atency and (C)onsistency
     
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1705249666664/d3d4bf51-c111-4e31-8aca-b19a55eac6d9.png align="left")
+![](/images/hashnode/d3d4bf51-c111-4e31-8aca-b19a55eac6d9.png)
 
 * Let us consider the left-hand side. If partition is all good; then you follow CAP theoem; albeit the CP or AP rule only.
     

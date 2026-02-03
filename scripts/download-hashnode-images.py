@@ -8,12 +8,12 @@
 # ]
 # ///
 """
-Download the Hashnode CDN assets that are referenced from the generated MDX posts.
+Download the Hashnode CDN images and update MDX files to reference local images.
 
-Each MDX file under src/content/posts/hashnode-patel-of-thoughts references images via
-`./images/<file>`. The legacy Hashnode markdown lives under src/content/posts/hashnode-blog.
-We pass over that bundle to resolve the CDN URL that was originally used for each file
-name, and store the downloaded asset next to the MDX source.
+This script:
+1. Finds all Hashnode CDN image URLs in the MDX files
+2. Downloads them to public/images/hashnode/
+3. Updates the MDX files to reference the local images
 
 Usage:
   python scripts/download-hashnode-images.py
@@ -21,174 +21,143 @@ Usage:
 
 import argparse
 import re
-import subprocess
 import sys
 import urllib.error
 import urllib.request
 from pathlib import Path
 from typing import Optional
+from urllib.parse import urlparse
 
 
 ROOT = Path(__file__).resolve().parent.parent
 POSTS_DIR = ROOT / "src" / "content" / "posts" / "hashnode-patel-of-thoughts"
-LEGACY_DIR = ROOT / "src" / "content" / "posts" / "hashnode-blog"
-IMAGES_DIR = POSTS_DIR / "images"
+IMAGES_DIR = ROOT / "public" / "images" / "hashnode"
 IMAGES_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def read_md_file(path: Path, legacy_ref: str) -> Optional[str]:
-    """Return the contents of the legacy markdown file from legacy_ref."""
-    try:
-        repo_relative = path.relative_to(ROOT)
-    except ValueError:
-        repo_relative = path
-    git_path = f"{legacy_ref}:{repo_relative.as_posix()}"
-    try:
-        result = subprocess.run(
-            ["git", "show", git_path],
-            capture_output=True,
-            check=True,
-            text=True,
-        )
-        return result.stdout
-    except subprocess.CalledProcessError:
-        print(f"Warning: legacy file {path} is missing in {legacy_ref}.", file=sys.stderr)
-        return None
+def get_filename_from_url(url: str) -> str:
+    """Extract filename from CDN URL."""
+    parsed = urlparse(url)
+    path = parsed.path
+    # Get the last part of the path
+    filename = path.split('/')[-1]
+    return filename if filename else "image"
 
 
-def find_cdn_url(legacy_text: str, filename: str) -> Optional[str]:
-    """Look for the CDN URL that ends with the given filename."""
-    pattern = re.compile(rf"(https://cdn\.hashnode\.com/[^\s\)\"']*{re.escape(filename)})")
-    match = pattern.search(legacy_text)
-    return match.group(1) if match else None
-
-
-def find_cdn_url_in_current_files(filename: str) -> Optional[str]:
-    """Look for CDN URLs in current MDX files that might still contain them."""
-    pattern = re.compile(rf"(https://cdn\.hashnode\.com/[^\s\)\"']*{re.escape(filename)})")
-    
-    # Search in all MDX files in the posts directory
-    for mdx_path in POSTS_DIR.parent.glob("*.mdx"):
-        try:
-            text = mdx_path.read_text()
-            match = pattern.search(text)
-            if match:
-                return match.group(1)
-        except Exception:
-            continue
-    
-    return None
-
-
-def collect_targets() -> set[str]:
-    """Collect all filenames referenced as ./images/<file> in the MDX files."""
-    image_pattern = re.compile(r"(?:\./|)\bimages/([A-Za-z0-9_.-]+)")
-    targets: set[str] = set()
-
-    for mdx_path in sorted(POSTS_DIR.glob("*.mdx")):
-        text = mdx_path.read_text()
-        matches = image_pattern.findall(text)
-        if not matches:
-            continue
-        targets.update(matches)
-
-    return targets
+def find_all_cdn_urls(text: str) -> set[str]:
+    """Find all Hashnode CDN image URLs in text."""
+    pattern = re.compile(r'https://cdn\.hashnode\.com[^\s\)\"\']*')
+    return set(pattern.findall(text))
 
 
 def download_image(url: str, destination: Path) -> bool:
     """Fetch the image if it does not already exist."""
     if destination.exists():
+        print(f"  ✓ Already downloaded: {destination.name}", file=sys.stderr)
         return True
     
     # Create a request with headers to mimic a browser
     req = urllib.request.Request(
         url,
         headers={
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
-            "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "Accept": "image/*",
         }
     )
     
     try:
-        with urllib.request.urlopen(req) as response:
+        with urllib.request.urlopen(req, timeout=30) as response:
             if response.status == 200:
                 destination.write_bytes(response.read())
+                print(f"  ✓ Downloaded: {destination.name}", file=sys.stderr)
                 return True
             else:
-                print(f"HTTP {response.status} for {url}", file=sys.stderr)
+                print(f"  ✗ HTTP {response.status}: {url}", file=sys.stderr)
                 return False
     except urllib.error.URLError as exc:
-        print(f"Failed to download {url}: {exc}", file=sys.stderr)
+        print(f"  ✗ Failed to download {url}: {exc}", file=sys.stderr)
         return False
+
+
+def update_mdx_file(file_path: Path, url_mapping: dict[str, str]) -> bool:
+    """Update MDX file to use local images instead of CDN URLs."""
+    try:
+        content = file_path.read_text(encoding='utf-8')
+        original_content = content
+        
+        for cdn_url, local_path in url_mapping.items():
+            content = content.replace(cdn_url, local_path)
+        
+        if content != original_content:
+            file_path.write_text(content, encoding='utf-8')
+            return True
+        return False
+    except Exception as e:
+        print(f"  ✗ Error updating {file_path.name}: {e}", file=sys.stderr)
+        return False
+def main(limit: Optional[int]) -> int:
+    """Main function to download images and update MDX files."""
+    # Collect all CDN URLs from all MDX files
+    all_urls: set[str] = set()
     
-def main(limit: Optional[int], legacy_ref: str) -> int:
-    targets = collect_targets()
-    if not targets:
-        print("No CDN-backed images were discovered.", file=sys.stderr)
-        return 1
-
-    mapped: dict[str, str] = {}
-    missing: set[str] = set(targets)
-
-    # First, try to find URLs in legacy markdown files
+    print("Scanning MDX files for Hashnode CDN images...")
     for mdx_path in sorted(POSTS_DIR.glob("*.mdx")):
-        legacy_path = LEGACY_DIR / f"{mdx_path.stem}.md"
-        legacy_text = read_md_file(legacy_path, legacy_ref)
-        if legacy_text is None:
-            continue
-
-        for filename in list(missing):
-            url = find_cdn_url(legacy_text, filename)
-            if url:
-                mapped[filename] = url
-                missing.remove(filename)
-
-        if not missing:
-            break
-
-    # Fallback: search for CDN URLs in current MDX files
-    for filename in list(missing):
-        url = find_cdn_url_in_current_files(filename)
-        if url:
-            mapped[filename] = url
-            missing.remove(filename)
-
-    if missing:
-        print(
-            "Warning: Could not locate CDN URLs for the following images:",
-            ", ".join(sorted(missing)),
-            file=sys.stderr,
-        )
-        print("These images will be skipped. You may need to source them manually.", file=sys.stderr)
-
+        text = mdx_path.read_text(encoding='utf-8')
+        urls = find_all_cdn_urls(text)
+        all_urls.update(urls)
+    
+    if not all_urls:
+        print("No CDN images found.", file=sys.stderr)
+        return 1
+    
+    print(f"\nFound {len(all_urls)} unique CDN image URL(s)\n")
+    
+    # Download images and map URLs to local paths
+    url_mapping: dict[str, str] = {}
     success = True
-    for idx, (filename, url) in enumerate(sorted(mapped.items())):
+    
+    for idx, url in enumerate(sorted(all_urls)):
         if limit is not None and idx >= limit:
             break
+        
+        filename = get_filename_from_url(url)
         dest = IMAGES_DIR / filename
-        print(f"Downloading {filename} to {dest}...")
-        success &= download_image(url, dest)
-
+        local_path = f"/images/hashnode/{filename}"
+        
+        print(f"Downloading image {idx + 1}/{len(all_urls)}")
+        if download_image(url, dest):
+            url_mapping[url] = local_path
+        else:
+            success = False
+    
+    # Update all MDX files with local paths
+    print("\nUpdating MDX files...")
+    updated_count = 0
+    for mdx_path in sorted(POSTS_DIR.glob("*.mdx")):
+        if update_mdx_file(mdx_path, url_mapping):
+            print(f"  ✓ Updated: {mdx_path.name}")
+            updated_count += 1
+    
+    print(f"\n{'='*60}")
+    print(f"Downloaded: {len(url_mapping)} images")
+    print(f"Updated: {updated_count} MDX files")
+    print(f"Images saved to: {IMAGES_DIR}")
+    
     return 0 if success else 1
 
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Download CDN images for the Hashnode MDX archive."
+        description="Download CDN images for Hashnode MDX posts and update references."
     )
     parser.add_argument(
         "--limit",
         type=int,
         help="Limit the number of downloads (useful for testing).",
     )
-    parser.add_argument(
-        "--legacy-ref",
-        default="origin/main",
-        help="Git ref to read the legacy markdown from.",
-    )
     return parser.parse_args()
 
 
 if __name__ == "__main__":
     args = parse_args()
-    raise SystemExit(main(limit=args.limit, legacy_ref=args.legacy_ref))
+    raise SystemExit(main(limit=args.limit))

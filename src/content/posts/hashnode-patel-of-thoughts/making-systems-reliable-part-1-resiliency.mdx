@@ -5,8 +5,8 @@ seoTitle: "Making Systems Reliable by being Resilient"
 date: 2024-05-05
 cuid: clvtbzvmq000b09laf7wlffum
 slug: making-systems-reliable-part-1-resiliency
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1714901306155/9151e45b-f8c3-42c1-a8e6-0b48b767cc1e.png
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1714901295312/93a49887-d404-4b4d-8712-49d4a3535589.png
+cover: /images/hashnode/9151e45b-f8c3-42c1-a8e6-0b48b767cc1e.png
+ogImage: /images/hashnode/93a49887-d404-4b4d-8712-49d4a3535589.png
 tags: ["microservices", "distributed-system", "resilience", "circuit-breaker"]
 
 ---
@@ -53,7 +53,7 @@ The fallacies are:
 
 > "*Anything that can go wrong will go wrong*."
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1714899067139/1b9066e8-654e-426d-a685-c2814a506c32.webp align="left")
+![](/images/hashnode/1b9066e8-654e-426d-a685-c2814a506c32.webp)
 
 So Murphy's law is quite a generic saying which is quite real in modern software systems. Whatever your opinion is if Murphy law is a cop-out or based out of bad luck, the fact of the matter is that if you add more nodes, then it is statistically probable to fail. Period.
 
@@ -65,7 +65,7 @@ If **Murphy's law** was a gloom mindset, Nassim Taleb's Anti-fragility might be 
 
 > "**Antifragility** is a property of systems in which they increase in capability to thrive as a result of stressors, shocks, volatility, noise, mistakes, faults, attacks, or failures."
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1714899069429/a8dc9ef2-8d2e-4877-9fc8-ff304c1e9869.jpeg align="left")
+![](/images/hashnode/a8dc9ef2-8d2e-4877-9fc8-ff304c1e9869.jpeg)
 
 If you think about what to do when something does go wrong (which it will), you might be able to find good architectural patterns to make your system more resilient. Just like a rubber band is loose in its natural form and when you stretch it and it is able to withstand it. Resilient systems can also similarly can operate effectively when stretched by switching to redundant backend system, allocating higher resources, making smart decisions in case of failures. This mindset is what SREs strive for!
 
@@ -138,7 +138,7 @@ Every method (retry, circuit breaker) provides a registry which can be extended 
 
 ## Pattern 1: Retry
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1714899094832/7ad7fc1e-507e-4979-838e-2f17df46d05b.png align="center")
+![](/images/hashnode/7ad7fc1e-507e-4979-838e-2f17df46d05b.png)
 
 This pattern is useful for transient failures. In other words, the failures that are intermittent and can be fixed by simply retrying.
 
@@ -195,7 +195,7 @@ Here, the payment service will be called 3 times if the call is never returned d
 
 ## Pattern 2: Circuit Breaker
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1714899102227/9e270a66-ea86-4b56-9e07-e7b2ab5006e6.png align="center")
+![](/images/hashnode/9e270a66-ea86-4b56-9e07-e7b2ab5006e6.png)
 
 Similar to a *circuit breaker*, you find at home. When the current gets too high, the circuit is snapped/tripped and the circuit is *open* in order to break the circuit. The difference when compared to Software servers when compared to electricity circuit breakers relies on how switch is fixed. In electricity, the circuit breaker is fixed by manually resetting the switch after fixing the root cause, whilst in servers, there are heuristics to determine the health of downstream system. These heuristics might be *time-base*d (like checking health of system every 5 seconds) or *count-based* (retrying it 5 times). When these heuristics confirm that downstream is health, the switch is turned back on, and the application is deemed healthy as a whole.
 
@@ -210,7 +210,7 @@ There are 3 States in the Circuit breaker pattern
 
 And the transition between each happens based on *thresholds* that are configured.
 
-![](../../images/Circuit_Breaker_State_Machine.png align="left")
+![](/images/Circuit_Breaker_State_Machine.png)
 
 You can configure application properties for **circuit breaker** like this:
 
@@ -300,13 +300,13 @@ RateLimiter rateLimiterWithCustomConfig = rateLimiterRegistry
 
 ## Pattern 4: Bulkhead Pattern
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1714900148537/0fd3e0d0-c75c-4ef9-8052-7a6f979ecd37.png align="center")
+![](/images/hashnode/0fd3e0d0-c75c-4ef9-8052-7a6f979ecd37.png)
 
 For high-availability and data governance, multi-site applications are deployed so that there is not single point of failure if one data-center goes down. Bulkhead pattern is inspired by ships with bulkheads where the issue in 1 bulkhead is isolated to that area only. Similarly, Bulkhead pattern in software systems ensures that the issues such as resource exhaustion of a client, data-center failure are isolated issues and do not take down the enitre system.
 
 Separate Thread Pools and redundant API instances in different VMs/Data-centers are created to ensure that failure in one part of system does not bring the entire system down.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1714899132214/dbfba646-2869-4b32-ae4f-9949b4f48d06.png align="center")
+![](/images/hashnode/dbfba646-2869-4b32-ae4f-9949b4f48d06.png)
 
 You can configure application properties for **bulk head** like this:
 
@@ -368,7 +368,7 @@ Examples sidecars available of the above common components discussed earlier:
 | Service discovery | Service discovery and Health endpoint as a sidecar instead of application logic | [Dapr sidecar (daprd)](https://docs.dapr.io/concepts/dapr-services/sidecar/) |
 | Network proxy | Traffic management | Envoy, HAProxy,Nginx Sidecar proxy |
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1714899144534/69325e73-f6b2-4368-9f0c-7395f898c5a2.png align="center")
+![](/images/hashnode/69325e73-f6b2-4368-9f0c-7395f898c5a2.png)
 
 If you see the above diagram of Sidecar, you can see that it as a Choreographed architecture where each Service was responsible for the sidecar. If you want to add a touch of Orchestration on top of Sidecar, you get Service Mesh.
 
@@ -418,7 +418,7 @@ A typical well known example is Istio and Envoy.
 
 Istio is the *control plane* and Envoy is the *data plane*
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1714899152889/43707dad-6241-493c-84df-ffb7bc0ac89d.png align="center")
+![](/images/hashnode/43707dad-6241-493c-84df-ffb7bc0ac89d.png)
 
 # Proxies
 

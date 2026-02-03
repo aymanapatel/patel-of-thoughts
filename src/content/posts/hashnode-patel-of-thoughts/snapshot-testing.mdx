@@ -5,8 +5,8 @@ seoTitle: "Snapshot testing"
 date: 2025-04-27
 cuid: cm9zcbfu5000109lb27bof5mn
 slug: snapshot-testing
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1745739615114/7bb4a528-45de-4c2c-bba1-1679225a0d9d.jpeg
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1745740015350/7ec05587-3777-4724-b688-d6a3cdb32a9f.jpeg
+cover: /images/hashnode/7bb4a528-45de-4c2c-bba1-1679225a0d9d.jpeg
+ogImage: /images/hashnode/7ec05587-3777-4724-b688-d6a3cdb32a9f.jpeg
 tags: ["testing", "snapshot-testing"]
 
 ---
@@ -115,7 +115,7 @@ describe('UserProfile component with Enzyme', () => {
 This is testing very specific details in a very specific environment. What if we had to throttle the API.  
 It is possible, but bloody damn difficult and manual.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1745656260315/ff74f5e6-877f-4de4-8d5d-50483bf39f5b.png align="center")
+![](/images/hashnode/ff74f5e6-877f-4de4-8d5d-50483bf39f5b.png)
 
 %[https://gist.github.com/aymanapatel/42a1775309c72cc4ae629b839bb8b6ff] 
 
@@ -224,11 +224,11 @@ export default Button;
 
 This test passes:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1745737243373/45486972-8491-4913-9d40-de10a1d4b3da.png align="center")
+![](/images/hashnode/45486972-8491-4913-9d40-de10a1d4b3da.png)
 
 Now if we change the color in the button component; then we get a test fail.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1745737720465/9189949c-0442-43b0-b371-1394cce15520.png align="center")
+![](/images/hashnode/9189949c-0442-43b0-b371-1394cce15520.png)
 
   
 Note that it is a trivial example, but in real world these could be coming from CSS variables that can cause this bug to be caught. Note that JSDOM does not work with inherited styles which will be covered later.
@@ -238,7 +238,7 @@ Note that it is a trivial example, but in real world these could be coming from 
 Consider the example of CSS overrides though inteheritance. These are common in real systems as we highlight further.  
 This is our initial code:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1745736447209/4b7bc02b-fba3-4a93-b688-117f19c9bf25.png align="center")
+![](/images/hashnode/4b7bc02b-fba3-4a93-b688-117f19c9bf25.png)
 
 With the CSS:
 
@@ -255,7 +255,7 @@ With the CSS:
   
 And the resulting screen:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1745736479810/df82ec3c-bcc1-49ed-8645-330631ac4cfd.png align="center")
+![](/images/hashnode/df82ec3c-bcc1-49ed-8645-330631ac4cfd.png)
 
   
 Now let me add a bad CSS `!important`. You might say that this is bad practice, but in real life, there is always someone using this to make their colors pop. Could be your design system, your cookie banner, or an old CSS file overriding this. So it is a common occurrence in real world. So we need to have a test that checks this.  
@@ -276,11 +276,11 @@ button {
 
 This is the resultant screenshot:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1745736678960/6f373d70-5706-429f-94b8-d595db8193f1.png align="center")
+![](/images/hashnode/6f373d70-5706-429f-94b8-d595db8193f1.png)
 
 You would expect the test to fail, but behold it still pass.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1745736814324/29ae4058-1a60-4e05-9828-95e1395d6672.png align="center")
+![](/images/hashnode/29ae4058-1a60-4e05-9828-95e1395d6672.png)
 
 What is worse than a failing test, is a test that passes in spite of having a bug. Why did this happen:
 
@@ -330,7 +330,7 @@ In the we can see that JSDOM relies on HTML. This works well for simple snapshot
 * Does not support injection stylesheets inside JSDOM environment. Many runtime CSS-in-JS libraries such as Styled components hence do not work nicely with the JSDOM environment. For more details, read this [Github issue](https://github.com/testing-library/jest-dom/issues/116)
     
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1745734300171/31029499-c965-4d93-8ae5-4aad2839a048.png align="center")
+![](/images/hashnode/31029499-c965-4d93-8ae5-4aad2839a048.png)
 
 3. JSDOM requires fetch overrides (monkey-patching)
     
@@ -397,7 +397,7 @@ The latest version of Storybook (Version 9) has brought in different types of te
 Visual testing is the one we are most interested here. Since styles can be incorporated from an external source CSS, there is always a chance for it to get missed in unit jest-based test. Storybook along with Chromatic provides a cleaner way to manage this.  
 It allows the concept of **Accepting** or **Denying** the change. You might want to accept it if it was a design system change, but you can also deny if it not intended and in fact a regression change.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1745733268309/fd2df294-616f-41a0-a870-c2f313a3e644.png align="center")
+![](/images/hashnode/fd2df294-616f-41a0-a870-c2f313a3e644.png)
 
 # Case against Snapshot tests
 

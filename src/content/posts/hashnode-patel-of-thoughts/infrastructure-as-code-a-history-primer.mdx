@@ -5,8 +5,8 @@ seoTitle: "Infrastructure as Code - A History Primer"
 date: 2023-12-17
 cuid: clq9i3k91000608laf779eumx
 slug: infrastructure-as-code-a-history-primer
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1702818231161/107c98df-0b00-434a-bdc5-5e7072feda5c.png
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1702818317012/b6fb4dfb-0c75-4932-82fa-e7ca49374a1c.png
+cover: /images/hashnode/107c98df-0b00-434a-bdc5-5e7072feda5c.png
+ogImage: /images/hashnode/b6fb4dfb-0c75-4932-82fa-e7ca49374a1c.png
 tags: ["devops", "infrastructure"]
 
 ---
@@ -17,7 +17,7 @@ tags: ["devops", "infrastructure"]
 
 In the early days, our configuration where written in BASH scripts. But the POSIX compliance nightmare meant that these BASH or Shell or Fish or whatever shell your OS is on became a nightmare to debug and extend. `!#/usr/bin/sh` should have been the norm, but alas here we are trying to mitigate this disaster by creating an abstraction on top of OS.
 
-![Phase 1: 1990s and late 2000s; Phase 2: Mid to late 2010s](https://cdn.hashnode.com/res/hashnode/image/upload/v1702816587734/9414e5de-ca12-4157-9df3-98427e0b162d.png align="center")
+![Phase 1: 1990s and late 2000s; Phase 2: Mid to late 2010s](/images/hashnode/9414e5de-ca12-4157-9df3-98427e0b162d.png)
 
 # Phase 1: CFEngine and the rest
 
@@ -41,7 +41,7 @@ So what exactly is IaC's core value? It is creating a state machine with 2 state
 
 We also need to add schema constructs to see what the IaC needs, as well as some sort of type-checking on what values can be passed. We'll discuss other aspects such as this in the *Cue Section*
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1702815762157/0771c863-4ef5-4a1f-b17e-307fb95206ff.png align="center")
+![](/images/hashnode/0771c863-4ef5-4a1f-b17e-307fb95206ff.png)
 
 ### IaaS, PaaS, FaaS
 
@@ -65,7 +65,7 @@ Crossplane is a new way of writing IaC. It is not a simple CLI tool like Terrafo
 
 ## CUE: A guardrail to write custom configurations
 
-![CUE lang](https://cuelang.org/images/cue.svg align="center")
+![CUE lang](https://cuelang.org/images/cue.svg)
 
 Any IaC, deployed anywhere needs some basic principles.
 
@@ -82,7 +82,7 @@ Cue was a project started by Marvel Lohuizen who worked primary at Borg (Kuberne
 
 Its goal is to provide a declarative approach to configuring things based on rules on those data. For example, you want to configure your IP address to a range of subnets only.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1702817564453/ccc3981a-ccfa-4066-ba3e-0f862aeddf39.png align="center")
+![](/images/hashnode/ccc3981a-ccfa-4066-ba3e-0f862aeddf39.png)
 
 ### Example: Cue Vet
 

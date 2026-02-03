@@ -5,8 +5,8 @@ seoTitle: "Land of shells: bash, dash, powershell"
 date: 2024-03-31
 cuid: cluffngms000008jv431i4f1j
 slug: land-of-shell-scripting
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1711884316671/5abd7c46-3d41-4884-aee0-43e060cc5a7d.png
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1711884326689/6342b925-44c4-44e2-b834-b7babbbac4b3.png
+cover: /images/hashnode/5abd7c46-3d41-4884-aee0-43e060cc5a7d.png
+ogImage: /images/hashnode/6342b925-44c4-44e2-b834-b7babbbac4b3.png
 tags: ["devops", "shell", "shell-scripting"]
 
 ---
@@ -51,7 +51,7 @@ Bourne Shell (discussed below) is strictly POSIX compliant. For a shell to be PO
 
 In UNIX, all interactions are based on standard IO (`STDIO`) data streams that can be pipelined. What this means is that all communications between Shell and Kernel follow simple data byte streams which can be fed from 1 program to another.
 
-![[Bashism_Arch.png]]( align="left")
+![[./images/hashnode/Bashism_Arch.png]]
 
 `STDIO` has 3 parts (in shell's architecture)
 
@@ -90,7 +90,7 @@ Written by Brain Fox as part of GNU as a free-software alternative to the Bourne
 
 You can see the not-so-accurate venn diagram on how the different shells are in terms of compatibility
 
-![](../!images/Shells.png align="left")
+![](/images/hashnode/Shell.png)
 
 ### bashisms
 
@@ -138,7 +138,7 @@ done
 if [ $? = 0 ]                                                                               then                                                                                          echo "Shell failed. See above for error"                                                  fi
 ```
 
-![](../images/Bashism_zsh.png align="left")
+![](/images/hashnode/Bashism_ZSH.png)
 
 ## zsh
 
@@ -152,11 +152,11 @@ Usually found in Debian distributions. DASH is the most pure form of Bourne Shel
 
 The screenshot below shows a Debian distro whose default shell symlinks to dash.
 
-![](../!images/Debian-Shell-DASH.png align="left")
+![](/images/hashnode/Debian-Shell-DASH.png)
 
 You can see the errors of the bashism script we used earlier
 
-![](../images/Bashism_DASH.png align="left")
+![](/images/hashnode/Bashism_DASH.png)
 
 Error output:
 
@@ -235,7 +235,7 @@ Title       NoteProperty string Title=manager
 User        NoteProperty string User=john
 ```
 
-![](../!images/Powershell_CSV.png align="left")
+![](/images/hashnode/Powershell_CSV.png)
 
 As you can see, it is quite a tool for writing shell scripts. UNIX would have worked till step 2, but due to its STDIO architecture, it cannot do more than just texts whereas powershell do strongly typed queries.
 
@@ -243,7 +243,7 @@ As you can see, it is quite a tool for writing shell scripts. UNIX would have wo
 
 Here we are importing a JSON file and changing a surname of an employee. As .NET objects can be used, it can be done with simple human readable commands.
 
-![](../!images/Powershell_JSON.png align="left")
+![](/images/hashnode/Powershell_JSON.png)
 
 ```bash
 PS powershell-example> $emp_json = Get-Content ./employee_data.json | ConvertFrom-Json

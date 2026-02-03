@@ -5,8 +5,8 @@ seoTitle: "JSON - A rabbit hole of standards, implementations"
 date: 2023-10-08
 cuid: clnhshdvp000d09md9sbm3x2h
 slug: json-a-rabbit-hole-of-standards-implementations
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1696789042105/e8e379db-cec1-43ec-99a8-f314cded3033.png
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1696789167573/2d442fc3-f3dd-407e-b304-c45a4293b4ff.png
+cover: /images/hashnode/e8e379db-cec1-43ec-99a8-f314cded3033.png
+ogImage: /images/hashnode/2d442fc3-f3dd-407e-b304-c45a4293b4ff.png
 tags: ["programming-blogs", "json"]
 
 ---
@@ -15,7 +15,7 @@ tags: ["programming-blogs", "json"]
 
 When developing an application, we were implementing an API that had a number key type. Easy peasy lemon squeezy (🍋). But what we realized was that there was a really weird and frustrating bug. Apparently, the Javascript implementation of `JSON.stringify` only works till 2^53 \[[Stackoverflow link](https://stackoverflow.com/a/34989371)\], but we had to support for ~20 digits. The fix was to change it to string. We looked at the above link, made the fix and called it a day. Sidenote, Twitter also faced this issue 😅
 
-[![Twitter API Doc for showing JSON String shenanigans](https://cdn.hashnode.com/res/hashnode/image/upload/v1696758759901/9e1f7cce-06c7-4cdd-aea6-530918ffd54b.png align="center")](https://developer.twitter.com/en/docs/twitter-ids)
+[![Twitter API Doc for showing JSON String shenanigans](/images/hashnode/9e1f7cce-06c7-4cdd-aea6-530918ffd54b.png)](https://developer.twitter.com/en/docs/twitter-ids)
 
 Classic case of Integer Overflow, right? But this is so weird, considering this is the 2020s era and not the 1970s where we are not bound by 16-bit (or even less) CPU architectures, with GBs (and not KBs) of RAM. That is when I dug into the rabbit hole of JSON. I found a lot of things that surprised me. From different JSON formats to different RFCs for JSON implementation itself to whatever the frontend (JS, looking at you) world brings onto the table to fix JSON issues.
 
@@ -35,7 +35,7 @@ The only difference between RFC 8259 and RFC 7159 is that [RFC 8259 has strict U
 
 My reaction:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696788999068/68eb33b6-db61-4a9d-9d32-1e8137d907e5.png align="center")
+![](/images/hashnode/68eb33b6-db61-4a9d-9d32-1e8137d907e5.png)
 
 # JSON Formats
 
@@ -70,7 +70,7 @@ JSON Schema is for that purpose only. Bring back the schemas!
 
 #### Building Blocks
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696788163939/95d8e78b-e0ce-49a9-a8ac-3868b3e9bbd0.png align="center")
+![](/images/hashnode/95d8e78b-e0ce-49a9-a8ac-3868b3e9bbd0.png)
 
 1. Schemas
     
@@ -105,7 +105,7 @@ List of types supported:
     
     List of validations provided by JSONSchema
     
-    ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696782046211/9ecd9ff1-5b4b-4dd2-8372-0c70200fbf35.png align="center")
+    ![](/images/hashnode/9ecd9ff1-5b4b-4dd2-8372-0c70200fbf35.png)
     
 
 Example:
@@ -366,11 +366,11 @@ Default Javascript implementation of `json.stringify` cannot parse more than 2^5
 
 We get an exception when trying to parse this. (Can check Replit's CLI)
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696786676496/94ad87c9-4709-42b2-91f8-90b930e96524.png align="center")
+![](/images/hashnode/94ad87c9-4709-42b2-91f8-90b930e96524.png)
 
 1. SuperJSON
     
-    ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696786730099/a5ff60cd-a678-4204-acdd-f4ed0512ad84.png align="center")
+    ![](/images/hashnode/a5ff60cd-a678-4204-acdd-f4ed0512ad84.png)
     
 
 ### Users

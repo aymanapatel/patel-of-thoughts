@@ -5,8 +5,8 @@ seoTitle: "Dr Postgreslove"
 date: 2024-06-02
 cuid: clwwxgp4q000008l21ftr06g9
 slug: dr-postgreslove
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1717273342527/facff9ea-bf0a-43b4-b018-64d5173700d7.png
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1717273358747/b562e01f-693f-4f9b-a54c-28b0ffc4a8ca.png
+cover: /images/hashnode/facff9ea-bf0a-43b4-b018-64d5173700d7.png
+ogImage: /images/hashnode/b562e01f-693f-4f9b-a54c-28b0ffc4a8ca.png
 tags: ["postgresql", "databases"]
 
 ---
@@ -28,7 +28,7 @@ We have all seen the 4 types of NoSQL (I would like to call them the 4 horsemen)
 4. Graph: Neo4j
     
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1717303011754/433da79d-a900-45c9-9182-b584f44f5974.png align="center")
+![](/images/hashnode/433da79d-a900-45c9-9182-b584f44f5974.png)
 
 Funnily, Postgres has a solution for all these NoSQL horsemen!
 
@@ -122,7 +122,7 @@ Supdabase is marketed as an “OSS alternative to Firebase”, which is quite an
 1. [Database](https://supabase.com/docs/guides/database/overview) Full Postgres and its extensive extensions. What Supabase provides is a great GUI for managing stuff like database tables, Schema visualizer, SQL editor, etc.
     
 
-![Supabase web editor](https://cdn.hashnode.com/res/hashnode/image/upload/v1717303033393/46890f13-b785-4e56-b155-d3dc78a4e676.webp align="center")
+![Supabase web editor](/images/hashnode/46890f13-b785-4e56-b155-d3dc78a4e676.webp)
 
 1. [Authentication](https://supabase.com/docs/guides/auth) Supabase provides authentication and authorization with help of Supabase Client SDKs for UI frameworks such as React, Kotlin, Next.js, Flutter etc. Supabase uses JWTs for authentication. As it is based on Postgres, Supabase also has **Row level security** for authorized access at the row-level. Supabase provides social logins such as for Google, Apple, etc.
     
@@ -151,7 +151,7 @@ Neon is a serverless Postgres which is a highly distributed, serverless database
 
 Neon replaces the Postgres storage layer with its own storage engine. Neon storage engine consists of:
 
-![Neon Architecture: Fetched from Github discussion](https://cdn.hashnode.com/res/hashnode/image/upload/v1717303060518/795fc5ef-555f-41c5-8577-65acf9948249.jpeg align="center")
+![Neon Architecture: Fetched from Github discussion](/images/hashnode/795fc5ef-555f-41c5-8577-65acf9948249.jpeg)
 
 1. Safekeepers: As the name suggests, it is safekeeping something. And that something is **WAL**. It stores WAL that comes from the compute layer/node until page server saves data in all nodes.
     
@@ -168,7 +168,7 @@ In the mid to late 2010s, there was a new type of databases that came into the p
 
 ## Yugabyte Architecture
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1717303087908/ba4f96b0-f529-45b9-bb8a-0b710c618904.png align="center")
+![](/images/hashnode/ba4f96b0-f529-45b9-bb8a-0b710c618904.png)
 
 1. YB-Master: Holds metadata of the database system, such as tables, user permissions, etc. It is also responsible for load balancing of data which are not yet replicated. It is part of the Raft group where the leader is elected as part of the Raft protocol.
     

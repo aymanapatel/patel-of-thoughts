@@ -5,8 +5,8 @@ seoTitle: "Apache Arrow - Evolution of the Big Data ecosystem"
 date: 2024-05-19
 cuid: clwdo2bis000609ii3toa7wz2
 slug: apache-arrow-evolution-of-the-big-data-ecosystem
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1716130911053/1bd99f2e-ba2e-4c34-a4fc-6237cfaeb66b.png
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1716130945969/6288ff06-e00f-4b5a-8402-3c30d28a37a8.png
+cover: /images/hashnode/1bd99f2e-ba2e-4c34-a4fc-6237cfaeb66b.png
+ogImage: /images/hashnode/6288ff06-e00f-4b5a-8402-3c30d28a37a8.png
 tags: ["big-data", "apache-arrow"]
 
 ---
@@ -28,7 +28,7 @@ There are many projects under Apache Arrow, but these are the most prevalent and
 
 This is what the ideal scenario seems to be for Apache Arrow where each database is able to hook into the Apache Arrow ecosystem by using the Arrow memory format, Arrow RPC using Flight, Arrow ADBC for JDBC-like interfaces for column-oritented datbase and Apache Datafusion for decoupled query engine.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1716130676420/bc1c0e65-093b-4c75-a88d-78e57a642df7.jpeg align="left")
+![](/images/hashnode/bc1c0e65-093b-4c75-a88d-78e57a642df7.jpeg)
 
 ## Who uses Arrow?
 
@@ -45,7 +45,7 @@ Apache Arrow does [zero-copy read](https://en.wikipedia.org/wiki/Zero-copy) to e
 
 ## Memory format
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1716130684895/39e81011-e10c-4ecb-874c-fbf98746c734.jpeg align="center")
+![](/images/hashnode/39e81011-e10c-4ecb-874c-fbf98746c734.jpeg)
 
 As a thumb of rule, for OLTP databases, having row-based querying and storage makes sense; as most of the queries are based on an ID such a `product_id`, `employee_id`. But in analytical databases, most of the queries are aggregates, GROUP BY etc. which are more inclined towards columns that the rows. Due to this fact, Apache Arrow tries to store the data in the memory buffer as a sequence of columns instead of rows. This has major performance gains for big data workloads.
 
@@ -83,7 +83,7 @@ The methods are:
 
 Traditionally JDBC and ODBC were used for interacting with databases. These were and are still great for row-oriented databases, but for column-oriented database, JDBC/ODBC require to convert/transpose data from row &lt;-&gt; columnar data. FlightSQL aims to solve this by providing an interface at the database level to allow sending data Apache Arrow (and other columnar data) from the start at the database level. Since it is based on Apache Flight RPC ,it uses Protobuf messages for sharing information.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1716130698916/66381820-2ea2-490c-ae8d-897673491dea.png align="center")
+![](/images/hashnode/66381820-2ea2-490c-ae8d-897673491dea.png)
 
 # 4\. Apache Arrow ADBC
 
@@ -104,7 +104,7 @@ The steps include for using the ADBC end-to-end are:
 5. Client application receives data in Arrow format.
     
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1716130708048/73cd0621-b472-4eb4-99ed-b13c1b8cd1eb.png align="center")
+![](/images/hashnode/73cd0621-b472-4eb4-99ed-b13c1b8cd1eb.png)
 
 ### Difference between ADBC and Flight SQL
 

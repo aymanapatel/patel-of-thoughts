@@ -5,8 +5,8 @@ seoTitle: "eBPF - Unleash the Linux kernel"
 date: 2024-01-07
 cuid: clr3r5bpt000009jr2b2h83x5
 slug: ebpf-unleash-the-linux-kernel
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1704647524249/6e8c5d06-2700-4e14-b0b2-705e3653824a.jpeg
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1704647548407/e33a4a20-b0a9-4480-803c-3300139a1bb3.jpeg
+cover: /images/hashnode/6e8c5d06-2700-4e14-b0b2-705e3653824a.jpeg
+ogImage: /images/hashnode/e33a4a20-b0a9-4480-803c-3300139a1bb3.jpeg
 tags: ["observability", "ebpf"]
 
 ---
@@ -15,7 +15,7 @@ tags: ["observability", "ebpf"]
 
 In order to understand where eBPF comes into the picture, first we need to understand the basic difference of **User Space vs Kernel Space**
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1704646362259/9fb24659-07df-4520-9152-bd2d9db04f68.jpeg align="left")
+![](/images/hashnode/9fb24659-07df-4520-9152-bd2d9db04f68.jpeg)
 
 eBPF fits into the kernel space; but giving a user-space analogy of the significance of eBPF to the Operating System would be what WASM was for the browser. WASM allowed applications to be written in non-javascript to be interpreted in the browser. It allowed products like Figma to be developed for the web. Sketch and Invision would not be able keep up with the power of Figma's powerful editor. Good news is that eBPF for its revolutionary and novel will aid in observing the kernel space and not bring any technologies on its knees.
 
@@ -44,11 +44,11 @@ BPF was first conceived in early 1990s (before Linux became mainstream) as a way
 
 In early 2010s, there was a need for having better observability tools that could be defined in a software instead of hardware. Also, all the things that things that went from User Space to Kernel Space could crash unexpectedly without actually knowing what caused the crash at the Kernel space layer. Alexie wanted something that an application at User Space could call which would be a hook/probe-point to the Kernel which would further make a decision to send information to the User space. This is where eBPF was born.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1704646430951/f5ba72ff-7a6d-4875-92bc-01178e8b9ed3.jpeg align="left")
+![](/images/hashnode/f5ba72ff-7a6d-4875-92bc-01178e8b9ed3.jpeg)
 
 ## eBPF Architecture
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1704646644895/1aff28db-90d4-419f-a21c-d3921f97337d.jpeg align="center")
+![](/images/hashnode/1aff28db-90d4-419f-a21c-d3921f97337d.jpeg)
 
 eBPF programs are called by hooks/probes either by Kernel or the user-land application. These hooks are pre-defined are include
 
@@ -119,7 +119,7 @@ eBPF do not call kernel functions directly in order to make eBPF loosely couple 
 
 ### Tail and Function Calls
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1704646469826/75b14211-f766-40aa-8be7-4d797f6843e6.jpeg align="left")
+![](/images/hashnode/75b14211-f766-40aa-8be7-4d797f6843e6.jpeg)
 
 eBPF allows tail call of other eBPF functions which allows for compatibility and extendability of eBPF programs
 
@@ -151,7 +151,7 @@ This includes
 
 # eBPF Applications
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1704646528599/9ae9fe11-e9e6-45de-8d95-7c1b2b2bfc16.jpeg align="left")
+![](/images/hashnode/9ae9fe11-e9e6-45de-8d95-7c1b2b2bfc16.jpeg)
 
 ## Networking
 

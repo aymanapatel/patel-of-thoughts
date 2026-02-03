@@ -5,8 +5,8 @@ seoTitle: "Postgres Foreign Data Wrappers"
 date: 2024-07-21
 cuid: clyv78wer000f0al45vghfh4v
 slug: postgres-fdws-unlocking-external-data-sources-into-postgres
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1721544618901/0a5e3a04-fc15-42fd-97b9-47dd98f38e64.png
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1721544636576/3eadb752-98a8-46d5-b27c-e0d89871d643.png
+cover: /images/hashnode/0a5e3a04-fc15-42fd-97b9-47dd98f38e64.png
+ogImage: /images/hashnode/3eadb752-98a8-46d5-b27c-e0d89871d643.png
 tags: ["postgresql"]
 
 ---
@@ -113,7 +113,7 @@ OPTIONS (
 
 # File FDW
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1721533153387/c9af175d-1e91-4e3a-8162-d1cfa91d560c.png align="center")
+![](/images/hashnode/c9af175d-1e91-4e3a-8162-d1cfa91d560c.png)
 
 File FDW works by using [COPY FROM format](https://www.postgresql.org/docs/current/sql-copy.html) which is part of Postgres.
 
@@ -168,7 +168,7 @@ SELECT * FROM public.covid_staging;
 
 The data can be seen by running the above `SELECT` command:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1721538296033/c862c155-5d4e-4168-8060-72a1bf77c187.png align="center")
+![](/images/hashnode/c862c155-5d4e-4168-8060-72a1bf77c187.png)
 
 # Postgres FDW
 
@@ -185,7 +185,7 @@ This is trivial as most Postgres distributions have `postgres_fdw` enabled. Have
 
 > MySQL FDW example
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1721533207408/bdf49985-72b5-4a57-9316-f7115deb0fb4.png align="center")
+![](/images/hashnode/bdf49985-72b5-4a57-9316-f7115deb0fb4.png)
 
 > I am using [Tembo](https://tembo.io/) database for installing extensions. It is very intuitive way of installing Postgres extensions. They have a GUI which internally uses [Trunk](https://pgt.dev/) (Rust-based Postgres Extension manager).
 
@@ -223,13 +223,13 @@ SELECT * FROM warehouse ORDER BY 1;
 
 The result can be seen:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1721538137314/c0b04187-984f-4185-9097-46139184af2b.png align="center")
+![](/images/hashnode/c0b04187-984f-4185-9097-46139184af2b.png)
 
 > Tembo does not support `mysql_fdw` 's Pushdown feature which was a recent addition.(Remote MySQL -&gt; Postgres reading); hence cannot show Postgres screenshot.
 
 # Parquet FDW
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1721538603958/29b5315c-113a-4f57-927d-2ce510f89c16.png align="center")
+![](/images/hashnode/29b5315c-113a-4f57-927d-2ce510f89c16.png)
 
 A lot of dara pipelines have parquet files for efficient data storage. These can also be imported via the `parquet_s3_fdw`
 

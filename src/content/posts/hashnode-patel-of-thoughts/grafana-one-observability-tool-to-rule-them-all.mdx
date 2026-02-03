@@ -5,7 +5,7 @@ seoTitle: "Grafana - One Observability Tool to Rule them All"
 date: 2024-11-09
 cuid: cm3aajxiv000109l0e9wb2f29
 slug: grafana-one-observability-tool-to-rule-them-all
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1731164271397/f1a8b7fb-f3a6-4e93-bc43-c8a0ed0c91b5.png
+cover: /images/hashnode/f1a8b7fb-f3a6-4e93-bc43-c8a0ed0c91b5.png
 tags: ["backend", "grafana", "observability", "opentelemetry"]
 
 ---
@@ -55,7 +55,7 @@ Technical metric tools:
 3. OpenTelemetry: OTel can be used for metrics (on top of Logs and Traces). This will be discussed in detail later.
     
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1731160390520/990f65a0-1fe0-446f-8117-14d410114829.png align="center")
+![](/images/hashnode/990f65a0-1fe0-446f-8117-14d410114829.png)
 
 Product metrics tools: These are mostly SDKs that can be embedded into a web or Native application (iOS and Android). Some examples include:
 
@@ -95,11 +95,11 @@ Tracing libraries include:
 
 1. Jaegar: OSS platform which uses Clickhouse for storage.
     
-    ![Source: https://logz.io/blog/zipkin-vs-jaeger/](https://cdn.hashnode.com/res/hashnode/image/upload/v1731162156553/1ff72922-0193-4dfa-baa2-8ee6e7c2f292.png align="center")
+    ![Source: https://logz.io/blog/zipkin-vs-jaeger/](/images/hashnode/1ff72922-0193-4dfa-baa2-8ee6e7c2f292.png)
     
 2. Zipkin: OSS platform which uses Cassandra for storage.
     
-    ![Source: https://logz.io/blog/zipkin-vs-jaeger/](https://cdn.hashnode.com/res/hashnode/image/upload/v1731162183719/da70d93c-d823-47d0-9f2c-63b4abcf2fba.png align="center")
+    ![Source: https://logz.io/blog/zipkin-vs-jaeger/](/images/hashnode/da70d93c-d823-47d0-9f2c-63b4abcf2fba.png)
     
 
 Zipkin has some platforms not officially supported such as Ruby, PHP etc but Jaegar has these supported officially.
@@ -121,7 +121,7 @@ It requires fetching internal details from the runtime. For example:
 
 Profiling usually entails using a Flamegraph like below:
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1731162741623/93b9873a-57e0-44a3-a13a-303fc8c72522.png align="center")
+![](/images/hashnode/93b9873a-57e0-44a3-a13a-303fc8c72522.png)
 
 To learn more about flamegraphs, you can read [Brendan Gegg’s blog](https://www.brendangregg.com/flamegraphs.html)
 
@@ -133,7 +133,7 @@ Open Telemetry was actually a merge of 2 projects; OpenCensus(Google's OSS traci
 
 ## OTel Building Blocks
 
-![Source: https://opentelemetry.io/docs/](https://cdn.hashnode.com/res/hashnode/image/upload/v1731163065888/75fcb074-b111-44e1-9cea-555d26c5eccd.png align="center")
+![Source: https://opentelemetry.io/docs/](/images/hashnode/75fcb074-b111-44e1-9cea-555d26c5eccd.png)
 
 ### OTel Collector
 
@@ -349,7 +349,7 @@ Grafana allows for importing traces from various tracing libraries such as OTel,
 
 Tempo has various components to make tracing capability available into Grafana’s ecosystem.
 
-[![Source: https://grafana.com/docs/tempo/latest/operations/architecture/](https://cdn.hashnode.com/res/hashnode/image/upload/v1731161281330/8cfa991d-3e4b-4d6f-9986-9d7dbc7cf39d.png align="center")](https://grafana.com/docs/tempo/latest/operations/architecture/)
+[![Source: https://grafana.com/docs/tempo/latest/operations/architecture/](/images/hashnode/8cfa991d-3e4b-4d6f-9986-9d7dbc7cf39d.png)](https://grafana.com/docs/tempo/latest/operations/architecture/)
 
 1. Distributor: This involves ingesting data from Zipkin, Jaegar etc. into a distributed [hash ring.](https://cortexmetrics.io/docs/architecture/#the-hash-ring)
     

@@ -5,8 +5,8 @@ seoTitle: "Change Data Capture - How to track Data in Motion"
 date: 2024-02-18
 cuid: clsro8wek000209jo4mnfbhxa
 slug: change-data-capture-capture-data-in-motion-in-your-microservices
-cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1708270507807/0f6c5aa5-b8ca-4a84-8d35-6c389b27d3ab.png
-ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1708270490461/9388e30e-118f-4b11-ab0a-b850eb52097a.png
+cover: /images/hashnode/0f6c5aa5-b8ca-4a84-8d35-6c389b27d3ab.png
+ogImage: /images/hashnode/9388e30e-118f-4b11-ab0a-b850eb52097a.png
 tags: ["microservices", "databases", "change-data-capture"]
 
 ---
@@ -41,7 +41,7 @@ Here there the target services takes the job of pulling from the data source. Dr
 
 ## Timestamp-based
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708267265764/a333d387-0ebd-48bf-834d-9108f9c36e67.jpeg align="center")
+![](/images/hashnode/a333d387-0ebd-48bf-834d-9108f9c36e67.jpeg)
 
 `LAST_UPDATED_BY` column are used by downstream services to get the latest information. It is dead-simple. but there are a couple of major drawbacks:
 
@@ -77,7 +77,7 @@ A pull-based mechanism that reads the logs emitted by DB. This could be Write-Ah
 
 It is a middle-ware to connect Kafka with external systems such as Databases, Data Warehouse, Caches (K-V stores), file systems (S3 etc), and search indexes.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708267115300/b898af0b-a598-45fe-a985-881da830cac7.jpeg align="center")
+![](/images/hashnode/b898af0b-a598-45fe-a985-881da830cac7.jpeg)
 
 Kafka Connect can take data from **source connector** as an ingest, and deliver this data to **sink connector** such as HDFS, Indexes such as Elasticsearch etc **Source and Sink Connectors** are configured so that the data ingestion and egress is possible based on those configuration.
 
@@ -102,19 +102,19 @@ Kafka Connect can take data from **source connector** as an ingest, and deliver 
 
 #### Kafka Connect
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708270544728/ebc4bd41-fd2a-40a5-bc81-6aa274804052.png align="center")
+![](/images/hashnode/ebc4bd41-fd2a-40a5-bc81-6aa274804052.png)
 
 `DS -> Kafka Connect (Debezium DB-specific connector) -> Kafka`
 
 #### Debezium Embedded Engine (Java only)
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708270565121/d5d05bc5-5a12-460a-af64-3230f184478d.png align="center")
+![](/images/hashnode/d5d05bc5-5a12-460a-af64-3230f184478d.png)
 
 `DS -> Debezium Embedded Engine (Spring, Quarkus) (Debezium DB-specific connector) -> WHatever you want`
 
 #### Debezium Server
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708270572719/491dd90a-43b7-4800-a4f8-340d59fe1623.png align="center")
+![](/images/hashnode/491dd90a-43b7-4800-a4f8-340d59fe1623.png)
 
 `DS -> Embedded Engine Source Connectors (Debezium Server) -> Kinesis, Pulsar, Google Pub/Sub`
 
@@ -126,7 +126,7 @@ Kafka Connect can take data from **source connector** as an ingest, and deliver 
 
 Consider you have a main microservice (`Insurance Claim μs`) that has a couple of downstream services (`Insurance Settlement μs` & `Credit Score μs`)which are dependant on the aforementioned `Insurance Claim μs`. The downstream APIs consume the upstream `Insurance Claim μs` via a message broker (Could be Kafka, Pulsar, RabbitMQ etc). In Distributed Systems, we have 8 fallacies of Distributed Computing (Read [wiki](https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing)); first one is api in this scenario i.e. **Network is Reliable**. Consider the `Credit Score μs` Kafka Topic/whatever message broker you are using is down for some reason! In such a scenario, we don't want 2 out of 3 μs to be in consistent while the Credit Score μs to be inconsistent. Hence, **Outbox Pattern** to rescue us in this conundrum. We need to send the events *reliably!* Reliably means that it should be consistent with the Event that is being produced by the upstream `Insurance Claim μs`. And it should handle system crashes such as Server, Message Broker, database, N/W packet loss etc. Basically, you got to assume Murphy's Law!
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708267786276/12e721ed-d453-445f-953d-54d7894aa689.png align="center")
+![](/images/hashnode/12e721ed-d453-445f-953d-54d7894aa689.png)
 
 One question for those aware of [2-Phase commit](https://martinfowler.com/articles/patterns-of-distributed-systems/two-phase-commit.html)(aka XA transactions)would ask as it is also concerned handling consistent and atomic writes across different databases. The issue with 2PC is that it requires similar database and message broker setup and to be able to support 2PC out-of-the-box. Many message brokers and NoSQL cannot support 2PC, hence we are going up with this pattern.
 
@@ -134,7 +134,7 @@ If at-least-once semantics are present it will lead to dual-writes!
 
 ## Solution
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708267822070/ab1c2029-e539-40c2-be40-49d1092dc7c3.png align="center")
+![](/images/hashnode/ab1c2029-e539-40c2-be40-49d1092dc7c3.png)
 
 Since we do not have possibility of using 2PC (XA transaction), we need to find an alternate path of making the event messages to be sent reliably and persisted in the downstream services.
 
@@ -175,13 +175,13 @@ Drawbacks of this pattern:
 
 ## Strangler Fit Pattern
 
-![Phase 1](https://cdn.hashnode.com/res/hashnode/image/upload/v1708267851640/8475e11b-6756-4c7e-96d6-d87fa3c58b70.png align="center")
+![Phase 1](/images/hashnode/8475e11b-6756-4c7e-96d6-d87fa3c58b70.png)
 
 It is a pattern to allow for incremental migration from a legacy service to a greenfield new microservice. Here CDC is a very useful pattern to incrementally migrate the services from legacy to new.
 
 In this pattern, the first step is to setup the new service in such a way that the new services's Database is able to read from the old database. CDC along with message broker can allow the writes to go from the legacy database to the new service.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708267893967/d0d03680-ab09-4aff-a128-d984c6978d5b.png align="center")
+![](/images/hashnode/d0d03680-ab09-4aff-a128-d984c6978d5b.png)
 
 Here the user will write to legacy but will be reading from the new service. This is achieved by load balancing the requests so that the reverse proxy routes all writes to the legacy and the reads come from new service. Once the new service is at feature-parity with the legacy; then the reverse proxy can route the writes also to the new service. As the bonus step, reverse-CDC can also occur to insert the data from the new service to the legacy database via the reverse CDC Message broker setup.
 
@@ -191,7 +191,7 @@ Here the user will write to legacy but will be reading from the new service. Thi
 
 Sometime the microservices are not so simple to execute. They might be some transactions that take a lot of time and a simple *Request/Response* API is not enough to bring Database consistency.
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1708267912781/183c2359-51d5-4011-bdfa-010261be0f53.png align="center")
+![](/images/hashnode/183c2359-51d5-4011-bdfa-010261be0f53.png)
 
 Here the upstream `Insurance Claim μs` is dependent on Insurance Settlement and Credit Score service which is a slow process which can take more than n2 business working days to fulfil. Here SAGA pattern comes into the picture. Unlike **Outbox Pattern** where the upstream changes needed to be propagated to downstream reliably; here the downstream needs to propagate its state to the upstream service `Insurance Settlement μs` & `Credit Score μs`.
 

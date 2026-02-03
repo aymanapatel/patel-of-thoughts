@@ -93,6 +93,16 @@ function formatDate(date: Date): string {
         </header>
 
         {
+          post.data.cover && (
+            <img
+              src={post.data.cover}
+              alt={post.data.title}
+              class="cover-image"
+            />
+          )
+        }
+
+        {
           post.data.heroImage && (
             <img
               src={post.data.heroImage}
@@ -193,6 +203,13 @@ function formatDate(date: Date): string {
       border-color: var(--color-accent);
       color: var(--color-accent);
       text-decoration: none;
+    }
+
+    .cover-image {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-2xl);
     }
 
     .hero-image {

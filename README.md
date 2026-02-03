@@ -298,14 +298,7 @@ The blog includes two example posts:
 
 View them after running `npm run dev`!
 
-## 🤝 Contributing
 
-Feel free to customize this blog for your needs! Key files to modify:
-
-- `src/styles/global.css` - Colors and design tokens
-- `src/components/BaseLayout.astro` - Site header/footer
-- `src/content/config.ts` - Content schema
-- `.env` - Site configuration
 
 ## 📄 License
 

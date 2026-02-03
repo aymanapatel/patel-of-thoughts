@@ -27,7 +27,7 @@ function formatDate(date: Date): string {
 >
   <div class="container">
     <div class="home-header">
-      <h1>Recent Posts</h1>
+      <h1>Patel of Thoughts</h1>
       <p class="text-secondary">
         Thoughts on technology and software development. Either learning from
         mistakes or going into a rabbit hole!
@@ -61,6 +61,13 @@ function formatDate(date: Date): string {
                 )}
               </div>
             </a>
+            {post.data.cover && (
+              <img
+                src={post.data.cover}
+                alt={post.data.title}
+                class="post-card-cover"
+              />
+            )}
           </article>
         ))
       }
@@ -70,7 +77,12 @@ function formatDate(date: Date): string {
 
 <style>
   .home-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
     margin-bottom: var(--space-2xl);
+    background-color: var(--color-bg);
+    padding: var(--space-md) 0;
   }
 
   .home-header h1 {
@@ -85,6 +97,10 @@ function formatDate(date: Date): string {
   }
 
   .post-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-lg);
+    align-items: start;
     transition:
       transform var(--transition-fast),
       border-color var(--transition-fast);
@@ -92,6 +108,14 @@ function formatDate(date: Date): string {
 
   .post-card:hover {
     transform: translateY(-2px);
+  }
+
+  .post-card-cover {
+    width: 200px;
+    height: auto;
+    border-radius: var(--radius-lg);
+    display: block;
+    object-fit: cover;
   }
 
   .post-link {

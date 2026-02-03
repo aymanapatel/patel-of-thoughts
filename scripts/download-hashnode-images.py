@@ -63,6 +63,23 @@ def find_cdn_url(legacy_text: str, filename: str) -> Optional[str]:
     return match.group(1) if match else None
 
 
+def find_cdn_url_in_current_files(filename: str) -> Optional[str]:
+    """Look for CDN URLs in current MDX files that might still contain them."""
+    pattern = re.compile(rf"(https://cdn\.hashnode\.com/[^\s\)\"']*{re.escape(filename)})")
+    
+    # Search in all MDX files in the posts directory
+    for mdx_path in POSTS_DIR.parent.glob("*.mdx"):
+        try:
+            text = mdx_path.read_text()
+            match = pattern.search(text)
+            if match:
+                return match.group(1)
+        except Exception:
+            continue
+    
+    return None
+
+
 def collect_targets() -> set[str]:
     """Collect all filenames referenced as ./images/<file> in the MDX files."""
     image_pattern = re.compile(r"(?:\./|)\bimages/([A-Za-z0-9_.-]+)")
@@ -113,6 +130,7 @@ def main(limit: Optional[int], legacy_ref: str) -> int:
     mapped: dict[str, str] = {}
     missing: set[str] = set(targets)
 
+    # First, try to find URLs in legacy markdown files
     for mdx_path in sorted(POSTS_DIR.glob("*.mdx")):
         legacy_path = LEGACY_DIR / f"{mdx_path.stem}.md"
         legacy_text = read_md_file(legacy_path, legacy_ref)
@@ -128,12 +146,20 @@ def main(limit: Optional[int], legacy_ref: str) -> int:
         if not missing:
             break
 
+    # Fallback: search for CDN URLs in current MDX files
+    for filename in list(missing):
+        url = find_cdn_url_in_current_files(filename)
+        if url:
+            mapped[filename] = url
+            missing.remove(filename)
+
     if missing:
         print(
-            "Could not locate CDN URLs for the following images:",
+            "Warning: Could not locate CDN URLs for the following images:",
             ", ".join(sorted(missing)),
             file=sys.stderr,
         )
+        print("These images will be skipped. You may need to source them manually.", file=sys.stderr)
 
     success = True
     for idx, (filename, url) in enumerate(sorted(mapped.items())):

@@ -1,12 +1,14 @@
 ---
-title: "Getting Started with This Blog"
-description: "Learn how to write posts, use components, and make the most of this minimal MDX blog."
-date: "2024-01-15"
-tags: ["tutorial", "getting-started"]
-draft: false
----
+title: "JSON - A rabbit hole of standards, implementations"
+seoTitle: "JSON - A rabbit hole of standards, implementations"
+datePublished: Sun Oct 08 2023 18:20:05 GMT+0000 (Coordinated Universal Time)
+cuid: clnhshdvp000d09md9sbm3x2h
+slug: json-a-rabbit-hole-of-standards-implementations
+cover: https://cdn.hashnode.com/res/hashnode/image/upload/v1696789042105/e8e379db-cec1-43ec-99a8-f314cded3033.png
+ogImage: https://cdn.hashnode.com/res/hashnode/image/upload/v1696789167573/2d442fc3-f3dd-407e-b304-c45a4293b4ff.png
+tags: programming-blogs, json
 
-import ScrollMedia from '@components/ScrollMedia.astro';
+---
 
 # Why I got into this?
 
@@ -32,15 +34,7 @@ The only difference between RFC 8259 and RFC 7159 is that [RFC 8259 has strict U
 
 My reaction:
 
-<ScrollMedia 
-  src="https://cdn.hashnode.com/res/hashnode/image/upload/v1696788999068/68eb33b6-db61-4a9d-9d32-1e8137d907e5.png" 
-  alt="Sticky media demo"
-  type="gif"
-  caption="This image stays visible while you scroll"
-  width="50%"
-/>
-
-
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696788999068/68eb33b6-db61-4a9d-9d32-1e8137d907e5.png align="center")
 
 # JSON Formats
 
@@ -75,14 +69,14 @@ JSON Schema is for that purpose only. Bring back the schemas!
 
 #### Building Blocks
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696788163939/95d8e78b-e0ce-49a9-a8ac-3868b3e9bbd0.png)
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696788163939/95d8e78b-e0ce-49a9-a8ac-3868b3e9bbd0.png align="center")
 
 1. Schemas
     
 
 Allows to adhere to a specific schema. JSON Schema has various implementations such as Draft4, Draft5, Draft7
 
-2. Types
+1. Types
     
 
 Bring back the types!

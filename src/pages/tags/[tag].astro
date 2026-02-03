@@ -1,13 +1,15 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../../components/BaseLayout.astro';
+import { getCollection } from "astro:content";
+import BaseLayout from "../../components/BaseLayout.astro";
 
 export async function getStaticPaths() {
-  const posts = await getCollection('posts');
-  
+  const posts = await getCollection("posts", ({ data }) => {
+    return !data.draft;
+  });
+
   // Get all unique tags
   const tags = [...new Set(posts.flatMap((post) => post.data.tags))];
-  
+
   return tags.map((tag) => ({
     params: { tag },
     props: {
@@ -25,39 +27,53 @@ interface Props {
 const { tag, posts } = Astro.props;
 
 // Sort posts by date
-const sortedPosts = posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const sortedPosts = posts.sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
 
 function formatDate(date: Date): string {
-  return new Intl.DateTimeFormat('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
   }).format(date);
 }
 ---
 
-<BaseLayout title={`Posts tagged "${tag}"`} description={`All posts tagged with ${tag}`}>
+<BaseLayout
+  title={`Posts tagged "${tag}"`}
+  description={`All posts tagged with ${tag}`}
+>
   <div class="container">
     <div class="tag-header">
       <h1>Posts tagged "{tag}"</h1>
-      <p class="text-secondary">{sortedPosts.length} post{sortedPosts.length !== 1 ? 's' : ''}</p>
+      <p class="text-secondary">
+        {sortedPosts.length} post{sortedPosts.length !== 1 ? "s" : ""}
+      </p>
     </div>
-    
+
     <div class="posts-list">
-      {sortedPosts.map((post) => (
-        <article class="post-card card">
-          <a href={`/posts/${post.slug}`} class="post-link">
-            <h2 class="post-title">{post.data.title}</h2>
-            <p class="post-description text-secondary">{post.data.description}</p>
-            
-            <time datetime={post.data.date.toISOString()} class="text-small text-secondary">
-              {formatDate(post.data.date)}
-            </time>
-          </a>
-        </article>
-      ))}
+      {
+        sortedPosts.map((post) => (
+          <article class="post-card card">
+            <a href={`/posts/${post.slug.split("/").pop()}`} class="post-link">
+              <h2 class="post-title">{post.data.title}</h2>
+              <p class="post-description text-secondary">
+                {post.data.description}
+              </p>
+
+              <time
+                datetime={post.data.date.toISOString()}
+                class="text-small text-secondary"
+              >
+                {formatDate(post.data.date)}
+              </time>
+            </a>
+          </article>
+        ))
+      }
     </div>
-    
+
     <div style="margin-top: var(--space-2xl)">
       <a href="/" class="button">← Back to all posts</a>
     </div>
@@ -68,36 +84,38 @@ function formatDate(date: Date): string {
   .tag-header {
     margin-bottom: var(--space-2xl);
   }
-  
+
   .tag-header h1 {
     margin-top: 0;
     margin-bottom: var(--space-sm);
   }
-  
+
   .posts-list {
     display: flex;
     flex-direction: column;
     gap: var(--space-xl);
     margin-bottom: var(--space-2xl);
   }
-  
+
   .post-card {
-    transition: transform var(--transition-fast), border-color var(--transition-fast);
+    transition:
+      transform var(--transition-fast),
+      border-color var(--transition-fast);
   }
-  
+
   .post-card:hover {
     transform: translateY(-2px);
   }
-  
+
   .post-link {
     display: block;
     color: inherit;
   }
-  
+
   .post-link:hover {
     text-decoration: none;
   }
-  
+
   .post-title {
     margin-top: 0;
     margin-bottom: var(--space-sm);
@@ -107,11 +125,11 @@ function formatDate(date: Date): string {
     color: var(--color-text);
     transition: color var(--transition-fast);
   }
-  
+
   .post-link:hover .post-title {
     color: var(--color-accent);
   }
-  
+
   .post-description {
     margin-bottom: var(--space-md);
     line-height: var(--line-height-relaxed);

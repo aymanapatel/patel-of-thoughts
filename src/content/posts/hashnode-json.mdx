@@ -1,5 +1,5 @@
 ---
-title: "Getting Started with This Blog"
+title: "JSON - A rabbit hole of standards, implementations"
 description: "Learn how to write posts, use components, and make the most of this minimal MDX blog."
 date: "2024-01-15"
 tags: ["tutorial", "getting-started"]
@@ -12,7 +12,7 @@ import ScrollMedia from '@components/ScrollMedia.astro';
 
 When developing an application, we were implementing an API that had a number key type. Easy peasy lemon squeezy (🍋). But what we realized was that there was a really weird and frustrating bug. Apparently, the Javascript implementation of `JSON.stringify` only works till 2^53 \[[Stackoverflow link](https://stackoverflow.com/a/34989371)\], but we had to support for ~20 digits. The fix was to change it to string. We looked at the above link, made the fix and called it a day. Sidenote, Twitter also faced this issue 😅
 
-[![Twitter API Doc for showing JSON String shenanigans](https://cdn.hashnode.com/res/hashnode/image/upload/v1696758759901/9e1f7cce-06c7-4cdd-aea6-530918ffd54b.png align="center")](https://developer.twitter.com/en/docs/twitter-ids)
+[![Twitter API Doc for showing JSON String shenanigans](https://cdn.hashnode.com/res/hashnode/image/upload/v1696758759901/9e1f7cce-06c7-4cdd-aea6-530918ffd54b.png)](https://developer.twitter.com/en/docs/twitter-ids)
 
 Classic case of Integer Overflow, right? But this is so weird, considering this is the 2020s era and not the 1970s where we are not bound by 16-bit (or even less) CPU architectures, with GBs (and not KBs) of RAM. That is when I dug into the rabbit hole of JSON. I found a lot of things that surprised me. From different JSON formats to different RFCs for JSON implementation itself to whatever the frontend (JS, looking at you) world brings onto the table to fix JSON issues.
 
@@ -102,21 +102,19 @@ List of types supported:
 * boolean
     
 * nul
-    
 
-3\. Validations
+3. Validations
 
 * Rules on how JSON input can validate against the given schema. This can be of various types such as TypeValidations, Conditional, Regex Patterns etc
-    
-    List of validations provided by JSONSchema
-    
-    ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696782046211/9ecd9ff1-5b4b-4dd2-8372-0c70200fbf35.png align="center")
+
+  List of validations provided by JSONSchema
+
+  ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696782046211/9ecd9ff1-5b4b-4dd2-8372-0c70200fbf35.png)
     
 
 Example:
 
-* JSON Schema Example
-    
+**JSON Schema Example:**
 
 ```json
 {
@@ -158,8 +156,7 @@ Example:
 }
 ```
 
-* Valid JSON Input
-    
+**Valid JSON Input:**
 
 ```json
 {
@@ -176,8 +173,7 @@ NOTE: Can try out different JSONSchema Draft versions [here](https://www.jsonsch
 
 `$ref` can also be used for the recursive schema. Hence, you can achieve compatibility by following the DRY(Don't Repeat Yourself) principle
 
-* Example Schema:
-    
+**Example Schema:**
 
 ```json
 {
@@ -219,8 +215,7 @@ NOTE: Can try out different JSONSchema Draft versions [here](https://www.jsonsch
 }
 ```
 
-* Valid JSON Input
-    
+**Valid JSON Input:**
 
 ```json
 {
@@ -238,17 +233,11 @@ NOTE: Can try out different JSONSchema Draft versions [here](https://www.jsonsch
 #### Usage
 
 * Used for API validation. There are multiple parser libraries in different languages that can help
-    
-    * Python: [https://pypi.org/project/jsonschema/](https://pypi.org/project/jsonschema/)
-        
-    * Golang: [https://pkg.go.dev/github.com/santhosh-tekuri/jsonschema/v5](https://pkg.go.dev/github.com/santhosh-tekuri/jsonschema/v5)
-        
-    * Java: [https://github.com/eclipse-vertx/vertx-json-schema](https://github.com/eclipse-vertx/vertx-json-schema) (For vertz applications)
-        
+  * Python: [https://pypi.org/project/jsonschema/](https://pypi.org/project/jsonschema/)
+  * Golang: [https://pkg.go.dev/github.com/santhosh-tekuri/jsonschema/v5](https://pkg.go.dev/github.com/santhosh-tekuri/jsonschema/v5)
+  * Java: [https://github.com/eclipse-vertx/vertx-json-schema](https://github.com/eclipse-vertx/vertx-json-schema) (For vertz applications)
 * Used in OpenAPI Swagger codegen specification to generate API validations for Swagger specifications
-    
-    * OpenAPI v2.0 has 80% compatibility with JSONSchema Draft v4 while OpenAPI v3.0 has 90% compatibility with JSONSchema Draft v5 ([Link](https://blog.stoplight.io/openapi-json-schema))
-        
+  * OpenAPI v2.0 has 80% compatibility with JSONSchema Draft v4 while OpenAPI v3.0 has 90% compatibility with JSONSchema Draft v5 ([Link](https://blog.stoplight.io/openapi-json-schema))
 * JSON Validation for Mongo Collections ([Link](https://www.mongodb.com/docs/manual/core/schema-validation/specify-json-schema/#std-label-schema-validation-json))
     
 
@@ -261,9 +250,7 @@ NOTE: Can try out different JSONSchema Draft versions [here](https://www.jsonsch
 GeoJSON data format is used in Geographical applications which could be geospatial or web mapping apps. It is based on JSON and contains geographical features such as:
 
 1. Points
-    
 2. Line Strings
-    
 3. Polygons
     
 
@@ -324,8 +311,7 @@ Example JSON:
 
 #### Database Support
 
-* Mongo provides [query operations on geospatial data](https://www.mongodb.com/docs/manual/geospatial-queries/) (stored as GeoJSON objects in collections). They also provide [GeoSpatial Index](https://www.mongodb.com/docs/manual/core/indexes/index-types/index-geospatial/#std-label-geospatial-index) for better read performance,
-    
+* Mongo provides [query operations on geospatial data](https://www.mongodb.com/docs/manual/geospatial-queries/) (stored as GeoJSON objects in collections). They also provide [GeoSpatial Index](https://www.mongodb.com/docs/manual/core/indexes/index-types/index-geospatial/#std-label-geospatial-index) for better read performance
 * PostGIS, which is an extension of Postgres for storing geographic data has a function to function to query the geometric data as GeoJSON collection. ([Reference](https://www.flother.is/til/postgis-geojson/))
     
 
@@ -333,13 +319,12 @@ Example JSON:
 
 | Language | Lib Link | Notes |
 | --- | --- | --- |
-| Golang | \- [https://github.com/paulmach/go.geojson](https://github.com/paulmach/go.geojson) |  |
-| \- [https://github.com/paulmach/orb](https://github.com/paulmach/orb) | Library for parsing GeoJSOON and doing 2d geometric calculations respectively |  |
-| Golang | [https://github.com/tidwall/geojson](https://github.com/tidwall/geojson) | Used by [tile38](https://tile38.com/) |
-| Python | [https://pypi.org/project/geojson/](https://pypi.org/project/geojson/) | Python utilities for GeoJSON |
-| Java | [GeoJSON Jackson](https://github.com/opendatalab-de/geojson-jackson) | Serialize and desrialize GeoJSON POJOs |
+| Golang | [go.geojson](https://github.com/paulmach/go.geojson) / [orb](https://github.com/paulmach/orb) | Library for parsing GeoJSON and doing 2d geometric calculations |
+| Golang | [geojson](https://github.com/tidwall/geojson) | Used by [tile38](https://tile38.com/) |
+| Python | [geojson](https://pypi.org/project/geojson/) | Python utilities for GeoJSON |
+| Java | [GeoJSON Jackson](https://github.com/opendatalab-de/geojson-jackson) | Serialize and deserialize GeoJSON POJOs |
 | Javascript | [ArcGIS API](https://developers.arcgis.com/javascript/latest) | ArcGIS API for creating web based interactive workflows |
-| C# | [https://github.com/GeoJSON-Net/GeoJSON.Net](https://github.com/GeoJSON-Net/GeoJSON.Net) | GeoJSON types and deserialziers |
+| C# | [GeoJSON.Net](https://github.com/GeoJSON-Net/GeoJSON.Net) | GeoJSON types and deserializers |
 
 # Frontend solutions
 
@@ -356,32 +341,28 @@ There are a couple of solutions (npm libraries) that help to solve some shortcom
 ### Features
 
 * Safely serialize/deserialize unsupported JSON types like Date, BigInts, Map, Set, URL, and Regular Expressions.
-    
 * Support Date and other Serialization for `getServerSideProps` and `getInitialProps` in Next.js
-    
 
-%[https://replit.com/@AymanArif1/Javascript-JSON-Enhancers#SuperJSONExample.js] 
+[View SuperJSON Example on Replit](https://replit.com/@AymanArif1/Javascript-JSON-Enhancers#SuperJSONExample.js) 
 
 ### Big Number Issue
 
-1. Default JSON
-    
+**Default JSON**
 
 Default Javascript implementation of `json.stringify` cannot parse more than 2^53-bit characters
 
 We get an exception when trying to parse this. (Can check Replit's CLI)
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696786676496/94ad87c9-4709-42b2-91f8-90b930e96524.png align="center")
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696786676496/94ad87c9-4709-42b2-91f8-90b930e96524.png)
 
-1. SuperJSON
-    
-    ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696786730099/a5ff60cd-a678-4204-acdd-f4ed0512ad84.png align="center")
+**SuperJSON**
+
+![](https://cdn.hashnode.com/res/hashnode/image/upload/v1696786730099/a5ff60cd-a678-4204-acdd-f4ed0512ad84.png)
     
 
 ### Users
 
 1. tRPC: Data transformer when creating proxy client ([Link](https://trpc.io/docs/server/data-transformers))
-    
 2. Blitz.js (Superjson's creator)
     
 
@@ -394,26 +375,18 @@ Provides features such as JSON comments. In the frontend world, JSON is normally
 Other features of JSON5 include:
 
 * Allowing single-quoted string
-    
 * Strings that can span multiple lines
-    
 * Broader number support which includes
-    
-    * Hexadecimal
-        
-    * Leading decimal point
-        
-    * IEEE 754 Positive Infinity, Negative Infinity and NaN
+  * Hexadecimal
+  * Leading decimal point
+  * IEEE 754 Positive Infinity, Negative Infinity and NaN
         
 
 ### Users
 
 1. Babel
-    
 2. Next.js
-    
 3. Apple
-    
 4. Bun
     
 
@@ -421,4 +394,4 @@ Other features of JSON5 include:
 
 This is a bit too much. I think part 2 would be required.
 
-I haven't touched JWT, JSON-LD (RDF), NDJSON, Vega, Avro. 1 thing is for sure, things are never-ending rabbit hole that requires digging till the end of time.
+I haven't touched JWT, JSON-LD (RDF), NDJSON, Vega, Avro. One thing is for sure, things are never-ending rabbit hole that requires digging till the end of time.

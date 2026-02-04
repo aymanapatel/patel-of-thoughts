@@ -26,6 +26,13 @@ function formatDate(date: Date): string {
   description="Thoughts on technology and software development. Either learning from mistakes or going into a rabbit hole!"
 >
   <div class="container">
+    <div class="hidden" data-posts-data>{JSON.stringify(posts.map(post => ({
+      slug: post.slug.split("/").pop(),
+      title: post.data.title,
+      description: post.data.description,
+      date: formatDate(post.data.date),
+      cover: post.data.cover
+    })))}</div>
     <div class="home-header">
       <h1>Patel of Thoughts</h1>
       <p class="text-secondary">
@@ -34,7 +41,7 @@ function formatDate(date: Date): string {
       </p>
     </div>
 
-    <div class="posts-list">
+    <div class="posts-list" data-posts>
       {
         posts.map((post) => (
           <article class="post-card card">
@@ -74,17 +81,25 @@ function formatDate(date: Date): string {
         ))
       }
     </div>
+    <p class="no-results text-secondary text-small" hidden data-no-results>
+      No posts matched your search. Try a different keyword.
+    </p>
   </div>
 </BaseLayout>
 
 <style>
+  .hidden {
+    display: none;
+  }
+</style>
+
+<script>
+  // Search functionality is now handled in BaseLayout with modal search
+</script>
+
+<style>
   .home-header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
     margin-bottom: var(--space-2xl);
-    background-color: var(--color-bg);
-    padding: var(--space-md) 0;
   }
 
   .home-header h1 {
@@ -142,6 +157,12 @@ function formatDate(date: Date): string {
     color: var(--color-accent);
   }
 
+  .post-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+    border-radius: var(--radius-md);
+  }
+
   .post-description {
     margin-bottom: var(--space-md);
     line-height: var(--line-height-relaxed);
@@ -178,19 +199,14 @@ function formatDate(date: Date): string {
     order: 1;
   }
 
-  @media (max-width: 720px) {
-    .post-link {
-      grid-template-columns: 1fr;
-    }
+  .no-results {
+    margin-top: var(--space-lg);
+  }
 
-    .post-card-cover {
-      width: 100%;
-      height: auto;
-      order: 0;
-    }
-
-    .post-content {
-      order: 1;
-    }
+  mark {
+    background-color: color-mix(in srgb, var(--color-accent) 25%, transparent);
+    color: inherit;
+    padding: 0 0.1em;
+    border-radius: var(--radius-sm);
   }
 </style>

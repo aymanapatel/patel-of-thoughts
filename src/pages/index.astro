@@ -32,12 +32,34 @@ function formatDate(date: Date): string {
         Thoughts on technology and software development. Either learning from
         mistakes or going into a rabbit hole!
       </p>
+      <div class="search">
+        <label class="search-label" for="post-search">Search posts</label>
+        <input
+          id="post-search"
+          class="search-input"
+          type="search"
+          name="search"
+          placeholder="Search by title, description, or tag"
+          autocomplete="off"
+        />
+        <p class="search-hint text-small text-secondary">
+          Type to filter posts instantly.
+        </p>
+        <p class="search-count text-small text-secondary" data-search-count>
+          Showing {posts.length} posts.
+        </p>
+      </div>
     </div>
 
-    <div class="posts-list">
+    <div class="posts-list" data-posts>
       {
         posts.map((post) => (
-          <article class="post-card card">
+          <article
+            class="post-card card"
+            data-title={post.data.title.toLowerCase()}
+            data-description={post.data.description.toLowerCase()}
+            data-tags={post.data.tags.join(" ").toLowerCase()}
+          >
             <a href={`/posts/${post.slug.split("/").pop()}`} class="post-link">
               {post.data.cover && (
                 <img
@@ -74,8 +96,132 @@ function formatDate(date: Date): string {
         ))
       }
     </div>
+    <p class="no-results text-secondary text-small" hidden data-no-results>
+      No posts matched your search. Try a different keyword.
+    </p>
   </div>
 </BaseLayout>
+
+<script>
+  const searchInput = document.querySelector("#post-search");
+  const postsList = document.querySelector("[data-posts]");
+  const noResults = document.querySelector("[data-no-results]");
+
+  if (searchInput && postsList && noResults) {
+    const postCards = Array.from(
+      postsList.querySelectorAll("[data-title]"),
+    );
+    const totalPosts = postCards.length;
+    const searchCount = document.querySelector("[data-search-count]");
+
+    const escapeRegExp = (value) =>
+      value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+    const highlightText = (element, query) => {
+      if (!element) return;
+      const original = element.getAttribute("data-original-text") ?? "";
+      if (!query) {
+        element.textContent = original;
+        return;
+      }
+      const regex = new RegExp(`(${escapeRegExp(query)})`, "gi");
+      element.innerHTML = original.replace(regex, "<mark>$1</mark>");
+    };
+
+    const updateSearch = () => {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      postCards.forEach((card) => {
+        const title = card.getAttribute("data-title") ?? "";
+        const description = card.getAttribute("data-description") ?? "";
+        const tags = card.getAttribute("data-tags") ?? "";
+        const matches =
+          query.length === 0 ||
+          title.includes(query) ||
+          description.includes(query) ||
+          tags.includes(query);
+
+        card.toggleAttribute("hidden", !matches);
+        if (matches) {
+          visibleCount += 1;
+        }
+
+        const titleElement = card.querySelector(".post-title");
+        const descriptionElement = card.querySelector(".post-description");
+        if (titleElement && !titleElement.hasAttribute("data-original-text")) {
+          titleElement.setAttribute(
+            "data-original-text",
+            titleElement.textContent ?? "",
+          );
+        }
+        if (
+          descriptionElement &&
+          !descriptionElement.hasAttribute("data-original-text")
+        ) {
+          descriptionElement.setAttribute(
+            "data-original-text",
+            descriptionElement.textContent ?? "",
+          );
+        }
+        if (matches) {
+          highlightText(titleElement, query);
+          highlightText(descriptionElement, query);
+        } else {
+          highlightText(titleElement, "");
+          highlightText(descriptionElement, "");
+        }
+      });
+
+      noResults.toggleAttribute("hidden", visibleCount !== 0);
+      if (searchCount) {
+        searchCount.textContent =
+          visibleCount === totalPosts
+            ? `Showing ${totalPosts} posts.`
+            : `Showing ${visibleCount} of ${totalPosts} posts.`;
+      }
+    };
+
+    const focusResult = (direction) => {
+      const visibleLinks = postCards
+        .filter((card) => !card.hasAttribute("hidden"))
+        .map((card) => card.querySelector(".post-link"))
+        .filter(Boolean);
+      if (visibleLinks.length === 0) {
+        return;
+      }
+      const currentIndex = visibleLinks.findIndex(
+        (link) => link === document.activeElement,
+      );
+      const nextIndex =
+        currentIndex === -1
+          ? direction === "up"
+            ? visibleLinks.length - 1
+            : 0
+          : direction === "up"
+            ? (currentIndex - 1 + visibleLinks.length) % visibleLinks.length
+            : (currentIndex + 1) % visibleLinks.length;
+      visibleLinks[nextIndex]?.focus();
+    };
+
+    searchInput.addEventListener("input", updateSearch);
+    searchInput.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowDown") {
+        event.preventDefault();
+        focusResult("down");
+      }
+      if (event.key === "ArrowUp") {
+        event.preventDefault();
+        focusResult("up");
+      }
+      if (event.key === "Escape") {
+        searchInput.value = "";
+        updateSearch();
+      }
+    });
+    updateSearch();
+  }
+</script>
 
 <style>
   .home-header {
@@ -90,6 +236,43 @@ function formatDate(date: Date): string {
   .home-header h1 {
     margin-top: 0;
     margin-bottom: var(--space-sm);
+  }
+
+  .search {
+    margin-top: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .search-label {
+    font-weight: 600;
+  }
+
+  .search-input {
+    padding: 0.65rem 0.75rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-size: var(--font-size-base);
+    transition:
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+
+  .search-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 25%, transparent);
+  }
+
+  .search-hint {
+    margin: 0;
+  }
+
+  .search-count {
+    margin: 0;
   }
 
   .posts-list {
@@ -142,6 +325,12 @@ function formatDate(date: Date): string {
     color: var(--color-accent);
   }
 
+  .post-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+    border-radius: var(--radius-md);
+  }
+
   .post-description {
     margin-bottom: var(--space-md);
     line-height: var(--line-height-relaxed);
@@ -176,6 +365,17 @@ function formatDate(date: Date): string {
 
   .post-card-cover {
     order: 1;
+  }
+
+  .no-results {
+    margin-top: var(--space-lg);
+  }
+
+  mark {
+    background-color: color-mix(in srgb, var(--color-accent) 25%, transparent);
+    color: inherit;
+    padding: 0 0.1em;
+    border-radius: var(--radius-sm);
   }
 
   @media (max-width: 720px) {

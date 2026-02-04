@@ -39,35 +39,37 @@ function formatDate(date: Date): string {
         posts.map((post) => (
           <article class="post-card card">
             <a href={`/posts/${post.slug.split("/").pop()}`} class="post-link">
-              <h2 class="post-title">{post.data.title}</h2>
-              <p class="post-description text-secondary">
-                {post.data.description}
-              </p>
+              {post.data.cover && (
+                <img
+                  src={post.data.cover}
+                  alt={post.data.title}
+                  class="post-card-cover"
+                />
+              )}
+              <div class="post-content">
+                <h2 class="post-title">{post.data.title}</h2>
+                <p class="post-description text-secondary">
+                  {post.data.description}
+                </p>
 
-              <div class="post-meta">
-                <time
-                  datetime={post.data.date.toISOString()}
-                  class="text-small text-secondary"
-                >
-                  {formatDate(post.data.date)}
-                </time>
+                <div class="post-meta">
+                  <time
+                    datetime={post.data.date.toISOString()}
+                    class="text-small text-secondary"
+                  >
+                    {formatDate(post.data.date)}
+                  </time>
 
-                {post.data.tags.length > 0 && (
-                  <div class="post-tags">
-                    {post.data.tags.map((tag) => (
-                      <span class="tag">{tag}</span>
-                    ))}
-                  </div>
-                )}
+                  {post.data.tags.length > 0 && (
+                    <div class="post-tags">
+                      {post.data.tags.map((tag) => (
+                        <span class="tag">{tag}</span>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </div>
             </a>
-            {post.data.cover && (
-              <img
-                src={post.data.cover}
-                alt={post.data.title}
-                class="post-card-cover"
-              />
-            )}
           </article>
         ))
       }
@@ -97,10 +99,6 @@ function formatDate(date: Date): string {
   }
 
   .post-card {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: var(--space-lg);
-    align-items: start;
     transition:
       transform var(--transition-fast),
       border-color var(--transition-fast);
@@ -119,7 +117,10 @@ function formatDate(date: Date): string {
   }
 
   .post-link {
-    display: block;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-lg);
+    align-items: start;
     color: inherit;
   }
 
@@ -167,5 +168,29 @@ function formatDate(date: Date): string {
     border-radius: var(--radius-sm);
     font-size: var(--font-size-xs);
     color: var(--color-text-secondary);
+  }
+
+  .post-content {
+    order: 0;
+  }
+
+  .post-card-cover {
+    order: 1;
+  }
+
+  @media (max-width: 720px) {
+    .post-link {
+      grid-template-columns: 1fr;
+    }
+
+    .post-card-cover {
+      width: 100%;
+      height: auto;
+      order: 0;
+    }
+
+    .post-content {
+      order: 1;
+    }
   }
 </style>

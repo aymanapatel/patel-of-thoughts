@@ -405,12 +405,22 @@ function formatDate(date: Date): string {
       }
 
       :global(.toc-shell) {
+        position: fixed;
+        bottom: var(--space-md);
+        right: var(--space-md);
         width: auto;
-        align-items: stretch;
+        align-items: flex-end;
+        gap: var(--space-sm);
+        z-index: 5;
       }
 
       :global(.toc) {
         flex-direction: column;
+        width: min(92vw, 420px);
+        max-height: 60vh;
+        overflow: auto;
+        box-shadow: 0 10px 40px
+          color-mix(in srgb, var(--color-bg) 25%, transparent);
       }
 
       :global(.toc-panel) {
@@ -418,30 +428,24 @@ function formatDate(date: Date): string {
       }
 
       :global(.toc-toggle-floating) {
-        position: fixed;
-        bottom: var(--space-md);
-        right: var(--space-md);
-        left: auto;
+        position: static;
         transform: none;
         box-shadow: 0 8px 30px
           color-mix(in srgb, var(--color-bg) 35%, transparent);
       }
 
       :global(.toc-shell.toc-out-of-view .toc-toggle-floating) {
-        bottom: var(--space-lg);
+        bottom: auto;
       }
 
       :global(.toc-shell.toc-out-of-view .toc) {
-        position: fixed;
-        right: var(--space-md);
+        position: static;
+        right: auto;
         left: auto;
-        bottom: calc(var(--space-xl) * 2);
+        bottom: auto;
         transform: none;
         width: min(92vw, 420px);
-        max-height: 50vh;
-        overflow: auto;
-        box-shadow: 0 10px 40px
-          color-mix(in srgb, var(--color-bg) 25%, transparent);
+        max-height: 60vh;
       }
     }
   </style>

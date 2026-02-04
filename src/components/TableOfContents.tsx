@@ -19,6 +19,20 @@ export default function TableOfContents({ headings }: Props) {
     const sentinelRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
+        const mediaQuery = window.matchMedia('(max-width: 1023px)');
+        const handleMediaChange = () => {
+            setIsOpen(!mediaQuery.matches);
+        };
+
+        handleMediaChange();
+        mediaQuery.addEventListener('change', handleMediaChange);
+
+        return () => {
+            mediaQuery.removeEventListener('change', handleMediaChange);
+        };
+    }, []);
+
+    useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {

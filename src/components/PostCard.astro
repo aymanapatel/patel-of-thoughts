@@ -1,0 +1,32 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  cover?: string;
+  date: string;
+  tags?: string[];
+}
+
+const { title, description, href, cover, date, tags = [] } = Astro.props;
+---
+
+<article class="portfolio-card">
+  <a class="portfolio-card-link" href={href}>
+    {cover && <img src={cover} alt={title} class="portfolio-card-cover" />}
+    <div class="portfolio-card-body">
+      <div class="portfolio-card-header">
+        <h3 class="portfolio-card-title">{title}</h3>
+        <span class="portfolio-card-role">{date}</span>
+      </div>
+      <p class="portfolio-card-description">{description}</p>
+      {tags.length > 0 && (
+        <div class="portfolio-card-tags">
+          {tags.map((tag) => (
+            <span class="pill pill-muted">{tag}</span>
+          ))}
+        </div>
+      )}
+    </div>
+  </a>
+</article>

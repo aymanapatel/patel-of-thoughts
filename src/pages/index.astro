@@ -1,212 +1,182 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../components/BaseLayout.astro";
+import Section from "../components/Section.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import PostCard from "../components/PostCard.astro";
+import { profile } from "../data/profile";
 
-// Get all posts and filter out drafts
-const allPosts = await getCollection("posts", ({ data }) => {
-  return !data.draft;
-});
+const projects = await getCollection("projects", ({ data }) => !data.draft);
+const featuredProjects = projects.filter((project) => project.data.showcase);
+const otherProjects = projects.filter((project) => !project.data.showcase);
 
-// Sort posts by date (newest first)
-const posts = allPosts.sort(
-  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
-);
+const showcasePosts = (
+  await getCollection("posts", ({ data }) => !data.draft && data.showcase)
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 function formatDate(date: Date): string {
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
-    month: "long",
+    month: "short",
     day: "numeric",
   }).format(date);
 }
+
+function shortSlug(slug: string): string {
+  return slug.split("/").pop() || slug;
+}
 ---
 
-<BaseLayout
-  title=""
-  description="Thoughts on technology and software development. Either learning from mistakes or going into a rabbit hole!"
->
-  <div class="container">
-    <div class="hidden" data-posts-data>{JSON.stringify(posts.map(post => ({
-      slug: post.slug.split("/").pop(),
-      title: post.data.title,
-      description: post.data.description,
-      date: formatDate(post.data.date),
-      cover: post.data.cover
-    })))}</div>
-    <div class="home-header">
-      <h1>Patel of Thoughts</h1>
-      <p class="text-secondary">
-        Thoughts on technology and software development. Either learning from
-        mistakes or going into a rabbit hole!
-      </p>
-    </div>
-
-    <div class="posts-list" data-posts>
-      {
-        posts.map((post) => (
-          <article class="post-card card">
-            <a href={`/posts/${post.slug.split("/").pop()}`} class="post-link">
-              {post.data.cover && (
-                <img
-                  src={post.data.cover}
-                  alt={post.data.title}
-                  class="post-card-cover"
-                />
-              )}
-              <div class="post-content">
-                <h2 class="post-title">{post.data.title}</h2>
-                <p class="post-description text-secondary">
-                  {post.data.description}
-                </p>
-
-                <div class="post-meta">
-                  <time
-                    datetime={post.data.date.toISOString()}
-                    class="text-small text-secondary"
-                  >
-                    {formatDate(post.data.date)}
-                  </time>
-
-                  {post.data.tags.length > 0 && (
-                    <div class="post-tags">
-                      {post.data.tags.map((tag) => (
-                        <span class="tag">{tag}</span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
+<BaseLayout title="" description="Portfolio and selected writing.">
+  <div class="hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="hero-eyebrow">Portfolio</p>
+        <h1>{profile.name}</h1>
+        <p class="hero-role">{profile.role}</p>
+        <p class="hero-tagline">{profile.tagline}</p>
+        <div class="hero-actions">
+          <a class="button" href="/#projects">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h7v7H4z"></path>
+              <path d="M13 4h7v7h-7z"></path>
+              <path d="M4 13h7v7H4z"></path>
+              <path d="M13 13h7v7h-7z"></path>
+            </svg>
+            Explore projects
+          </a>
+          <a class="button ghost" href={profile.links.blog}>Read the blog</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-inner">
+          <p class="hero-card-title">Now</p>
+          <h3>Focused on pragmatic, durable software.</h3>
+          <p>
+            Solving real-world problems supercharged with AI. <br/> Knows a little bit about everything.
+          </p>
+          <div class="hero-card-links">
+            <a class="text-link" href={profile.links.github} target="_blank" rel="noreferrer">
+              GitHub
             </a>
-          </article>
-        ))
-      }
+            <a class="text-link" href={profile.links.linkedin} target="_blank" rel="noreferrer">
+              LinkedIn
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
-    <p class="no-results text-secondary text-small" hidden data-no-results>
-      No posts matched your search. Try a different keyword.
-    </p>
+  </div>
+
+  <div class="container content-stack">
+    <Section id="projects" title="Projects" subtitle="Selected work with real-world impact.">
+      <div class="card-grid">
+        {featuredProjects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            href={`/projects/${shortSlug(project.slug)}`}
+            cover={project.data.cover}
+            tags={project.data.tags}
+            stack={project.data.stack}
+            role={project.data.role}
+            github={project.data.github}
+            live={project.data.live}
+          />
+        ))}
+      </div>
+      {otherProjects.length > 0 && (
+        <div class="card-grid secondary-grid">
+          {otherProjects.map((project) => (
+            <ProjectCard
+              title={project.data.title}
+              description={project.data.description}
+              href={`/projects/${shortSlug(project.slug)}`}
+              cover={project.data.cover}
+              tags={project.data.tags}
+              stack={project.data.stack}
+              role={project.data.role}
+              github={project.data.github}
+              live={project.data.live}
+            />
+          ))}
+        </div>
+      )}
+    </Section>
+
+    <Section title="Blog Showcase" subtitle="Deep dives, systems thinking, and engineering notes.">
+      <div class="card-grid">
+        {showcasePosts.map((post) => (
+          <PostCard
+            title={post.data.title}
+            description={post.data.description}
+            href={`/posts/${shortSlug(post.slug)}`}
+            cover={post.data.cover}
+            date={formatDate(post.data.date)}
+            tags={post.data.tags}
+          />
+        ))}
+      </div>
+    </Section>
+
+    <Section title="Education">
+      <div class="info-grid">
+        {profile.education.map((item) => (
+          <div class="info-card">
+            <h3>{item.institution}</h3>
+            <p class="text-secondary">{item.degree}</p>
+            <p class="text-secondary">{item.status}</p>
+          </div>
+        ))}
+      </div>
+    </Section>
+
+    <Section title="Previous Company">
+      <div class="info-grid">
+        {profile.experience.map((item) => (
+          <div class="info-card">
+            <div class="info-card-header">
+              <h3>{item.company}</h3>
+              <span class="pill">{item.start}–{item.end}</span>
+            </div>
+            <p class="text-secondary">{item.title}</p>
+            <p>{item.description}</p>
+          </div>
+        ))}
+      </div>
+    </Section>
+
+    <Section title="Connect">
+      <div class="connect-grid">
+        <a class="connect-card" href={profile.links.github} target="_blank" rel="noreferrer">
+          <span class="connect-title">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.532 1.033 1.532 1.033.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.56 9.56 0 0 1 2.504.337c1.909-1.296 2.748-1.026 2.748-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.944.359.309.678.92.678 1.855 0 1.337-.012 2.415-.012 2.743 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.523 2 12 2Z"/>
+            </svg>
+            GitHub
+          </span>
+          <p class="text-secondary">Code, experiments, and open source.</p>
+        </a>
+        <a class="connect-card" href={profile.links.linkedin} target="_blank" rel="noreferrer">
+          <span class="connect-title">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M4.98 3.5c0 1.38-1.11 2.5-2.48 2.5C1.11 6 0 4.88 0 3.5 0 2.12 1.11 1 2.5 1 3.87 1 4.98 2.12 4.98 3.5ZM0.5 8h4V24h-4V8Zm7.5 0h3.83v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.77 2.65 4.77 6.1V24h-4v-7.6c0-1.81-.03-4.14-2.52-4.14-2.53 0-2.92 1.98-2.92 4.02V24h-4V8Z"/>
+            </svg>
+            LinkedIn
+          </span>
+          <p class="text-secondary">Career timeline and recommendations.</p>
+        </a>
+        <a class="connect-card" href={profile.links.blog}>
+          <span class="connect-title">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 5h12a4 4 0 0 1 4 4v10H8a4 4 0 0 0-4 4V5Z"></path>
+              <path d="M8 19V5"></path>
+            </svg>
+            Blog
+          </span>
+          <p class="text-secondary">Every post, system deep dive, and note.</p>
+        </a>
+      </div>
+    </Section>
   </div>
 </BaseLayout>
-
-<style>
-  .hidden {
-    display: none;
-  }
-</style>
-
-<script>
-  // Search functionality is now handled in BaseLayout with modal search
-</script>
-
-<style>
-  .home-header {
-    margin-bottom: var(--space-2xl);
-  }
-
-  .home-header h1 {
-    margin-top: 0;
-    margin-bottom: var(--space-sm);
-  }
-
-  .posts-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-xl);
-  }
-
-  .post-card {
-    transition:
-      transform var(--transition-fast),
-      border-color var(--transition-fast);
-  }
-
-  .post-card:hover {
-    transform: translateY(-2px);
-  }
-
-  .post-card-cover {
-    width: 200px;
-    height: auto;
-    border-radius: var(--radius-lg);
-    display: block;
-    object-fit: cover;
-  }
-
-  .post-link {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: var(--space-lg);
-    align-items: start;
-    color: inherit;
-  }
-
-  .post-link:hover {
-    text-decoration: none;
-  }
-
-  .post-title {
-    margin-top: 0;
-    margin-bottom: var(--space-sm);
-    font-size: var(--font-size-2xl);
-    border: none;
-    padding: 0;
-    color: var(--color-text);
-    transition: color var(--transition-fast);
-  }
-
-  .post-link:hover .post-title {
-    color: var(--color-accent);
-  }
-
-  .post-link:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 4px;
-    border-radius: var(--radius-md);
-  }
-
-  .post-description {
-    margin-bottom: var(--space-md);
-    line-height: var(--line-height-relaxed);
-  }
-
-  .post-meta {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-    flex-wrap: wrap;
-  }
-
-  .post-tags {
-    display: flex;
-    gap: var(--space-sm);
-    flex-wrap: wrap;
-  }
-
-  .tag {
-    display: inline-block;
-    padding: 0.25rem 0.5rem;
-    background-color: var(--color-bg);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
-    font-size: var(--font-size-xs);
-    color: var(--color-text-secondary);
-  }
-
-  .post-content {
-    order: 0;
-  }
-
-  .post-card-cover {
-    order: 1;
-  }
-
-  .no-results {
-    margin-top: var(--space-lg);
-  }
-
-  mark {
-    background-color: color-mix(in srgb, var(--color-accent) 25%, transparent);
-    color: inherit;
-    padding: 0 0.1em;
-    border-radius: var(--radius-sm);
-  }
-</style>

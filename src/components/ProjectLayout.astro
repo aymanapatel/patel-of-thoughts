@@ -1,0 +1,174 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+import TableOfContents from "./TableOfContents";
+import ReadingProgress from "./ReadingProgress";
+import "../styles/prose.css";
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+const { Content, headings, remarkPluginFrontmatter } = await project.render();
+
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
+}
+---
+
+<BaseLayout title={project.data.title} description={project.data.description}>
+  <ReadingProgress client:load />
+
+  <article class="container">
+    <div class="post-layout">
+      <div class="post-main">
+        <header class="post-header">
+          <h1 class="post-title">{project.data.title}</h1>
+
+          <div class="post-metadata">
+            <time datetime={project.data.date.toISOString()} class="text-secondary">
+              {formatDate(project.data.date)}
+            </time>
+
+            {remarkPluginFrontmatter?.minutesRead && (
+              <>
+                <span class="text-secondary">•</span>
+                <span class="text-secondary">{remarkPluginFrontmatter.minutesRead}</span>
+              </>
+            )}
+
+            {project.data.updated && (
+              <>
+                <span class="text-secondary">•</span>
+                <span
+                  class="text-secondary"
+                  title={`Updated ${formatDate(project.data.updated)}`}
+                >
+                  Updated {formatDate(project.data.updated)}
+                </span>
+              </>
+            )}
+          </div>
+
+          {project.data.tags.length > 0 && (
+            <div class="post-tags">
+              {project.data.tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          )}
+        </header>
+
+        {project.data.cover && (
+          <img src={project.data.cover} alt={project.data.title} class="cover-image" />
+        )}
+
+        {project.data.heroImage && (
+          <img src={project.data.heroImage} alt={project.data.title} class="hero-image" />
+        )}
+
+        <div class="prose">
+          <Content />
+        </div>
+      </div>
+
+      {headings.length > 0 && (
+        <aside class="post-sidebar">
+          <TableOfContents headings={headings} client:load />
+        </aside>
+      )}
+    </div>
+  </article>
+
+  <style>
+    .reading-progress-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: var(--color-bg-secondary);
+      z-index: 1000;
+    }
+
+    .reading-progress-bar {
+      height: 100%;
+      background-color: var(--color-accent);
+      transition: width 150ms ease;
+    }
+
+    .post-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+      position: relative;
+    }
+
+    @media (min-width: 1024px) {
+      .post-layout {
+        grid-template-columns: 1fr 250px;
+      }
+    }
+
+    .post-main {
+      min-width: 0;
+    }
+
+    .post-header {
+      margin-bottom: var(--space-2xl);
+    }
+
+    .post-title {
+      margin-top: 0;
+      margin-bottom: var(--space-md);
+      font-size: var(--font-size-4xl);
+    }
+
+    .post-metadata {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+      font-size: var(--font-size-sm);
+      margin-bottom: var(--space-md);
+    }
+
+    .post-tags {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      background-color: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      font-size: var(--font-size-xs);
+      color: var(--color-text-secondary);
+      transition:
+        border-color var(--transition-fast),
+        color var(--transition-fast);
+    }
+
+    .tag:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+      text-decoration: none;
+    }
+
+    .cover-image,
+    .hero-image {
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius-lg);
+      margin-bottom: var(--space-2xl);
+    }
+  </style>
+</BaseLayout>

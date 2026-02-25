@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../components/BaseLayout.astro";
+import Section from "../components/Section.astro";
+import PostCard from "../components/PostCard.astro";
+
+const posts = (
+  await getCollection("posts", ({ data }) => !data.draft)
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+function formatDate(date: Date): string {
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(date);
+}
+
+function shortSlug(slug: string): string {
+  return slug.split("/").pop() || slug;
+}
+---
+
+<BaseLayout title="Blog" description="All blog posts.">
+  <div class="container content-stack">
+    <Section title="All Blog Posts" subtitle="Every post, sorted by most recent.">
+      <div class="card-grid">
+        {posts.map((post) => (
+          <PostCard
+            title={post.data.title}
+            description={post.data.description}
+            href={`/posts/${shortSlug(post.slug)}`}
+            cover={post.data.cover}
+            date={formatDate(post.data.date)}
+            tags={post.data.tags}
+          />
+        ))}
+      </div>
+    </Section>
+  </div>
+</BaseLayout>

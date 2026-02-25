@@ -1,0 +1,53 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  cover?: string;
+  tags?: string[];
+  stack?: string[];
+  role?: string;
+  github?: string;
+  live?: string;
+}
+
+const { title, description, href, cover, tags = [], stack = [], role, github, live } =
+  Astro.props;
+---
+
+<article class="portfolio-card">
+  <a class="portfolio-card-link" href={href}>
+    {cover && <img src={cover} alt={title} class="portfolio-card-cover" />}
+    <div class="portfolio-card-body">
+      <div class="portfolio-card-header">
+        <h3 class="portfolio-card-title">{title}</h3>
+        {role && <span class="portfolio-card-role">{role}</span>}
+      </div>
+      <p class="portfolio-card-description">{description}</p>
+      {(tags.length > 0 || stack.length > 0) && (
+        <div class="portfolio-card-tags">
+          {stack.map((item) => (
+            <span class="pill">{item}</span>
+          ))}
+          {tags.map((tag) => (
+            <span class="pill pill-muted">{tag}</span>
+          ))}
+        </div>
+      )}
+    </div>
+  </a>
+  {(github || live) && (
+    <div class="portfolio-card-links">
+      {github && (
+        <a href={github} class="text-link" target="_blank" rel="noreferrer">
+          GitHub
+        </a>
+      )}
+      {live && (
+        <a href={live} class="text-link" target="_blank" rel="noreferrer">
+          Live
+        </a>
+      )}
+    </div>
+  )}
+</article>

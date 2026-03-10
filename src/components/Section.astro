@@ -10,8 +10,13 @@ const { id, title, subtitle } = Astro.props;
 
 <section class="section" id={id}>
   <header class="section-header">
-    <h2 class="section-title">{title}</h2>
-    {subtitle && <p class="section-subtitle">{subtitle}</p>}
+    <div class="section-heading">
+      <h2 class="section-title">{title}</h2>
+      {subtitle && <p class="section-subtitle">{subtitle}</p>}
+    </div>
+    <div class="section-action">
+      <slot name="action" />
+    </div>
   </header>
   <div class="section-body">
     <slot />

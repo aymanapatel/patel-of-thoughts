@@ -22,14 +22,7 @@ export const profile = {
     },
   ],
   experience: [
-    {
-      company: "Mastercard",
-      title: "Intern",
-      start: "2018",
-      end: "2018",
-      description:
-        "Rotated across engineering teams, shipping internal tools and learning enterprise-scale systems.",
-    },
+
     {
       company: "Mastercard",
       title: "Senior Software Engineer",
@@ -37,6 +30,14 @@ export const profile = {
       end: "2025",
       description:
         "Led delivery of backend services and developer platforms with a focus on reliability, observability, and secure integration.",
+    },
+    {
+      company: "Mastercard",
+      title: "Intern",
+      start: "2018",
+      end: "2018",
+      description:
+        "Rotated across engineering teams, shipping internal tools and learning enterprise-scale systems.",
     },
   ],
 };

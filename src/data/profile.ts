@@ -7,7 +7,9 @@ export const profile = {
   links: {
     github: "https://github.com/aymanapatel",
     linkedin: "https://www.linkedin.com/in/aymanapatel",
+    youtube: "https://www.youtube.com/@patelofthought",
     blog: "/blog",
+    cv: "/cv.pdf",
   },
   education: [
     {
@@ -22,7 +24,6 @@ export const profile = {
     },
   ],
   experience: [
-
     {
       company: "Mastercard",
       title: "Senior Software Engineer",
@@ -38,6 +39,40 @@ export const profile = {
       end: "2018",
       description:
         "Rotated across engineering teams, shipping internal tools and learning enterprise-scale systems.",
+    },
+  ],
+  timeline: [
+    {
+      type: "education" as const,
+      org: "Queen Mary University of London (QMUL)",
+      title: "Masters in Advanced Computer Science",
+      start: "2025",
+      end: "Present",
+      description: "Pursuing an advanced degree focused on distributed systems, AI, and modern software architecture.",
+    },
+    {
+      type: "work" as const,
+      org: "Mastercard",
+      title: "Senior Software Engineer",
+      start: "2019",
+      end: "2025",
+      description: "Led delivery of backend services and developer platforms with a focus on reliability, observability, and secure integration.",
+    },
+    {
+      type: "work" as const,
+      org: "Mastercard",
+      title: "Intern",
+      start: "2018",
+      end: "2018",
+      description: "Rotated across engineering teams, shipping internal tools and learning enterprise-scale systems.",
+    },
+    {
+      type: "education" as const,
+      org: "SVNIT, Surat",
+      title: "Bachelors in Computer Engineering",
+      start: "2015",
+      end: "2019",
+      description: "Graduated with a degree in Computer Engineering, building a strong foundation in systems, algorithms, and software design.",
     },
   ],
 };

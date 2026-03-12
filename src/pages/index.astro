@@ -2,18 +2,14 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../components/BaseLayout.astro";
 import Section from "../components/Section.astro";
-import ProjectCard from "../components/ProjectCard.astro";
 import PostCard from "../components/PostCard.astro";
 import { profile } from "../data/profile";
-import { testimonials } from "../data/testimonials";
 
-const projects = await getCollection("projects", ({ data }) => !data.draft);
-const featuredProjects = projects.filter((project) => project.data.showcase);
-const otherProjects = projects.filter((project) => !project.data.showcase);
-
-const showcasePosts = (
-  await getCollection("posts", ({ data }) => !data.draft && data.showcase)
+const posts = (
+  await getCollection("posts", ({ data }) => !data.draft)
 ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const latestPosts = posts.slice(0, 3);
 
 function formatDate(date: Date): string {
   return new Intl.DateTimeFormat("en-US", {
@@ -28,63 +24,73 @@ function shortSlug(slug: string): string {
 }
 ---
 
-<BaseLayout title="" description="Portfolio and selected writing.">
-  <div class="hero">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <p class="hero-eyebrow">Portfolio</p>
-        <h1>{profile.name}</h1>
-        <p class="hero-role">{profile.role}</p>
-        <p class="hero-tagline">{profile.tagline}</p>
-        <div class="hero-actions">
-          <a class="button" href="/#projects">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 4h7v7H4z"></path>
-              <path d="M13 4h7v7h-7z"></path>
-              <path d="M4 13h7v7H4z"></path>
-              <path d="M13 13h7v7h-7z"></path>
-            </svg>
-            Explore projects
+<BaseLayout
+  title="Patel of Thought"
+  description="Patel of Thought is a tech platform for blog posts and videos."
+  navVariant="patel"
+>
+  <section class="platform-hero">
+    <div class="container platform-hero-grid">
+      <div class="platform-hero-copy">
+        <h1 class="platform-title">A tech platform for builders.</h1>
+        <p class="platform-tagline">
+          Long-form engineering notes, pragmatic systems thinking, and video
+          walkthroughs for people who ship.
+        </p>
+        <div class="platform-actions">
+          <a class="button" href="/blog">Read the blog</a>
+          <a
+            class="button ghost"
+            href={profile.links.youtube}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Watch on YouTube
           </a>
-          <a class="button ghost" href={profile.links.blog}>Read my blog</a>
+        </div>
+        <div class="platform-metrics">
+          <div class="metric">
+            <p class="metric-label">Focus</p>
+            <p class="metric-value">Engineering, AI, Product</p>
+          </div>
+          <div class="metric">
+            <p class="metric-label">Format</p>
+            <p class="metric-value">Essays, playbooks, videos</p>
+          </div>
+          <div class="metric">
+            <p class="metric-label">Cadence</p>
+            <p class="metric-value">Bi-weekly drops</p>
+          </div>
         </div>
       </div>
-      <div class="hero-card">
-        <div class="hero-card-inner hero-terminal">
-          <div class="terminal-bar">
-            <span class="terminal-dot dot-red"></span>
-            <span class="terminal-dot dot-yellow"></span>
-            <span class="terminal-dot dot-green"></span>
-            <span class="terminal-title">now.sh</span>
-          </div>
-          <p class="terminal-loading">
-            <span class="terminal-prompt">$</span>
-            booting profile
-            <span class="loading-dots" aria-hidden="true">...</span>
+      <div class="platform-hero-card">
+        <div class="platform-hero-card-inner">
+          <p class="card-eyebrow">Latest drop</p>
+          <h3>System design notes for modern teams</h3>
+          <p class="text-secondary">
+            Practical checklists, architecture decisions, and the tradeoffs you
+            actually hit in production.
           </p>
-          <p class="hero-card-title">NOW</p>
-          <h3 class="terminal-line">Focused on pragmatic, durable software.</h3>
-          <p class="terminal-line terminal-line-secondary">
-            Solving real-world problems supercharged with AI. <br/> Knows a little bit about everything.
-          </p>
-          <div class="hero-card-links terminal-links">
-            <a class="text-link" href={profile.links.github} target="_blank" rel="noreferrer">
-              GitHub
-            </a>
-            <a class="text-link" href={profile.links.linkedin} target="_blank" rel="noreferrer">
-              LinkedIn
+          <div class="platform-hero-links">
+            <a class="text-link" href="/blog">Browse the library</a>
+            <a
+              class="text-link"
+              href={profile.links.youtube}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Watch highlights
             </a>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
   <div class="container content-stack">
-
-    <Section title="Blog Showcase" subtitle="Deep dives, systems thinking, and engineering notes.">
+    <Section title="Latest Blog Posts" subtitle="Fresh writing from Patel of Thought.">
       <div class="card-grid">
-        {showcasePosts.map((post) => (
+        {latestPosts.map((post) => (
           <PostCard
             title={post.data.title}
             description={post.data.description}
@@ -95,135 +101,208 @@ function shortSlug(slug: string): string {
           />
         ))}
       </div>
-    </Section>
-
-    <Section title="Education">
-      <div class="info-grid">
-        {profile.education.map((item) => (
-          <div class="info-card">
-            <h3>{item.institution}</h3>
-            <p class="text-secondary">{item.degree}</p>
-            <p class="text-secondary">{item.status}</p>
-          </div>
-        ))}
-      </div>
-    </Section>
-
-    <Section title="Previous Company">
-      <div class="info-grid">
-        {profile.experience.map((item) => (
-          <div class="info-card">
-            <div class="info-card-header">
-              <h3>{item.company}</h3>
-              <span class="pill">{item.start}–{item.end}</span>
-            </div>
-            <p class="text-secondary">{item.title}</p>
-            <p>{item.description}</p>
-          </div>
-        ))}
+      <div class="section-cta">
+        <a class="button ghost" href="/blog">Explore all posts</a>
       </div>
     </Section>
 
     <Section
-      title="Recommendations"
-      subtitle="LinkedIn-style feedback from colleagues and partners."
+      title="Video Library"
+      subtitle="Deep dives, walkthroughs, and short-form engineering lessons."
     >
-      <Fragment slot="action">
-        <input
-          class="testimonials-toggle"
-          type="checkbox"
-          id="toggle-testimonials"
-        />
-        <label class="button ghost testimonials-toggle-btn" for="toggle-testimonials">
-          <span class="label-more">Show more</span>
-          <span class="label-less">Show less</span>
-        </label>
-      </Fragment>
-      <div class="testimonials-grid">
-        {testimonials.map((item) => (
-          <article class="testimonial-card">
-            <div class="testimonial-header">
-              <div class="testimonial-avatar">{item.initials}</div>
-              <div class="testimonial-identity">
-                <p class="testimonial-name">{item.name}</p>
-                <p class="testimonial-role text-secondary">{item.role}</p>
-                <p class="testimonial-meta">{item.relationship}</p>
-              </div>
-              <span class="pill pill-muted">{item.date}</span>
-            </div>
-            <p class="testimonial-quote">"{item.quote}"</p>
-            <div class="testimonial-footer">
-              <span class="testimonial-source">LinkedIn recommendation</span>
-            </div>
-          </article>
-        ))}
+      <div class="video-grid">
+        <article class="video-card">
+          <p class="video-label">Architecture</p>
+          <h3>Breaking down real-world system designs</h3>
+          <p class="text-secondary">
+            Case studies from modern platforms, with the tradeoffs called out.
+          </p>
+          <a
+            class="text-link"
+            href={profile.links.youtube}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Watch the series
+          </a>
+        </article>
+        <article class="video-card">
+          <p class="video-label">AI in practice</p>
+          <h3>Shipping AI features responsibly</h3>
+          <p class="text-secondary">
+            Practical guidance on building reliable, observable AI products.
+          </p>
+          <a
+            class="text-link"
+            href={profile.links.youtube}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Watch the series
+          </a>
+        </article>
+        <article class="video-card">
+          <p class="video-label">Career</p>
+          <h3>Leadership, mentoring, and growth</h3>
+          <p class="text-secondary">
+            Clear frameworks for senior engineers and tech leads.
+          </p>
+          <a
+            class="text-link"
+            href={profile.links.youtube}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Watch the series
+          </a>
+        </article>
       </div>
-    </Section>
-    <Section id="projects" title="Projects" subtitle="Selected work with real-world impact.">
-      <div class="card-grid">
-        {featuredProjects.map((project) => (
-          <ProjectCard
-            title={project.data.title}
-            description={project.data.description}
-            href={`/projects/${shortSlug(project.slug)}`}
-            cover={project.data.cover}
-            tags={project.data.tags}
-            stack={project.data.stack}
-            role={project.data.role}
-            github={project.data.github}
-            live={project.data.live}
-          />
-        ))}
-      </div>
-      {otherProjects.length > 0 && (
-        <div class="card-grid secondary-grid">
-          {otherProjects.map((project) => (
-            <ProjectCard
-              title={project.data.title}
-              description={project.data.description}
-              href={`/projects/${shortSlug(project.slug)}`}
-              cover={project.data.cover}
-              tags={project.data.tags}
-              stack={project.data.stack}
-              role={project.data.role}
-              github={project.data.github}
-              live={project.data.live}
-            />
-          ))}
-        </div>
-      )}
-    </Section>
-    <Section title="Connect">
-      <div class="connect-grid">
-        <a class="connect-card" href={profile.links.github} target="_blank" rel="noreferrer">
-          <span class="connect-title">
-            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.532 1.033 1.532 1.033.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.03-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.56 9.56 0 0 1 2.504.337c1.909-1.296 2.748-1.026 2.748-1.026.546 1.378.203 2.397.1 2.65.64.7 1.028 1.595 1.028 2.688 0 3.848-2.338 4.695-4.566 4.944.359.309.678.92.678 1.855 0 1.337-.012 2.415-.012 2.743 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.523 2 12 2Z"/>
-            </svg>
-            GitHub
-          </span>
-          <p class="text-secondary">Code, experiments, and open source.</p>
-        </a>
-        <a class="connect-card" href={profile.links.linkedin} target="_blank" rel="noreferrer">
-          <span class="connect-title">
-            <svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M4.98 3.5c0 1.38-1.11 2.5-2.48 2.5C1.11 6 0 4.88 0 3.5 0 2.12 1.11 1 2.5 1 3.87 1 4.98 2.12 4.98 3.5ZM0.5 8h4V24h-4V8Zm7.5 0h3.83v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.77 2.65 4.77 6.1V24h-4v-7.6c0-1.81-.03-4.14-2.52-4.14-2.53 0-2.92 1.98-2.92 4.02V24h-4V8Z"/>
-            </svg>
-            LinkedIn
-          </span>
-          <p class="text-secondary">Career timeline and recommendations.</p>
-        </a>
-        <a class="connect-card" href={profile.links.blog}>
-          <span class="connect-title">
-            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 5h12a4 4 0 0 1 4 4v10H8a4 4 0 0 0-4 4V5Z"></path>
-              <path d="M8 19V5"></path>
-            </svg>
-            Blog
-          </span>
-          <p class="text-secondary">Every post, system deep dive, and note.</p>
+      <div class="section-cta">
+        <a
+          class="button"
+          href={profile.links.youtube}
+          target="_blank"
+          rel="noreferrer"
+        >
+          Visit the YouTube channel
         </a>
       </div>
     </Section>
   </div>
 </BaseLayout>
+
+<style>
+  .platform-hero {
+    padding: var(--space-3xl) 0 var(--space-2xl);
+  }
+
+  .platform-hero-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-2xl);
+    align-items: center;
+  }
+
+  .platform-hero-copy {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .platform-title {
+    margin: 0;
+    font-size: clamp(2.4rem, 4vw, 3.6rem);
+  }
+
+  .platform-tagline {
+    font-size: var(--font-size-lg);
+    color: var(--color-text-secondary);
+  }
+
+  .platform-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .platform-metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--space-lg);
+    padding-top: var(--space-md);
+  }
+
+  .metric {
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-md);
+  }
+
+  .metric-label {
+    margin: 0 0 var(--space-xs);
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-text-secondary);
+  }
+
+  .metric-value {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  .platform-hero-card {
+    background: linear-gradient(140deg, rgba(10, 91, 255, 0.2), rgba(255, 183, 3, 0.18));
+    padding: 2px;
+    border-radius: var(--radius-lg);
+  }
+
+  .platform-hero-card-inner {
+    background-color: var(--color-bg-secondary);
+    border-radius: calc(var(--radius-lg) - 2px);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.08);
+  }
+
+  .card-eyebrow {
+    margin: 0;
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    color: var(--color-text-secondary);
+  }
+
+  .platform-hero-links {
+    display: flex;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+  }
+
+  .section-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-lg);
+  }
+
+  .video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--space-lg);
+  }
+
+  .video-card {
+    background-color: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .video-label {
+    margin: 0;
+    font-size: var(--font-size-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-text-secondary);
+  }
+
+  @media (max-width: 768px) {
+    .platform-hero {
+      padding-top: var(--space-2xl);
+    }
+
+    .platform-title {
+      font-size: clamp(2.2rem, 8vw, 3rem);
+    }
+
+    .platform-actions {
+      width: 100%;
+    }
+  }
+</style>

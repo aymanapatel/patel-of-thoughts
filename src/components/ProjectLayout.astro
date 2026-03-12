@@ -21,7 +21,11 @@ function formatDate(date: Date): string {
 }
 ---
 
-<BaseLayout title={project.data.title} description={project.data.description}>
+<BaseLayout
+  title={project.data.title}
+  description={project.data.description}
+  navVariant="me"
+>
   <ReadingProgress client:load />
 
   <article class="container">

@@ -687,6 +687,11 @@ pre code {
   font-size: var(--font-size-sm);
 }
 
+.testimonials-actions {
+  display: flex;
+  justify-content: center;
+}
+
 .section:has(.testimonials-toggle:not(:checked))
   .testimonials-grid
   .testimonial-card:nth-child(n + 5) {
@@ -716,6 +721,32 @@ pre code {
     width: 100%;
   }
 
+  .recommendations-section .section-title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .testimonial-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "avatar identity"
+      "pill pill";
+    align-items: start;
+  }
+
+  .testimonial-avatar {
+    grid-area: avatar;
+  }
+
+  .testimonial-identity {
+    grid-area: identity;
+  }
+
+  .testimonial-header .pill {
+    grid-area: pill;
+    justify-self: start;
+  }
+
   .testimonials-grid {
     grid-template-columns: 1fr;
   }
@@ -728,4 +759,120 @@ pre code {
   100% {
     width: 1.4rem;
   }
+}
+
+/* ─── Timeline ───────────────────────────────────────────────────────────── */
+
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.tl-item {
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 0 var(--space-lg);
+  padding-bottom: var(--space-2xl);
+  opacity: 0.3;
+  transition: opacity var(--transition-base);
+}
+
+.tl-item:last-child {
+  padding-bottom: 0;
+}
+
+.tl-item.is-active {
+  opacity: 1;
+}
+
+.tl-item.is-active .tl-dot {
+  background-color: var(--color-accent);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--color-accent) 18%, transparent);
+  transform: scale(1.3);
+}
+
+.tl-spine {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tl-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background-color: var(--color-border);
+  flex-shrink: 0;
+  margin-top: 0.35rem;
+  z-index: 1;
+  transition: background-color var(--transition-base),
+              box-shadow var(--transition-base),
+              transform var(--transition-base);
+}
+
+.tl-line {
+  width: 2px;
+  flex: 1;
+  background-color: var(--color-border);
+  margin-top: 0.4rem;
+}
+
+.tl-item:last-child .tl-line {
+  display: none;
+}
+
+.tl-body {
+  padding-bottom: var(--space-md);
+}
+
+.tl-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.tl-years {
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  font-family: var(--font-mono);
+  color: var(--color-text-secondary);
+}
+
+.tl-org {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  margin: 0 0 0.15rem;
+}
+
+.tl-title {
+  font-size: var(--font-size-sm);
+  margin: 0 0 var(--space-sm);
+}
+
+.tl-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+}
+
+.pill-edu {
+  background-color: rgba(255, 183, 3, 0.15);
+  color: var(--color-text);
+}
+
+.pill-work {
+  background-color: rgba(10, 91, 255, 0.1);
+  color: var(--color-text);
+}
+
+[data-theme='dark'] .pill-edu {
+  background-color: rgba(244, 201, 93, 0.18);
+}
+
+[data-theme='dark'] .pill-work {
+  background-color: rgba(122, 162, 255, 0.15);
 }

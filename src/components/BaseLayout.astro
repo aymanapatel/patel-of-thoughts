@@ -16,7 +16,9 @@ const site_label = navVariant === "me" ? "~/me" : site_title;
 const site_href = navVariant === "me" ? "/me" : "/";
 const site_description = navVariant === "me" ? "Ayman's Portfolio" : "Patel of thought platform";
 const site_url = import.meta.env.PUBLIC_SITE_URL || "https://patelofthought.com";
-const favicon_url = `${site_url.replace(/\/$/, "")}/favicon.svg`;
+const asset_version = "rocket-v1";
+const favicon_path = `/favicon.svg?v=${asset_version}`;
+const favicon_url = `${site_url.replace(/\/$/, "")}${favicon_path}`;
 const title_text = title ? `${title} | ${site_title}` : site_title;
 
 const navLinks =
@@ -43,7 +45,7 @@ const navLinks =
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={favicon_path} />
     <meta name="generator" content={Astro.generator} />
 
     <title>{title_text}</title>

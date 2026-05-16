@@ -16,6 +16,7 @@ const site_label = navVariant === "me" ? "~/me" : site_title;
 const site_href = navVariant === "me" ? "/me" : "/";
 const site_description = navVariant === "me" ? "Ayman's Portfolio" : "Patel of thought platform";
 const site_url = import.meta.env.PUBLIC_SITE_URL || "https://patelofthought.com";
+const favicon_url = `${site_url.replace(/\/$/, "")}/favicon.svg`;
 const title_text = title ? `${title} | ${site_title}` : site_title;
 
 const navLinks =
@@ -52,12 +53,12 @@ const navLinks =
     <meta property="og:title" content={title_text} />
     <meta property="og:description" content={description || site_description} />
     <meta property="og:url" content={site_url} />
-    <meta property="og:image" content="/favicon.svg" />
+    <meta property="og:image" content={favicon_url} />
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content={title_text} />
     <meta name="twitter:description" content={description || site_description} />
-    <meta name="twitter:image" content="/favicon.svg" />
+    <meta name="twitter:image" content={favicon_url} />
 
     <script is:inline>
       const savedTheme = localStorage.getItem("theme");

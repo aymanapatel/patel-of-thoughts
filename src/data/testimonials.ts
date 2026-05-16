@@ -2,7 +2,7 @@ export const testimonials = [
     {
     name: "Suryanarayana Tadla",
     role:
-      "Seasoned Engineering Leader Building Great Customer Experiences | Digital & Business Transformation",
+      "Senior VP @ Mastercard | Seasoned Engineering Leader Building Great Customer Experiences",
     relationship: "Suryanarayana managed Ayman directly",
     date: "Jul 30, 2025",
     initials: "ST",
@@ -11,7 +11,7 @@ export const testimonials = [
   },
   {
     name: "Priti Damle",
-    role: "Passionate engineer, empathetic leader striving to deliver best",
+    role: "Director @ Mastercard | Passionate engineer, empathetic leader striving to deliver best",
     relationship: "Priti managed Ayman directly",
     date: "Apr 8, 2025",
     initials: "PD",
@@ -20,7 +20,7 @@ export const testimonials = [
   },
     {
     name: "Hilwan Idrus",
-    role: "Tech Lead at Mastercard",
+    role: "Tech Lead @ Mastercard",
     relationship: "Hilwan worked with Ayman on the Mastecard UI Design system where Ayman contributed feature and bug fixes.",
     date: "Aug 1, 2025",
     initials: "HI",
@@ -29,7 +29,7 @@ export const testimonials = [
   },
   {
     name: "Pooja Jadhav",
-    role: "Senior Software Engineer at Mastercard",
+    role: "Senior Software Engineer @ Mastercard",
     relationship: "Ayman was senior to Pooja, didn't work in same team. But mentored in resolving critical UI issues",
     date: "Aug 18, 2025",
     initials: "PJ",
@@ -38,7 +38,7 @@ export const testimonials = [
   },
   {
     name: "Kiran Baldaniya",
-    role: "Software Engineer II at Mastercard",
+    role: "Software Engineer II @ Mastercard",
     relationship: "Kiran worked with Ayman on the same team",
     date: "Aug 15, 2025",
     initials: "KB",
@@ -47,7 +47,7 @@ export const testimonials = [
   },
   {
     name: "Shubhi Kharaya",
-    role: "Senior Software Engineer at Mastercard",
+    role: "Senior Software Engineer @ Mastercard",
     relationship: "Shubhi worked with Ayman on the same team",
     date: "Aug 4, 2025",
     initials: "SK",
@@ -65,7 +65,7 @@ export const testimonials = [
   },
   {
     name: "Chinmay Kalegoankar",
-    role: "Full stack Engineer at Talenica | Java Microservices | Cloud Back-end",
+    role: "Full stack Engineer @ Talenica | Java Microservices | Cloud Back-end",
     relationship: "Chinmay and Ayman studied together",
     date: "Oct 22, 2023",
     initials: "CK",

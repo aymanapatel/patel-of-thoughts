@@ -7,10 +7,11 @@ import { profile } from "../data/profile";
 interface Props {
   title: string;
   description: string;
+  image?: string;
   navVariant?: "patel" | "me";
 }
 
-const { title, description, navVariant = "patel" } = Astro.props;
+const { title, description, image, navVariant = "patel" } = Astro.props;
 const site_title = navVariant === "me" ? "Ayman Patel" : "Patel of thought";
 const site_label = navVariant === "me" ? "~/me" : site_title;
 const site_href = navVariant === "me" ? "/me" : "/";
@@ -18,7 +19,12 @@ const site_description = navVariant === "me" ? "Ayman's Portfolio" : "Patel of t
 const site_url = import.meta.env.PUBLIC_SITE_URL || "https://patelofthought.com";
 const asset_version = "rocket-v1";
 const favicon_path = `/favicon.svg?v=${asset_version}`;
-const favicon_url = `${site_url.replace(/\/$/, "")}${favicon_path}`;
+const site_origin = site_url.replace(/\/$/, "");
+const default_image_path = "/images/og_image.webp";
+const preview_image = image || default_image_path;
+const preview_image_url = preview_image.startsWith("http")
+  ? preview_image
+  : `${site_origin}${preview_image.startsWith("/") ? preview_image : `/${preview_image}`}`;
 const title_text = title ? `${title} | ${site_title}` : site_title;
 
 const navLinks =
@@ -55,12 +61,12 @@ const navLinks =
     <meta property="og:title" content={title_text} />
     <meta property="og:description" content={description || site_description} />
     <meta property="og:url" content={site_url} />
-    <meta name="image" property="og:image" content={favicon_url} />
+    <meta name="image" property="og:image" content={preview_image_url} />
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title_text} />
     <meta name="twitter:description" content={description || site_description} />
-    <meta name="twitter:image" content={favicon_url} />
+    <meta name="twitter:image" content={preview_image_url} />
 
     <script is:inline>
       const savedTheme = localStorage.getItem("theme");

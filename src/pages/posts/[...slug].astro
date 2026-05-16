@@ -36,7 +36,11 @@ function formatDate(date: Date): string {
 }
 ---
 
-<BaseLayout title={post.data.title} description={post.data.description}>
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  image={post.data.cover || post.data.heroImage || post.data.ogImage}
+>
   <ReadingProgress client:load />
 
   <article class="container">

@@ -11,6 +11,7 @@ const posts = defineCollection({
         draft: z.boolean().default(false),
         heroImage: z.string().optional(),
         cover: z.string().optional(),
+        ogImage: z.string().optional(),
         showcase: z.boolean().default(false),
     }),
 });
@@ -26,6 +27,7 @@ const projects = defineCollection({
         draft: z.boolean().default(false),
         heroImage: z.string().optional(),
         cover: z.string().optional(),
+        ogImage: z.string().optional(),
         github: z.string().url().optional(),
         live: z.string().url().optional(),
         showcase: z.boolean().default(false),

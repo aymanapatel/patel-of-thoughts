@@ -4,10 +4,8 @@ export default function ThemeToggle() {
     const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
     useEffect(() => {
-        // Check localStorage and system preference on mount
         const savedTheme = localStorage.getItem('theme') as 'light' | 'dark' | null;
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const initialTheme = savedTheme || (prefersDark ? 'dark' : 'light');
+        const initialTheme = savedTheme || 'dark';
 
         setTheme(initialTheme);
         document.documentElement.setAttribute('data-theme', initialTheme);
@@ -27,7 +25,7 @@ export default function ThemeToggle() {
             aria-label="Toggle theme"
             title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
         >
-            {theme === 'light' ? '🌙' : '☀️'}
+            {theme === 'light' ? '10' : '01'}
         </button>
     );
 }

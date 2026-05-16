@@ -9,7 +9,7 @@ export const profile = {
     linkedin: "https://www.linkedin.com/in/aymanapatel",
     youtube: "https://www.youtube.com/@patelofthought",
     blog: "/blog",
-    cv: "/cv.pdf",
+    cv: "/ayman-cv.pdf",
   },
   education: [
     {

@@ -37,7 +37,7 @@ function shortSlug(slug: string): string {
             <span class="terminal-dot dot-red"></span>
             <span class="terminal-dot dot-yellow"></span>
             <span class="terminal-dot dot-green"></span>
-            <span class="terminal-title">root@patel:~</span>
+            <span class="terminal-title">root@aymanapatel:~</span>
           </div>
           <p class="terminal-muted">[system] boot sequence complete.</p>
           <p class="terminal-muted">[system] interface loaded in silent mode.</p>
@@ -67,14 +67,14 @@ function shortSlug(slug: string): string {
             >
               LinkedIn
             </a>
-            <a
+            <!-- <a
               class="terminal-button"
               href={profile.links.youtube}
               target="_blank"
               rel="noreferrer"
             >
               YouTube
-            </a>
+            </a> -->
           </div>
           <p class="terminal-command">
             <span class="terminal-prompt">&gt;</span> open /portfolio
@@ -368,7 +368,7 @@ function shortSlug(slug: string): string {
 
   .terminal-socials {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr));
     gap: var(--space-sm);
     margin: var(--space-xs) 0 var(--space-sm);
   }
@@ -383,6 +383,7 @@ function shortSlug(slug: string): string {
   .terminal-button,
   .terminal-action {
     min-height: 2.45rem;
+    min-width: 0;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -396,11 +397,17 @@ function shortSlug(slug: string): string {
     line-height: 1.2;
     text-transform: uppercase;
     text-decoration: none;
+    text-align: center;
+    white-space: nowrap;
     transition:
       background-color var(--transition-fast),
       border-color var(--transition-fast),
       color var(--transition-fast),
       transform var(--transition-fast);
+  }
+
+  .terminal-button {
+    width: 100%;
   }
 
   .terminal-button:hover,

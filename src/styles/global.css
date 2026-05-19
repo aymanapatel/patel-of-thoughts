@@ -604,6 +604,32 @@ pre code {
   color: var(--color-text);
 }
 
+.connect-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.connect-pills .pill {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background-color: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  font-family: var(--font-mono);
+  color: var(--color-text-secondary);
+  transition:
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.connect-pills .pill:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
 .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

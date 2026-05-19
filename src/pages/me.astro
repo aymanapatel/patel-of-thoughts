@@ -169,7 +169,12 @@ const techStack = [
       </div>
     </Section>
 
-        <Section title="Tech Stack" subtitle="Languages, frameworks, and tools I use to ship.">
+    <Section title="Tech Stack" subtitle="Languages, frameworks, and tools I use to ship.">
+      <div class="tech-summary-pills">
+        {techStack.map((category) => (
+          <span class="pill pill-accent">{category.name}</span>
+        ))}
+      </div>
       <div class="tech-grid">
         {techStack.map((category) => (
           <div class="tech-card">
@@ -522,6 +527,27 @@ const techStack = [
   }
 
   /* ── Tech Stack section ─────────────────────────────────────────────── */
+  .tech-summary-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-xl);
+  }
+
+  .tech-summary-pills .pill-accent {
+    display: inline-block;
+    padding: 0.4rem 0.75rem;
+    background-color: color-mix(in srgb, var(--color-accent) 12%, transparent);
+    border: 1px solid color-mix(in srgb, var(--color-accent) 35%, transparent);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-xs);
+    font-family: var(--font-mono);
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
   .tech-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

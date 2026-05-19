@@ -23,8 +23,7 @@ const site_url = import.meta.env.PUBLIC_SITE_URL || "https://patelofthought.com"
 const asset_version = "rocket-v1";
 const favicon_path = `/favicon_21_9.png?v=${asset_version}`;
 const site_origin = site_url.replace(/\/$/, "");
-const default_image_path = "/images/og_image.webp";
-const preview_image = image || default_image_path;
+const preview_image = image || favicon_path;
 const preview_image_base = preview_image.startsWith("http")
   ? preview_image
   : `${site_origin}${preview_image.startsWith("/") ? preview_image : `/${preview_image}`}`;

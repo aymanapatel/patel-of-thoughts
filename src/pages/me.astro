@@ -30,36 +30,111 @@ function shortSlug(slug: string): string {
 const techStack = [
   {
     name: "Frontend",
-    items: ["React", "TypeScript", "Redux Toolkit", "RTK Query", "Next.js", "Vite", "Webpack", "Module Federation", "Figma"],
+    items: [
+      { label: "React", icon: "react" },
+      { label: "TypeScript", icon: "typescript" },
+      { label: "Redux Toolkit", icon: "redux" },
+      { label: "RTK Query", icon: "redux" },
+      { label: "Next.js", icon: "nextjs" },
+      { label: "Vite", icon: "vite" },
+      { label: "Webpack", icon: "webpack" },
+      { label: "Module Federation", icon: "webpack" },
+      { label: "Figma", icon: "figma" },
+    ],
   },
   {
     name: "Backend",
-    items: ["Spring", "Spring Data JPA", "Hibernate", "Java", "Python", "Go", "FastAPI", "Django", "Quarkus", "REST APIs", "Microservices", "Event Sourcing", "CQRS"],
+    items: [
+      { label: "Spring", icon: "spring" },
+      { label: "Spring Data JPA", icon: "spring" },
+      { label: "Hibernate", icon: "hibernate" },
+      { label: "Java", icon: "java" },
+      { label: "Python", icon: "python" },
+      { label: "Go", icon: "go" },
+      { label: "FastAPI", icon: "fastapi" },
+      { label: "Django", icon: "django" },
+      { label: "Quarkus", icon: "quarkus" },
+      { label: "REST APIs", icon: null },
+      { label: "Microservices", icon: null },
+      { label: "Event Sourcing", icon: null },
+      { label: "CQRS", icon: null },
+    ],
   },
   {
-    name: "Databases & Events",
-    items: ["PostgreSQL", "Oracle", "MongoDB", "Redis", "Kafka", "RabbitMQ", "Debezium", "CDC"],
+    name: "Databases & Event Platform",
+    items: [
+      { label: "PostgreSQL", icon: "postgresql" },
+      { label: "Oracle", icon: "oracle" },
+      { label: "MongoDB", icon: "mongodb" },
+      { label: "Redis", icon: "redis" },
+      { label: "Kafka", icon: "apachekafka" },
+      { label: "RabbitMQ", icon: "rabbitmq" },
+      { label: "Debezium", icon: "" },
+      { label: "Time series databases", icon: "debezium" },
+      { label: "CDC", icon: null },
+    ],
   },
   {
     name: "Cloud & DevOps",
-    items: ["AWS", "Docker", "Kubernetes", "Terraform", "Localstack", "Ansible", "PCF", "Jenkins", "Gradle"],
+    items: [
+      { label: "AWS", icon: "aws" },
+      { label: "Docker", icon: "docker" },
+      { label: "Kubernetes", icon: "kubernetes" },
+      { label: "Terraform", icon: "terraform" },
+      { label: "Localstack", icon: "" },
+      { label: "PCF", icon: "cloudfoundry" },
+      { label: "Jenkins", icon: "jenkins" },
+      { label: "Gradle", icon: "gradle" },
+    ],
   },
   {
     name: "AI / ML",
-    items: ["PyTorch", "LLM APIs", "Langchain", "Chroma", "RAG", "Vector Databases", "Transformers", "LoRA", "MLFlow", "Pandas", "DuckDB", "Parquet"],
+    items: [
+      { label: "PyTorch", icon: "pytorch" },
+      { label: "LLM APIs", icon: null },
+      { label: "Langchain", icon: "langchain" },
+      { label: "Chroma", icon: "chroma" },
+      { label: "RAG", icon: null },
+      { label: "Vector Databases", icon: null },
+      { label: "Transformers", icon: "huggingface" },
+      { label: "LoRA", icon: null },
+      { label: "MLFlow", icon: "mlflow" },
+      { label: "Pandas", icon: "pandas" },
+      { label: "DuckDB", icon: "duckdb" },
+      { label: "Parquet", icon: "apacheparquet" },
+    ],
   },
   {
     name: "Observability & Testing",
-    items: ["Grafana", "Prometheus", "Splunk", "Dynatrace", "OpenTelemetry", "eBPF", "JUnit", "Mockito", "Jest", "RTL", "Cypress", "Playwright", "Testcontainers"],
+    items: [
+      { label: "Grafana", icon: "grafana" },
+      { label: "Prometheus", icon: "prometheus" },
+      { label: "Splunk", icon: "splunk" },
+      { label: "Dynatrace", icon: "dynatrace" },
+      { label: "OpenTelemetry", icon: "opentelemetry" },
+      { label: "eBPF", icon: null },
+      { label: "JUnit", icon: "junit5" },
+      { label: "Mockito", icon: "mockito" },
+      { label: "Jest", icon: "jest" },
+      { label: "RTL", icon: "react" },
+      { label: "Cypress", icon: "cypress" },
+      { label: "Playwright", icon: "playwright" },
+      { label: "Testcontainers", icon: "testcontainers" },
+    ],
   },
   {
     name: "Platform & Tools",
-    items: ["Camunda", "BPMN", "DMN", "CMMN", "Mixpanel", "CDN"],
+    items: [
+      { label: "Camunda", icon: "camunda" },
+      { label: "Mixpanel", icon: "mixpanel" },
+      { label: "Cloudflare", icon: "cloudflare" },
+      { label: "Akamai", icon: "akamai" },
+    ],
   },
 ];
 ---
 
-<BaseLayout title="Ayman Patel" description="A tech platform for learners and builders." navVariant="me">
+<BaseLayout title="Ayman Patel" description="A tech platform for learners and builders." image="/favicon_21_9.png" navVariant="me">
   <div class="hero">
     <div class="container hero-grid">
       <div class="hero-card">
@@ -181,7 +256,10 @@ const techStack = [
             <h3 class="tech-card-title">{category.name}</h3>
             <div class="tech-pills">
               {category.items.map((item) => (
-                <span class="pill">{item}</span>
+                <span class="pill">
+                  {item.icon && <img class="tech-icon" src={`https://cdn.simpleicons.org/${item.icon}`} alt="" width="14" height="14" loading="lazy" />}
+                  {item.label}
+                </span>
               ))}
             </div>
           </div>
@@ -588,7 +666,9 @@ const techStack = [
   }
 
   .tech-pills .pill {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
     padding: 0.35rem 0.6rem;
     background-color: var(--color-bg);
     border: 1px solid var(--color-border);
@@ -599,6 +679,18 @@ const techStack = [
     transition:
       border-color var(--transition-fast),
       color var(--transition-fast);
+  }
+
+  .tech-pills .pill .tech-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    opacity: 0.8;
+    transition: opacity var(--transition-fast);
+  }
+
+  .tech-pills .pill:hover .tech-icon {
+    opacity: 1;
   }
 
   .tech-pills .pill:hover {

@@ -1,4 +1,23 @@
-export const profile = {
+interface ProfileLinks {
+  github: string;
+  linkedin: string;
+  youtube: string;
+  twitter: string;
+  blog: string;
+  cv: string;
+}
+
+interface Profile {
+  name: string;
+  role: string;
+  tagline: string;
+  links: ProfileLinks;
+  education: { institution: string; degree: string; status: string }[];
+  experience: { company: string; title: string; start: string; end: string; description: string }[];
+  timeline: { type: "education" | "work"; org: string; title: string; start: string; end: string; description: string }[];
+}
+
+export const profile: Profile = {
   name: "Ayman Patel",
   role:
     "My name is Ayman Patel. Currently pursuing masters in QMUL and worked as senior software engineer for 6 years at Mastercard",

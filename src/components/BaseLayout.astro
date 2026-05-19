@@ -20,19 +20,17 @@ const site_description = navVariant === "me"
   ? "Staff Software Engineer. Building thoughtful systems, pragmatic platforms, and tools for people who ship."
   : "Long-form engineering notes, pragmatic systems thinking, and video walkthroughs for people who ship.";
 const site_url = import.meta.env.PUBLIC_SITE_URL || "https://patelofthought.com";
-const asset_version = "rocket-v1";
-const favicon_path = `/favicon_21_9.png?v=${asset_version}`;
+const default_og_image = "/favicon_21_9.png";
 const site_origin = site_url.replace(/\/$/, "");
-const preview_image = image || favicon_path;
-const preview_image_base = preview_image.startsWith("http")
-  ? preview_image
-  : `${site_origin}${preview_image.startsWith("/") ? preview_image : `/${preview_image}`}`;
+const preview_image = image || default_og_image;
 
-// Robust OG image cache busting: per-build random hex + epoch seconds
-const og_cache_buster = `${Date.now().toString(36)}-${crypto.randomBytes(4).toString("hex")}`;
-const preview_image_url = preview_image_base.includes("?")
-  ? `${preview_image_base}&cb=${og_cache_buster}`
-  : `${preview_image_base}?cb=${og_cache_buster}`;
+// Robust OG image cache busting: per-build random token
+const cb = `${Date.now().toString(36)}-${crypto.randomBytes(4).toString("hex")}`;
+const preview_image_url = preview_image.startsWith("http")
+  ? `${preview_image}${preview_image.includes("?") ? "&" : "?"}cb=${cb}`
+  : `${site_origin}${preview_image}${preview_image.includes("?") ? "&" : "?"}cb=${cb}`;
+
+const favicon_path = "/favicon.svg";
 
 // Avoid redundant titles when the page title already matches the site name
 const normalized_title = title?.trim() ?? "";
@@ -70,7 +68,7 @@ const navLinks =
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" sizes="any" href={favicon_path} />
-    <link rel="apple-touch-icon" href={favicon_path} />
+    <link rel="apple-touch-icon" href="/favicon_21_9.png" />
     <meta name="generator" content={Astro.generator} />
 
     <title>{title_text}</title>

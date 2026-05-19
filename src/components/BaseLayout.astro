@@ -21,7 +21,7 @@ const site_description = navVariant === "me"
   : "Long-form engineering notes, pragmatic systems thinking, and video walkthroughs for people who ship.";
 const site_url = import.meta.env.PUBLIC_SITE_URL || "https://patelofthought.com";
 const asset_version = "rocket-v1";
-const favicon_path = `/favicon.svg?v=${asset_version}`;
+const favicon_path = `/favicon_21_9.png?v=${asset_version}`;
 const site_origin = site_url.replace(/\/$/, "");
 const default_image_path = "/images/og_image.webp";
 const preview_image = image || default_image_path;
@@ -48,18 +48,19 @@ const canonical_url = `${site_origin}${canonical_path}`;
 const navLinks =
   navVariant === "me"
     ? [
-        { label: "Blog", href: profile.links.blog },
-        { label: "Projects", href: "/me#projects" },
+        { label: "Blog", href: profile.links.blog, external: false },
+        { label: "Projects", href: "/me#projects", external: false },
       ]
     : [
         {
-          label: "YouTube",
-          href: profile.links.youtube,
-          external: true,
+          label: "Me",
+          href: "/me",
+          external: false,
         },
         {
           label: "Blog",
           href: profile.links.blog,
+          external: false,
         },
       ];
 ---
@@ -69,7 +70,8 @@ const navLinks =
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href={favicon_path} />
+    <link rel="icon" type="image/svg+xml" sizes="any" href={favicon_path} />
+    <link rel="apple-touch-icon" href={favicon_path} />
     <meta name="generator" content={Astro.generator} />
 
     <title>{title_text}</title>

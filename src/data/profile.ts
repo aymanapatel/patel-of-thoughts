@@ -1,13 +1,14 @@
 export const profile = {
   name: "Ayman Patel",
   role:
-    "Currently pursuing masters in QMUL and worked as senior software engineer at Mastercard",
+    "My name is Ayman Patel. Currently pursuing masters in QMUL and worked as senior software engineer for 6 years at Mastercard",
   tagline:
     "I build resilient systems, thoughtful developer experiences, and products that scale from prototype to production.",
   links: {
     github: "https://github.com/aymanapatel",
     linkedin: "https://www.linkedin.com/in/aymanapatel",
     youtube: "https://www.youtube.com/@patelofthought",
+    twitter: "https://www.x.com/ayman_alderson",
     blog: "/blog",
     cv: "/ayman-cv.pdf",
   },

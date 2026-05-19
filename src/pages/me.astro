@@ -36,7 +36,7 @@ const techStack = [
       { label: "Redux Toolkit", icon: "redux" },
       { label: "RTK Query", icon: "redux" },
       { label: "Next.js", icon: "nextjs" },
-      { label: "Vite", icon: "vite" },
+      { label: "Vite", icon: "vitejs" },
       { label: "Webpack", icon: "webpack" },
       { label: "Module Federation", icon: "webpack" },
       { label: "Figma", icon: "figma" },
@@ -61,7 +61,7 @@ const techStack = [
     ],
   },
   {
-    name: "Databases & Event Platform",
+    name: "Databases & Events",
     items: [
       { label: "PostgreSQL", icon: "postgresql" },
       { label: "Oracle", icon: "oracle" },
@@ -69,20 +69,18 @@ const techStack = [
       { label: "Redis", icon: "redis" },
       { label: "Kafka", icon: "apachekafka" },
       { label: "RabbitMQ", icon: "rabbitmq" },
-      { label: "Debezium", icon: "" },
-      { label: "Time series databases", icon: "debezium" },
+      { label: "Debezium", icon: null },
       { label: "CDC", icon: null },
     ],
   },
   {
     name: "Cloud & DevOps",
     items: [
-      { label: "AWS", icon: "aws" },
+      { label: "AWS", icon: null },
       { label: "Docker", icon: "docker" },
       { label: "Kubernetes", icon: "kubernetes" },
       { label: "Terraform", icon: "terraform" },
-      { label: "Localstack", icon: "" },
-      { label: "PCF", icon: "cloudfoundry" },
+      { label: "Localstack", icon: null },
       { label: "Jenkins", icon: "jenkins" },
       { label: "Gradle", icon: "gradle" },
     ],
@@ -92,16 +90,16 @@ const techStack = [
     items: [
       { label: "PyTorch", icon: "pytorch" },
       { label: "LLM APIs", icon: null },
-      { label: "Langchain", icon: "langchain" },
-      { label: "Chroma", icon: "chroma" },
+      { label: "Langchain", icon: null },
+      { label: "Llamaindex", icon: null },
+      { label: "Chroma", icon: null },
       { label: "RAG", icon: null },
       { label: "Vector Databases", icon: null },
-      { label: "Transformers", icon: "huggingface" },
+      { label: "Transformers", icon: null },
       { label: "LoRA", icon: null },
-      { label: "MLFlow", icon: "mlflow" },
       { label: "Pandas", icon: "pandas" },
       { label: "DuckDB", icon: "duckdb" },
-      { label: "Parquet", icon: "apacheparquet" },
+      { label: "Parquet", icon: null },
     ],
   },
   {
@@ -109,26 +107,27 @@ const techStack = [
     items: [
       { label: "Grafana", icon: "grafana" },
       { label: "Prometheus", icon: "prometheus" },
-      { label: "Splunk", icon: "splunk" },
+      { label: "Splunk", icon: null },
       { label: "Dynatrace", icon: "dynatrace" },
       { label: "OpenTelemetry", icon: "opentelemetry" },
       { label: "eBPF", icon: null },
-      { label: "JUnit", icon: "junit5" },
-      { label: "Mockito", icon: "mockito" },
-      { label: "Jest", icon: "jest" },
+      { label: "JUnit", icon: "junit" },
+      { label: "Jest", icon: null },
       { label: "RTL", icon: "react" },
-      { label: "Cypress", icon: "cypress" },
+      { label: "Cypress", icon: null },
       { label: "Playwright", icon: "playwright" },
-      { label: "Testcontainers", icon: "testcontainers" },
+      { label: "Testcontainers", icon: null },
     ],
   },
   {
-    name: "Platform & Tools",
+    name: "Workflow tools, Product Analytics and CDNs",
     items: [
-      { label: "Camunda", icon: "camunda" },
-      { label: "Mixpanel", icon: "mixpanel" },
+      { label: "Camunda", icon: null },
+
+      { label: "Mixpanel", icon: null },
       { label: "Cloudflare", icon: "cloudflare" },
-      { label: "Akamai", icon: "akamai" },
+      { label: "Akamai", icon: null },
+      { label: "Posthog", icon: null },
     ],
   },
 ];
@@ -257,7 +256,7 @@ const techStack = [
             <div class="tech-pills">
               {category.items.map((item) => (
                 <span class="pill">
-                  {item.icon && <img class="tech-icon" src={`https://cdn.simpleicons.org/${item.icon}`} alt="" width="14" height="14" loading="lazy" />}
+                  {item.icon && <img class="tech-icon" src={`https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${item.icon}/${item.icon}${item.icon === 'django' ? '-plain' : '-original'}.svg`} alt="" width="14" height="14" loading="lazy" />}
                   {item.label}
                 </span>
               ))}

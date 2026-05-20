@@ -315,7 +315,7 @@ const techStack = [
         {testimonials.map((item) => (
           <article class="testimonial-card">
             <div class="testimonial-header">
-              <div class="testimonial-avatar">{item.initials}</div>
+              <div class="testimonial-avatar">{item.image ? <img src={item.image} alt={item.name} /> : item.initials}</div>
               <div class="testimonial-identity">
                 <p class="testimonial-name">{item.name}</p>
                 <p class="testimonial-role text-secondary">{item.role}</p>

@@ -10,7 +10,8 @@
     "astro": "astro",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:browser": "vitest run --browser"
+    "test:browser": "vitest run --browser",
+    "preview:og": "node scripts/preview-og.mjs"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",

@@ -164,7 +164,7 @@ export default async function postOgImage(post) {
                       fontFamily: "Caveat",
                       margin: 0,
                     },
-                    children: title,
+                    children: `${title} --- Wazzup`,
                   },
                 },
                 description

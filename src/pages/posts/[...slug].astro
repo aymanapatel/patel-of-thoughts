@@ -44,7 +44,7 @@ const ogImage = post.data.ogImage || `${site_origin}/posts/${ogSlug}/og.png`;
 <BaseLayout
   title={post.data.title}
   description={post.data.description}
-  image={post.data.cover || post.data.heroImage || ogImage}
+  image={ogImage}
 >
   <ReadingProgress client:load />
 

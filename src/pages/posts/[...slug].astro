@@ -38,7 +38,7 @@ function formatDate(date: Date): string {
 const site_url = import.meta.env.PUBLIC_SITE_URL || "https://patelofthought.com";
 const site_origin = site_url.replace(/\/$/, "");
 const ogSlug = post.slug.split("/").pop() || post.slug;
-const ogImage = post.data.ogImage || `${site_origin}/posts/${ogSlug}/og.png`;
+const ogImage = `${site_origin}/posts/${ogSlug}/og.png`;
 ---
 
 <BaseLayout

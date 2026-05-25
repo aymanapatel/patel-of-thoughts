@@ -1,2 +1,10 @@
 /ayman-cv.pdf
   Cache-Control: no-store, no-cache, must-revalidate, max-age=0
+
+/posts/*/og.png
+  Content-Type: image/png
+  Cache-Control: public, max-age=86400
+
+/projects/*/og.png
+  Content-Type: image/png
+  Cache-Control: public, max-age=86400

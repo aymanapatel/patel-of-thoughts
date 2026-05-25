@@ -12,6 +12,11 @@ interface Props {
 const { project } = Astro.props;
 const { Content, headings, remarkPluginFrontmatter } = await project.render();
 
+const site_url = import.meta.env.PUBLIC_SITE_URL || "https://patelofthought.com";
+const site_origin = site_url.replace(/\/$/, "");
+const ogSlug = project.slug.split("/").pop() || project.slug;
+const ogImage = `${site_origin}/projects/${ogSlug}/og.png`;
+
 function formatDate(date: Date): string {
   return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
@@ -24,7 +29,7 @@ function formatDate(date: Date): string {
 <BaseLayout
   title={project.data.title}
   description={project.data.description}
-  image={project.data.cover}
+  image={ogImage}
   navVariant="me"
 >
   <ReadingProgress client:load />

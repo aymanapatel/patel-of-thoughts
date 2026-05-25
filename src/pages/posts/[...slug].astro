@@ -34,12 +34,17 @@ function formatDate(date: Date): string {
     day: "numeric",
   }).format(date);
 }
+
+const site_url = import.meta.env.PUBLIC_SITE_URL || "https://patelofthought.com";
+const site_origin = site_url.replace(/\/$/, "");
+const ogSlug = post.slug.split("/").pop() || post.slug;
+const ogImage = `${site_origin}/posts/${ogSlug}/og.png`;
 ---
 
 <BaseLayout
   title={post.data.title}
   description={post.data.description}
-  image={post.data.cover || post.data.heroImage || post.data.ogImage}
+  image={ogImage}
 >
   <ReadingProgress client:load />
 

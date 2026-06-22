@@ -222,7 +222,7 @@ const techStack = [
 
   <div class="container content-stack">
 
-    <Section title="Blog Showcase" subtitle="Deep dives, systems thinking, and engineering notes.">
+    <Section id="blog-showcase" title="Blog Showcase" subtitle="Deep dives, systems thinking, and engineering notes.">
       <div class="card-grid">
         {showcasePosts.map((post) => (
           <PostCard
@@ -243,7 +243,7 @@ const techStack = [
       </div>
     </Section>
 
-    <Section title="Tech Stack" subtitle="Languages, frameworks, and tools I use to ship.">
+    <Section id="tech-stack" title="Tech Stack" subtitle="Languages, frameworks, and tools I use to ship.">
       <div class="tech-summary-pills">
         {techStack.map((category) => (
           <span class="pill pill-accent">{category.name}</span>
@@ -302,6 +302,7 @@ const techStack = [
   <div class="container content-stack">
 
     <Section
+      id="recommendations"
       className="recommendations-section"
       title="Recommendations"
       subtitle="Recommendations from my colleagues and managers"
@@ -371,7 +372,7 @@ const techStack = [
         </div>
       )}
     </Section>
-    <Section title="Connect">
+    <Section id="connect" title="Connect">
       <div class="connect-grid">
         <a class="connect-card" href={profile.links.github} target="_blank" rel="noreferrer">
           <span class="connect-title">
@@ -409,6 +410,19 @@ const techStack = [
 <style>
   .hero {
     padding: 0;
+  }
+
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+
+  :global(#blog-showcase),
+  :global(#tech-stack),
+  :global(#career-timeline),
+  :global(#recommendations),
+  :global(#projects),
+  :global(#connect) {
+    scroll-margin-top: calc(var(--space-2xl) + var(--space-lg));
   }
 
   .hero-grid {

@@ -104,7 +104,7 @@ function shortSlug(slug: string): string {
         ))}
       </div>
       <div class="section-cta">
-        <a class="button ghost" href="/blog">Explore all posts</a>
+        <a class="button ghost" href="/blog" id="explore-posts-btn">Explore all posts</a>
       </div>
     </Section>
 
@@ -172,6 +172,17 @@ function shortSlug(slug: string): string {
     </Section> -->
   </div>
 </BaseLayout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    var exploreBtn = document.getElementById('explore-posts-btn');
+    if (exploreBtn) {
+      exploreBtn.addEventListener('click', function () {
+        window.posthog?.capture('blog_explore_clicked');
+      });
+    }
+  });
+</script>
 
 <style>
   .platform-hero {

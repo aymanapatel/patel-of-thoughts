@@ -95,6 +95,16 @@ function formatDate(date: Date): string {
     </div>
   </article>
 
+  <script is:inline define:vars={{ projectTitle: project.data.title, projectSlug: ogSlug, projectTags: project.data.tags }}>
+    document.addEventListener('DOMContentLoaded', function () {
+      window.posthog?.capture('project_viewed', {
+        project_title: projectTitle,
+        project_slug: projectSlug,
+        project_tags: projectTags
+      });
+    });
+  </script>
+
   <style>
     .reading-progress-container {
       position: fixed;

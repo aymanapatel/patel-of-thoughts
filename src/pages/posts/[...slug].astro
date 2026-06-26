@@ -92,7 +92,7 @@ const ogImage = `${site_origin}/posts/${ogSlug}/og.png`;
             post.data.tags.length > 0 && (
               <div class="post-tags">
                 {post.data.tags.map((tag) => (
-                  <a href={`/tags/${tag}`} class="tag">
+                  <a href={`/tags/${tag}`} class="tag" data-ph-tag={tag}>
                     {tag}
                   </a>
                 ))}
@@ -135,6 +135,43 @@ const ogImage = `${site_origin}/posts/${ogSlug}/og.png`;
       }
     </div>
   </article>
+
+  <script is:inline define:vars={{ postTitle: post.data.title, postSlug: ogSlug, postTags: post.data.tags }}>
+    document.addEventListener('DOMContentLoaded', function () {
+      window.posthog?.capture('post_read', {
+        post_title: postTitle,
+        post_slug: postSlug,
+        post_tags: postTags
+      });
+
+      var completed = false;
+      function onScroll() {
+        if (completed) return;
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        if (docHeight > 0 && scrollTop / docHeight >= 0.9) {
+          completed = true;
+          window.posthog?.capture('post_read_completed', {
+            post_title: postTitle,
+            post_slug: postSlug,
+            post_tags: postTags
+          });
+          window.removeEventListener('scroll', onScroll);
+        }
+      }
+      window.addEventListener('scroll', onScroll, { passive: true });
+
+      document.querySelectorAll('[data-ph-tag]').forEach(function (el) {
+        el.addEventListener('click', function () {
+          window.posthog?.capture('post_tag_clicked', {
+            tag: el.getAttribute('data-ph-tag'),
+            post_title: postTitle,
+            post_slug: postSlug
+          });
+        });
+      });
+    });
+  </script>
 
   <style>
     .reading-progress-container {

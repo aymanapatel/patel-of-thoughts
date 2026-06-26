@@ -39,12 +39,16 @@ const { title, description, href, cover, tags = [], stack = [], role, github, li
   {(github || live) && (
     <div class="portfolio-card-links">
       {github && (
-        <a href={github} class="text-link" target="_blank" rel="noreferrer">
+        <a href={github} class="text-link" target="_blank" rel="noreferrer"
+           data-ph-project={title} data-ph-link-type="github"
+           onclick={`window.posthog?.capture('project_external_link_clicked', { project_title: '${title}', link_type: 'github' })`}>
           GitHub
         </a>
       )}
       {live && (
-        <a href={live} class="text-link" target="_blank" rel="noreferrer">
+        <a href={live} class="text-link" target="_blank" rel="noreferrer"
+           data-ph-project={title} data-ph-link-type="live"
+           onclick={`window.posthog?.capture('project_external_link_clicked', { project_title: '${title}', link_type: 'live' })`}>
           Live
         </a>
       )}

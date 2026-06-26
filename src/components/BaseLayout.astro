@@ -1,6 +1,7 @@
 ---
 import ThemeToggle from "./ThemeToggle";
 import CodeBlockWrapper from "./CodeBlockWrapper.astro";
+import PostHog from "./posthog.astro";
 import "../styles/global.css";
 import { profile } from "../data/profile";
 import crypto from "node:crypto";
@@ -94,6 +95,7 @@ const navLinks =
       const theme = savedTheme || "dark";
       document.documentElement.setAttribute("data-theme", theme);
     </script>
+    <PostHog />
   </head>
   <body>
     <CodeBlockWrapper>

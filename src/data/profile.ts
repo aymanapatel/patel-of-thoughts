@@ -14,7 +14,15 @@ interface Profile {
   links: ProfileLinks;
   education: { institution: string; degree: string; status: string }[];
   experience: { company: string; title: string; start: string; end: string; description: string }[];
-  timeline: { type: "education" | "work"; org: string; title: string; start: string; end: string; description: string }[];
+  timeline: {
+    type: "education" | "work";
+    org: string;
+    title: string;
+    start: string;
+    end: string;
+    description: string;
+    href?: string;
+  }[];
 }
 
 export const profile: Profile = {
@@ -69,6 +77,7 @@ export const profile: Profile = {
       start: "2025",
       end: "Present",
       description: "Pursuing an advanced degree focused on distributed systems, AI, and modern software architecture.",
+      href: "/me/qmul-masters",
     },
     {
       type: "work" as const,

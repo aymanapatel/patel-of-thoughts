@@ -1,0 +1,264 @@
+---
+import BaseLayout from "../../components/BaseLayout.astro";
+import JourneyTimelineItem from "../../components/JourneyTimelineItem.astro";
+import { qmulJourney } from "../../data/qmul-journey";
+
+const pageDescription =
+  "A timeline of my 2025–2026 MSc in Advanced Computer Science at Queen Mary University of London, from coursework to fellowships and London’s technology community.";
+---
+
+<BaseLayout
+  title="QMUL Masters Journey"
+  description={pageDescription}
+  image={qmulJourney[1].image?.src}
+  navVariant="me"
+>
+  <div class="container journey-page">
+    <header class="journey-hero">
+      <a class="back-link" href="/me" aria-label="Back to Ayman Patel's profile">
+        <span aria-hidden="true">←</span> Back to profile
+      </a>
+
+      <p class="journey-kicker">Queen Mary University of London · 2025–2026</p>
+      <h1>My masters journey</h1>
+      <p class="journey-intro">
+        A year of moving from industry back into education: studying Advanced Computer
+        Science, building with new communities, and making London part of the classroom.
+      </p>
+
+      <div class="journey-stats" aria-label="Journey summary">
+        <div>
+          <strong>{qmulJourney.length}</strong>
+          <span>milestones</span>
+        </div>
+        <div>
+          <strong>1</strong>
+          <span>academic year</span>
+        </div>
+        <div>
+          <strong>London</strong>
+          <span>the wider campus</span>
+        </div>
+      </div>
+    </header>
+
+    <section class="journey-section" aria-labelledby="timeline-heading">
+      <div class="journey-section-heading">
+        <p class="journey-kicker">The timeline</p>
+        <h2 id="timeline-heading">Learning beyond lectures</h2>
+        <p>
+          Academic milestones sit alongside the fellowships, meetups and hackathons
+          that shaped the year.
+        </p>
+      </div>
+
+      <div class="timeline journey-list">
+        {qmulJourney.map((item, index) => (
+          <JourneyTimelineItem
+            {...item}
+            isLast={index === qmulJourney.length - 1}
+          />
+        ))}
+      </div>
+    </section>
+
+    <footer class="journey-footer">
+      <p>The degree is one chapter. The habit of learning continues.</p>
+      <a class="button ghost" href="/me">
+        <span aria-hidden="true">←</span> Return to profile
+      </a>
+    </footer>
+  </div>
+</BaseLayout>
+
+<style>
+  .journey-page {
+    padding-top: var(--space-3xl);
+    padding-bottom: var(--space-3xl);
+  }
+
+  .journey-hero {
+    max-width: 56rem;
+    padding: clamp(2rem, 6vw, 5rem) 0 var(--space-3xl);
+  }
+
+  .back-link {
+    display: inline-flex;
+    gap: var(--space-sm);
+    align-items: center;
+    margin-bottom: var(--space-2xl);
+    color: var(--color-text-secondary);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+  }
+
+  .back-link:hover {
+    color: var(--color-accent);
+  }
+
+  .journey-kicker {
+    margin-bottom: var(--space-sm);
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    max-width: 12ch;
+    margin-bottom: var(--space-lg);
+    font-size: clamp(3rem, 10vw, 6rem);
+    letter-spacing: -0.04em;
+  }
+
+  .journey-intro {
+    max-width: 48rem;
+    margin-bottom: var(--space-2xl);
+    color: var(--color-text-secondary);
+    font-size: clamp(var(--font-size-lg), 2.5vw, var(--font-size-2xl));
+  }
+
+  .journey-stats {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .journey-stats div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    padding: var(--space-lg);
+    border-right: 1px solid var(--color-border);
+  }
+
+  .journey-stats div:first-child {
+    padding-left: 0;
+  }
+
+  .journey-stats div:last-child {
+    border-right: 0;
+  }
+
+  .journey-stats strong {
+    color: var(--color-text);
+    font-size: var(--font-size-xl);
+  }
+
+  .journey-stats span {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-xs);
+  }
+
+  .journey-section {
+    display: grid;
+    grid-template-columns: minmax(14rem, 0.65fr) minmax(0, 1.35fr);
+    gap: clamp(var(--space-xl), 7vw, 7rem);
+    align-items: start;
+    padding-top: var(--space-3xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .journey-section-heading {
+    position: sticky;
+    top: 7rem;
+  }
+
+  .journey-section-heading h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .journey-section-heading > p:last-child {
+    color: var(--color-text-secondary);
+  }
+
+  .journey-list {
+    min-width: 0;
+  }
+
+  .journey-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-lg);
+    margin-top: var(--space-3xl);
+    padding-top: var(--space-2xl);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .journey-footer p {
+    margin: 0;
+    color: var(--color-text-secondary);
+  }
+
+  @media (max-width: 760px) {
+    .journey-page {
+      padding-top: var(--space-xl);
+    }
+
+    .journey-stats {
+      grid-template-columns: 1fr;
+    }
+
+    .journey-stats div,
+    .journey-stats div:first-child {
+      padding: var(--space-md) 0;
+      border-right: 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .journey-stats div:last-child {
+      border-bottom: 0;
+    }
+
+    .journey-section {
+      grid-template-columns: 1fr;
+      gap: var(--space-2xl);
+    }
+
+    .journey-section-heading {
+      position: static;
+    }
+
+    .journey-footer {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global([data-journey-item]) {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  const items = Array.from(
+    document.querySelectorAll<HTMLElement>("[data-journey-item]"),
+  );
+
+  if (items.length) {
+    items[0].classList.add("is-active");
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visibleEntry = entries.find((entry) => entry.isIntersecting);
+          if (!visibleEntry) return;
+
+          items.forEach((item) => item.classList.remove("is-active"));
+          visibleEntry.target.classList.add("is-active");
+        },
+        { rootMargin: "-20% 0px -50% 0px", threshold: 0 },
+      );
+
+      items.forEach((item) => observer.observe(item));
+    } else {
+      items.forEach((item) => item.classList.add("is-active"));
+    }
+  }
+</script>

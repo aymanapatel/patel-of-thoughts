@@ -1,0 +1,147 @@
+---
+import { Image } from "astro:assets";
+import type { QmulJourneyItem } from "../data/qmul-journey";
+
+interface Props extends QmulJourneyItem {
+  isLast?: boolean;
+}
+
+const {
+  date,
+  dateTime,
+  heading,
+  summary,
+  category,
+  image,
+  imageAlt = "",
+  sourceUrl,
+  isLast = false,
+} = Astro.props;
+---
+
+<article class="tl-item journey-item" data-journey-item>
+  <div class="tl-spine" aria-hidden="true">
+    <span class="tl-dot"></span>
+    {!isLast && <span class="tl-line"></span>}
+  </div>
+
+  <div class="tl-body journey-card">
+    {image && (
+      <Image
+        class="journey-image"
+        src={image}
+        alt={imageAlt}
+        widths={[480, 720]}
+        sizes="(max-width: 720px) calc(100vw - 5rem), 640px"
+        loading="lazy"
+      />
+    )}
+
+    <div class="journey-content">
+      <div class="tl-meta">
+        <time class="tl-years" datetime={dateTime}>{date}</time>
+        <span class="pill journey-category">{category}</span>
+      </div>
+
+      <h2 class="tl-org">{heading}</h2>
+      <p class="tl-desc">{summary}</p>
+
+      {sourceUrl && (
+        <a
+          class="journey-source"
+          href={sourceUrl}
+          target="_blank"
+          rel="noreferrer"
+          aria-label={`Read the LinkedIn post for ${heading}`}
+        >
+          View original post <span aria-hidden="true">↗</span>
+        </a>
+      )}
+    </div>
+  </div>
+</article>
+
+<style>
+  .journey-item {
+    padding-bottom: var(--space-2xl);
+  }
+
+  .journey-card {
+    overflow: hidden;
+    padding-bottom: 0;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    transition:
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
+  }
+
+  .journey-item.is-active .journey-card {
+    border-color: var(--color-accent);
+    box-shadow: 0 10px 32px color-mix(in srgb, var(--color-accent) 10%, transparent);
+  }
+
+  .journey-image {
+    display: block;
+    width: 100%;
+    max-height: 26rem;
+    object-fit: cover;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .journey-content {
+    padding: var(--space-xl);
+  }
+
+  .journey-category {
+    color: var(--color-accent);
+    border-color: color-mix(in srgb, var(--color-accent) 35%, var(--color-border));
+    background: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  }
+
+  .tl-org {
+    margin-bottom: var(--space-sm);
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-tight);
+  }
+
+  .journey-source {
+    display: inline-flex;
+    gap: 0.35rem;
+    align-items: center;
+    margin-top: var(--space-lg);
+    color: var(--color-accent);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .journey-source:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .journey-source:focus-visible {
+    border-radius: var(--radius-sm);
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 640px) {
+    .journey-item {
+      grid-template-columns: 1.5rem minmax(0, 1fr);
+      gap: 0 var(--space-md);
+    }
+
+    .journey-content {
+      padding: var(--space-lg);
+    }
+
+    .journey-image {
+      max-height: 20rem;
+    }
+  }
+</style>

@@ -21,3 +21,6 @@ pnpm-debug.log*
 # IDEs
 .vscode/
 .idea/
+
+# Linkedin
+LinkedinSummary

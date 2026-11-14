@@ -52,7 +52,7 @@ export default function InteractiveCounter() {
                         borderRadius: '0.5rem',
                         border: '1px solid var(--color-border)',
                         backgroundColor: 'var(--color-accent)',
-                        color: 'white',
+                        color: 'var(--color-on-accent)',
                     }}
                 >
                     Increment

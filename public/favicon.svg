@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Patel of Thoughts terminal favicon">
-  <rect width="64" height="64" rx="12" fill="#050505" />
-  <line x1="0" y1="16" x2="64" y2="16" stroke="#e50914" stroke-width="0.5" stroke-opacity="0.1"/>
-  <line x1="0" y1="32" x2="64" y2="32" stroke="#e50914" stroke-width="0.5" stroke-opacity="0.1"/>
-  <line x1="0" y1="48" x2="64" y2="48" stroke="#e50914" stroke-width="0.5" stroke-opacity="0.1"/>
-  <path d="M8 16 L30 32 L8 48" stroke="#e50914" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-  <rect x="35" y="40" width="20" height="9" rx="1.5" fill="#f2f2ef" />
-  <rect x="1.5" y="1.5" width="61" height="61" rx="10.5" fill="none" stroke="#e50914" stroke-width="1" stroke-opacity="0.4" />
+  <rect width="64" height="64" rx="12" fill="#0b192e" />
+  <line x1="0" y1="16" x2="64" y2="16" stroke="#83aaff" stroke-width="0.5" stroke-opacity="0.1"/>
+  <line x1="0" y1="32" x2="64" y2="32" stroke="#83aaff" stroke-width="0.5" stroke-opacity="0.1"/>
+  <line x1="0" y1="48" x2="64" y2="48" stroke="#83aaff" stroke-width="0.5" stroke-opacity="0.1"/>
+  <path d="M8 16 L30 32 L8 48" stroke="#83aaff" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  <rect x="35" y="40" width="20" height="9" rx="1.5" fill="#b3ceff" />
+  <rect x="1.5" y="1.5" width="61" height="61" rx="10.5" fill="none" stroke="#83aaff" stroke-width="1" stroke-opacity="0.4" />
 </svg>

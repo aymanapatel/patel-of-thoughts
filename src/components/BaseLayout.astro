@@ -64,9 +64,10 @@ const navLinks =
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
+    <meta name="theme-color" content="#0b192e" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" sizes="any" href={favicon_path} />
     <link rel="apple-touch-icon" href="/favicon_21_9.png" />
@@ -179,7 +180,7 @@ const navLinks =
   }
 
   :global(.theme-toggle) {
-    background: rgba(229, 9, 20, 0.08);
+    background: var(--color-accent-soft);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-sm);
     padding: 0.35rem 0.55rem;

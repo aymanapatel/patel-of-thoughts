@@ -37,11 +37,11 @@ export default async function postOgImage(post) {
         display: "flex",
         alignItems: "center",
         padding: "4px 12px",
-        backgroundColor: "rgba(210, 10, 19, 0.15)",
-        border: "1px solid rgba(210, 10, 19, 0.4)",
+        backgroundColor: "rgba(131, 170, 255, 0.15)",
+        border: "1px solid rgba(131, 170, 255, 0.4)",
         borderRadius: "4px",
         fontSize: 16,
-        color: "#e8343d",
+        color: "#83aaff",
         fontFamily: "IBM Plex Mono",
       },
       children: `#${tag}`,
@@ -58,7 +58,7 @@ export default async function postOgImage(post) {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          backgroundColor: "#0a0a0a",
+          backgroundColor: "#0b192e",
           padding: "60px 70px",
           position: "relative",
           overflow: "hidden",
@@ -73,7 +73,7 @@ export default async function postOgImage(post) {
                 left: 0,
                 right: 0,
                 height: "4px",
-                backgroundColor: "#d20a13",
+                backgroundColor: "#83aaff",
               },
             },
           },
@@ -86,7 +86,7 @@ export default async function postOgImage(post) {
                 left: 0,
                 right: 0,
                 height: "4px",
-                backgroundColor: "#d20a13",
+                backgroundColor: "#83aaff",
               },
             },
           },
@@ -101,7 +101,7 @@ export default async function postOgImage(post) {
                 height: "260px",
                 borderRadius: "50%",
                 background:
-                  "radial-gradient(circle, rgba(210,10,19,0.06) 0%, transparent 70%)",
+                  "radial-gradient(circle, rgba(131,170,255,0.06) 0%, transparent 70%)",
               },
             },
           },
@@ -132,7 +132,7 @@ export default async function postOgImage(post) {
                           style: {
                             width: "10px",
                             height: "10px",
-                            backgroundColor: "#d20a13",
+                            backgroundColor: "#83aaff",
                             borderRadius: "50%",
                           },
                         },
@@ -142,7 +142,7 @@ export default async function postOgImage(post) {
                         props: {
                           style: {
                             fontSize: 22,
-                            color: "#d20a13",
+                            color: "#83aaff",
                             fontFamily: "Caveat",
                             fontWeight: 700,
                             letterSpacing: "0.02em",
@@ -159,7 +159,7 @@ export default async function postOgImage(post) {
                     style: {
                       fontSize: 64,
                       fontWeight: 700,
-                      color: "#f4f4f1",
+                      color: "#dce8ff",
                       lineHeight: 1.15,
                       fontFamily: "Caveat",
                       margin: 0,
@@ -173,7 +173,7 @@ export default async function postOgImage(post) {
                       props: {
                         style: {
                           fontSize: 20,
-                          color: "#888a8f",
+                          color: "#a3b7d6",
                           lineHeight: 1.5,
                           fontFamily: "IBM Plex Mono",
                           margin: 0,
@@ -213,7 +213,7 @@ export default async function postOgImage(post) {
                       props: {
                         style: {
                           fontSize: 18,
-                          color: "#555a5f",
+                          color: "#a3b7d6",
                           fontFamily: "IBM Plex Mono",
                         },
                         children: date,

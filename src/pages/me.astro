@@ -137,6 +137,15 @@ const techStack = [
   <div class="hero">
     <div class="container hero-grid">
       <div class="hero-card">
+        <aside class="hero-profile" aria-label="Ayman Patel">
+          <div class="hero-profile-photo">
+            <img src="/images/ayman-patel.png" alt="Ayman Patel smiling by the sea" />
+          </div>
+          <div class="hero-profile-details">
+            <p class="hero-profile-label">Ayman Patel</p>
+            <p class="hero-profile-status"><span aria-hidden="true"></span> Available to connect</p>
+          </div>
+        </aside>
         <div class="hero-card-inner hero-terminal">
           <div class="terminal-bar" aria-hidden="true">
             <span class="terminal-dot dot-red"></span>
@@ -449,6 +458,71 @@ const techStack = [
     width: 100%;
     max-width: 880px;
     margin: 0 auto;
+    display: grid;
+    grid-template-columns: 12.5rem minmax(0, 1fr);
+    gap: var(--space-lg);
+    align-items: stretch;
+  }
+
+  .hero-profile {
+    background-color: var(--color-terminal-bg);
+    background-image:
+      linear-gradient(rgba(11, 27, 51, 0.45), rgba(11, 27, 51, 0.45)),
+      url('/images/network-background.webp');
+    background-size: cover;
+    background-position: center;
+    border: 1px solid var(--color-terminal-border);
+    border-radius: var(--radius-md);
+    box-shadow:
+      0 28px 70px rgba(0, 0, 0, 0.4),
+      inset 0 0 0 1px rgba(131, 170, 255, 0.06);
+    padding: var(--space-md);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-profile-photo {
+    width: 100%;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 2px solid var(--color-terminal-accent);
+    border-radius: 50%;
+    box-shadow: 0 0 0 0.4rem rgba(131, 170, 255, 0.12);
+  }
+
+  .hero-profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-profile-label {
+    margin: var(--space-lg) 0 var(--space-xs);
+    color: var(--color-terminal-text);
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+  }
+
+  .hero-profile-details {
+    display: contents;
+  }
+
+  .hero-profile-status {
+    margin: 0;
+    color: var(--color-terminal-muted);
+    font-size: var(--font-size-xs);
+  }
+
+  .hero-profile-status span {
+    display: inline-block;
+    width: 0.45rem;
+    height: 0.45rem;
+    margin-right: 0.35rem;
+    border-radius: 50%;
+    background-color: var(--color-terminal-accent);
   }
 
   .hero-card-inner.hero-terminal {
@@ -610,6 +684,31 @@ const techStack = [
   }
 
   @media (max-width: 640px) {
+    .hero-card {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-profile {
+      min-height: 10rem;
+      flex-direction: row;
+      justify-content: flex-start;
+      gap: var(--space-lg);
+      text-align: left;
+    }
+
+    .hero-profile-photo {
+      width: 7rem;
+      flex-shrink: 0;
+    }
+
+    .hero-profile-details {
+      display: block;
+    }
+
+    .hero-profile-label {
+      margin: 0 0 var(--space-xs);
+    }
+
     .hero-card-inner.hero-terminal {
       padding: var(--space-lg);
     }

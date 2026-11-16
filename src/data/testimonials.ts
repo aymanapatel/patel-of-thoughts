@@ -1,5 +1,5 @@
 export const testimonials = [
-    {
+  {
     name: "Suryanarayana Tadla",
     role:
       "Senior VP @ Mastercard | Seasoned Engineering Leader Building Great Customer Experiences",
@@ -11,34 +11,14 @@ export const testimonials = [
       "I had the opportunity to lead Ayman Patel while he was part of the Franchise Engineering team, and I can say he is among the most technically skilled and reliable engineers I've worked with. After moving into the Senior Software Engineer role in the Technology team, Ayman has continued to show strong abilities in system design, and for building scalable architectures. Beyond his technical strengths, Ayman stands out for his collaborative approach. He mentors developers, leads integrations, and helps resolve critical UI issues with clarity and dedication. If you need someone who combines technical expertise with a strong sense of ownership and teamwork, Ayman is a great choice. I look forward to seeing his ongoing contributions in technology.",
   },
   {
-    name: "Priti Damle",
-    role: "Director @ Mastercard | Passionate engineer, empathetic leader striving to deliver best",
-    relationship: "Priti managed Ayman directly",
-    date: "Apr 8, 2025",
-    initials: "PD",
-    image: "/people/priti.jpeg",
-    quote:
-      "I have had the opportunity to work with Ayman Patel at MC for more than a year. Throughout this period, he has consistently impressed me with his exceptional problem-solving abilities, collaborative spirit, and outstanding technical skills, particularly in Java, Spring Boot & React. Ayman is extremely hardworking, a quick learner, and has always demonstrated a sense of urgency and ownership by stepping up beyond the call of duty. His ability to find creative solutions to tackle complex challenges and devise innovative strategies is truly remarkable. In addition to his technical expertise, Ayman is an excellent collaborator, consistently willing to share knowledge and support team members. His positive attitude and readiness to assist others make him an invaluable asset to any team.",
-  },
-    {
     name: "Hilwan Idrus",
     role: "Tech Lead @ Mastercard",
-    relationship: "Hilwan worked with Ayman on the Mastecard UI Design system where Ayman contributed feature and bug fixes.",
+    relationship: "Hilwan worked with Ayman on the Mastercard UI Design system where Ayman contributed feature and bug fixes.",
     date: "Aug 1, 2025",
     initials: "HI",
     image: "/people/hilwan.jpeg",
     quote:
       "I've had the pleasure of working alongside Ayman Arif at Mastercard, where he was one of the most engaged consumers of the Connect UI Kit that I manage. Although we're from different teams, Ayman consistently stood out for his initiative and collaboration. He not only surfaced issues and helped debug problems encountered with the kit, but also contributed fixes and improvements directly. This shows both his technical skill and strong sense of ownership. Beyond that, Ayman is an active voice in the Frontend Software Engineering Guild. He regularly brings fresh ideas, explores modern tooling and frontend standards, and constantly looks for ways to push the envelope. He's also been experimenting with how AI can be meaningfully integrated into frontend workflows to improve productivity. I can confidently recommend him for any role that requires deep frontend expertise, a forward-looking mindset, and a strong drive to keep learning and improving.",
-  },
-  {
-    name: "Pooja Jadhav",
-    role: "Senior Software Engineer @ Mastercard",
-    relationship: "Ayman was senior to Pooja, didn't work in same team. But mentored in resolving critical UI issues",
-    date: "Aug 18, 2025",
-    initials: "PJ",
-    image: "/people/pooja.jpeg",
-    quote:
-      "I've had the privilege of working with Ayman for the past 3 years and he truly impresses me every day with his talent and technical skills. Ayman excels at designing and improving user interfaces; everything he works on is intuitive, functional, and visually appealing. When I run into a challenge or question, he's the first person I go to. He takes the time to explain solutions clearly and always helps with patience and kindness.",
   },
   {
     name: "Kiran Baldaniya",
@@ -49,6 +29,26 @@ export const testimonials = [
     image: "/people/kiran.jpeg",
     quote:
       "It's a great opportunity to work with someone like Ayman, who is a phenomenal full-stack engineer in the truest sense of the term. My very first interaction with him was when he interviewed me for my role at Mastercard, and his technical acumen left a lasting impression on me. As a teammate, I had the privilege of seeing his skills firsthand. While his exceptional talent in frontend development was evident in the complex UIs he masterfully built, his profound expertise in backend systems is what truly sets him apart. Ayman isn't just a developer who uses tools; he's a true technologist who delves deep into the internals. His keen interest and deep-dive knowledge into databases, especially PostgreSQL, were truly inspiring. Ayman's passion for technology extends beyond his daily tasks, which is clear to anyone who has read his insightful technical blogs. His insatiable curiosity is infectious and he was always willing to share his knowledge, making him a fantastic mentor. I learned an immense amount from him. Any team would be incredibly fortunate to have a dedicated and deeply knowledgeable engineer like Ayman. He has my highest recommendation.",
+  },
+  {
+    name: "Priti Damle",
+    role: "Director @ Mastercard | Passionate engineer, empathetic leader striving to deliver best",
+    relationship: "Priti managed Ayman directly",
+    date: "Apr 8, 2025",
+    initials: "PD",
+    image: "/people/priti.jpeg",
+    quote:
+      "I have had the opportunity to work with Ayman Patel at MC for more than a year. Throughout this period, he has consistently impressed me with his exceptional problem-solving abilities, collaborative spirit, and outstanding technical skills, particularly in Java, Spring Boot & React. Ayman is extremely hardworking, a quick learner, and has always demonstrated a sense of urgency and ownership by stepping up beyond the call of duty. His ability to find creative solutions to tackle complex challenges and devise innovative strategies is truly remarkable. In addition to his technical expertise, Ayman is an excellent collaborator, consistently willing to share knowledge and support team members. His positive attitude and readiness to assist others make him an invaluable asset to any team.",
+  },
+  {
+    name: "Pooja Jadhav",
+    role: "Senior Software Engineer @ Mastercard",
+    relationship: "Ayman was senior to Pooja, didn't work in same team. But mentored in resolving critical UI issues",
+    date: "Aug 18, 2025",
+    initials: "PJ",
+    image: "/people/pooja.jpeg",
+    quote:
+      "I've had the privilege of working with Ayman for the past 3 years and he truly impresses me every day with his talent and technical skills. Ayman excels at designing and improving user interfaces; everything he works on is intuitive, functional, and visually appealing. When I run into a challenge or question, he's the first person I go to. He takes the time to explain solutions clearly and always helps with patience and kindness.",
   },
   {
     name: "Shubhi Kharaya",
@@ -75,7 +75,7 @@ export const testimonials = [
     relationship: "Chinmay and Ayman studied together",
     date: "Oct 22, 2023",
     initials: "CK",
-    image: "/people/chinmay.jpeg",    
+    image: "/people/chinmay.jpeg",
     quote:
       "I wholeheartedly recommend Ayman as a software engineer with a remarkable four-year track record in Java and React. His technical prowess is outstanding; they consistently produce efficient, high-quality code that underpins the success of our projects. Moreover, Ayman excels in communication, effectively conveying intricate technical concepts to both technical and non-technical team members. He meets project deadlines reliably and proactively identifies and resolves issues. Ayman continually seeks ways to enhance our development processes, embracing new technologies and methodologies. His all-encompassing skill set, blending technical proficiency, teamwork, and problem-solving, make them a standout software engineer.",
   },

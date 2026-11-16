@@ -4,6 +4,8 @@ interface ProfileLinks {
   youtube: string;
   twitter: string;
   blog: string;
+  hashnode: string;
+  email: string;
   cv: string;
 }
 
@@ -13,13 +15,13 @@ interface Profile {
   tagline: string;
   links: ProfileLinks;
   education: { institution: string; degree: string; status: string }[];
-  experience: { company: string; title: string; start: string; end: string; description: string }[];
+  experience: { company: string; title: string; start: string; end?: string; description: string }[];
   timeline: {
-    type: "education" | "work";
+    type: "education" | "work" | "fellowship";
     org: string;
     title: string;
-    start: string;
-    end: string;
+    start?: string;
+    end?: string;
     description: string;
     href?: string;
   }[];
@@ -28,22 +30,24 @@ interface Profile {
 export const profile: Profile = {
   name: "Ayman Patel",
   role:
-    "My name is Ayman Patel. Currently pursuing masters in QMUL and worked as senior software engineer for 6 years at Mastercard",
+    "Senior Full Stack Engineer (Java, Spring Boot, React, TypeScript), ex-Mastercard, based in London. MSc Advanced Computer Science, Queen Mary University of London",
   tagline:
     "I build resilient systems, thoughtful developer experiences, and products that scale from prototype to production.",
   links: {
     github: "https://github.com/aymanapatel",
-    linkedin: "https://www.linkedin.com/in/aymanapatel",
+    linkedin: "https://www.linkedin.com/in/aymanapatel/",
     youtube: "https://www.youtube.com/@patelofthought",
     twitter: "https://www.x.com/ayman_alderson",
     blog: "/blog",
+    hashnode: "https://aymanace2049.hashnode.dev/",
+    email: "mailto:ayman.patel97@gmail.com",
     cv: "/ayman-cv.pdf",
   },
   education: [
     {
       institution: "Queen Mary University of London (QMUL)",
-      degree: "Masters in Advanced Computer Science",
-      status: "Currently pursuing",
+      degree: "MSc in Advanced Computer Science",
+      status: "Completed, 2025–2026",
     },
     {
       institution: "SVNIT, Surat",
@@ -58,13 +62,12 @@ export const profile: Profile = {
       start: "2019",
       end: "2025",
       description:
-        "Led delivery of backend services and developer platforms with a focus on reliability, observability, and secure integration.",
+        "Led the micro frontend architecture for the customer onboarding platform, and wrote a white paper on it that was published with CTO recognition. Built resilient Spring Boot APIs for the franchise legal and customer onboarding platforms, with full-stack ownership across frontend, backend, DevOps, and production issue triage.",
     },
     {
       company: "Mastercard",
       title: "Intern",
       start: "2018",
-      end: "2018",
       description:
         "Rotated across engineering teams, shipping internal tools and learning enterprise-scale systems.",
     },
@@ -73,11 +76,17 @@ export const profile: Profile = {
     {
       type: "education" as const,
       org: "Queen Mary University of London (QMUL)",
-      title: "Masters in Advanced Computer Science",
+      title: "MSc in Advanced Computer Science",
       start: "2025",
-      end: "Present",
-      description: "Pursuing an advanced degree focused on distributed systems, AI, and modern software architecture.",
+      end: "2026",
+      description: "Completed an MSc in Advanced Computer Science.",
       href: "/me/qmul-masters",
+    },
+    {
+      type: "fellowship" as const,
+      org: "Nebius Academy",
+      title: "AI Engineering Fellowship",
+      description: "Completed an AI engineering fellowship.",
     },
     {
       type: "work" as const,
@@ -85,14 +94,14 @@ export const profile: Profile = {
       title: "Senior Software Engineer",
       start: "2019",
       end: "2025",
-      description: "Led delivery of backend services and developer platforms with a focus on reliability, observability, and secure integration.",
+      description:
+        "Led the micro frontend architecture for the customer onboarding platform, and wrote a white paper on it that was published with CTO recognition. Built resilient Spring Boot APIs for the franchise legal and customer onboarding platforms, with full-stack ownership across frontend, backend, DevOps, and production issue triage.",
     },
     {
       type: "work" as const,
       org: "Mastercard",
       title: "Intern",
       start: "2018",
-      end: "2018",
       description: "Rotated across engineering teams, shipping internal tools and learning enterprise-scale systems.",
     },
     {

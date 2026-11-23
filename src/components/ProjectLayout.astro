@@ -72,6 +72,49 @@ function formatDate(date: Date): string {
               ))}
             </div>
           )}
+
+          {((project.data.embed?.href && project.data.embed?.image) || project.data.github || project.data.live) && (
+            <div class="project-actions">
+              {project.data.embed?.href && project.data.embed?.image && (
+                <a
+                  href={project.data.embed.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  class="project-embed-link"
+                >
+                  <img
+                    src={project.data.embed.image}
+                    alt={project.data.embed.alt || project.data.title}
+                    style="width: auto; height: 72px;"
+                  />
+                </a>
+              )}
+              {(project.data.github || project.data.live) && (
+                <div class="project-external-links">
+                  {project.data.github && (
+                    <a
+                      href={project.data.github}
+                      class="button ghost"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      GitHub
+                    </a>
+                  )}
+                  {project.data.live && (
+                    <a
+                      href={project.data.live}
+                      class="button"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Live Site
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
         </header>
 
         {project.data.cover && (
@@ -162,6 +205,31 @@ function formatDate(date: Date): string {
       display: flex;
       gap: var(--space-sm);
       flex-wrap: wrap;
+    }
+
+    .project-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: var(--space-md);
+      margin-top: var(--space-lg);
+    }
+
+    .project-embed-link {
+      display: inline-flex;
+      line-height: 0;
+      transition: transform var(--transition-fast), opacity var(--transition-fast);
+    }
+
+    .project-embed-link:hover {
+      transform: translateY(-2px);
+      opacity: 0.94;
+    }
+
+    .project-external-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
     }
 
     .tag {

@@ -512,6 +512,7 @@ pre code {
 .portfolio-card-link {
   color: inherit;
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: var(--space-md);
   padding: var(--space-lg);
@@ -576,6 +577,29 @@ pre code {
 .pill-muted {
   background-color: var(--color-accent-soft);
   color: var(--color-text-secondary);
+}
+
+.portfolio-card-embed {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--space-lg) var(--space-md);
+}
+
+.portfolio-card-embed a {
+  display: inline-flex;
+  max-width: 100%;
+  line-height: 0;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+}
+
+.portfolio-card-embed a:hover {
+  transform: translateY(-2px);
+  opacity: 0.94;
+}
+
+.portfolio-card-embed img {
+  max-width: 100%;
+  object-fit: contain;
 }
 
 .portfolio-card-links {

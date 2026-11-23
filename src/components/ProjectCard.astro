@@ -1,4 +1,10 @@
 ---
+interface ProjectEmbed {
+  href?: string;
+  image?: string;
+  alt?: string;
+}
+
 interface Props {
   title: string;
   description: string;
@@ -9,9 +15,10 @@ interface Props {
   role?: string;
   github?: string;
   live?: string;
+  embed?: ProjectEmbed;
 }
 
-const { title, description, href, cover, tags = [], stack = [], role, github, live } =
+const { title, description, href, cover, tags = [], stack = [], role, github, live, embed } =
   Astro.props;
 ---
 
@@ -36,6 +43,24 @@ const { title, description, href, cover, tags = [], stack = [], role, github, li
       )}
     </div>
   </a>
+  {embed?.href && embed?.image && (
+    <div class="portfolio-card-embed">
+      <a
+        href={embed.href}
+        target="_blank"
+        rel="noreferrer"
+        data-ph-project={title}
+        data-ph-link-type="peerlist"
+        onclick={`window.posthog?.capture('project_external_link_clicked', { project_title: '${title}', link_type: 'peerlist' })`}
+      >
+        <img
+          src={embed.image}
+          alt={embed.alt || title}
+          style="width: auto; height: 72px;"
+        />
+      </a>
+    </div>
+  )}
   {(github || live) && (
     <div class="portfolio-card-links">
       {github && (

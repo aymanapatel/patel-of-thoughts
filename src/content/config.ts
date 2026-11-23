@@ -30,6 +30,11 @@ const projects = defineCollection({
         ogImage: z.string().optional(),
         github: z.string().url().optional(),
         live: z.string().url().optional(),
+        embed: z.object({
+            href: z.string().url(),
+            image: z.string().url(),
+            alt: z.string(),
+        }).optional(),
         showcase: z.boolean().default(false),
         current: z.boolean().default(false),
         role: z.string().optional(),

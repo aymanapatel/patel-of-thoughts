@@ -3,12 +3,19 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../components/BaseLayout.astro";
 import Section from "../components/Section.astro";
 import PostCard from "../components/PostCard.astro";
+import ProjectCard from "../components/ProjectCard.astro";
 
 const posts = (
   await getCollection("posts", ({ data }) => !data.draft)
 ).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const latestPosts = posts.slice(0, 3);
+
+const projects = (
+  await getCollection("projects", ({ data }) => !data.draft)
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const featuredProjects = projects.filter((project) => project.data.showcase);
+const otherProjects = projects.filter((project) => !project.data.showcase);
 
 function formatDate(date: Date): string {
   return new Intl.DateTimeFormat("en-US", {
@@ -106,6 +113,43 @@ function shortSlug(slug: string): string {
       <div class="section-cta">
         <a class="button ghost" href="/blog" id="explore-posts-btn">Explore all posts</a>
       </div>
+    </Section>
+
+    <Section id="projects" title="Projects" subtitle="Work that goes deep.">
+      <div class="card-grid">
+        {featuredProjects.map((project) => (
+          <ProjectCard
+            title={project.data.title}
+            description={project.data.description}
+            href={`/projects/${shortSlug(project.slug)}`}
+            cover={project.data.cover}
+            tags={project.data.tags}
+            stack={project.data.stack}
+            role={project.data.role}
+            github={project.data.github}
+            live={project.data.live}
+            embed={project.data.embed}
+          />
+        ))}
+      </div>
+      {otherProjects.length > 0 && (
+        <div class="card-grid secondary-grid">
+          {otherProjects.map((project) => (
+            <ProjectCard
+              title={project.data.title}
+              description={project.data.description}
+              href={`/projects/${shortSlug(project.slug)}`}
+              cover={project.data.cover}
+              tags={project.data.tags}
+              stack={project.data.stack}
+              role={project.data.role}
+              github={project.data.github}
+              live={project.data.live}
+              embed={project.data.embed}
+            />
+          ))}
+        </div>
+      )}
     </Section>
 
     <!-- <Section

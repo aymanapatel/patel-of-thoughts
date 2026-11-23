@@ -7,7 +7,9 @@ import PostCard from "../components/PostCard.astro";
 import { profile } from "../data/profile";
 import { testimonials } from "../data/testimonials";
 
-const projects = await getCollection("projects", ({ data }) => !data.draft);
+const projects = (
+  await getCollection("projects", ({ data }) => !data.draft)
+).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const featuredProjects = projects.filter((project) => project.data.showcase);
 const otherProjects = projects.filter((project) => !project.data.showcase);
 
@@ -369,6 +371,7 @@ const techStack = [
             role={project.data.role}
             github={project.data.github}
             live={project.data.live}
+            embed={project.data.embed}
           />
         ))}
       </div>
@@ -385,6 +388,7 @@ const techStack = [
               role={project.data.role}
               github={project.data.github}
               live={project.data.live}
+              embed={project.data.embed}
             />
           ))}
         </div>

@@ -1,0 +1,35 @@
+---
+title: "BurndownBar"
+description: "A native macOS menu-bar app for tracking AI coding subscriptions, token usage, prompt cache reads, and inference spend in one place."
+date: 2026-11-23
+tags: ["macos", "ai", "developer-tools"]
+cover: "/images/burndownbar.png"
+showcase: true
+current: true
+role: "Creator"
+stack: ["SwiftUI", "AppKit", "macOS", "Charts"]
+github: "https://github.com/patel-of-thought/burndown-bar"
+live: "https://patel-of-thought.github.io/burndown-bar/"
+embed:
+  href: "https://peerlist.io/aymanapatel/project/burndownbar"
+  image: "https://peerlist.io/api/v1/projects/embed/PRJHGNQ7KDBG7D987C8O6OJJK89LN9?showUpvote=false&theme=light"
+  alt: "BurndownBar"
+---
+
+## Overview
+
+**BurndownBar** — *May you not burndown your AI tokens.*
+
+A lightweight, native macOS menu-bar app for tracking AI coding subscriptions, token usage, prompt cache reads, and inference spend in one place — built in pure SwiftUI and AppKit with zero external dependencies.
+
+## Highlights
+
+- **Unified Menu-Bar Monitor**: Displays the lowest remaining quota percentage across enabled accounts right in the macOS menu bar, organized across **Subscriptions**, **Inference**, **Rankings**, and **Model Advisor**.
+- **Token, Cache & Cost Charts**: 7-day and 30-day charts breaking down input, output, cache read, and cache write tokens alongside USD spend.
+- **Pace Markers & Countdown Timers**: Linear pace indicators comparing remaining allowance against time left in `5-hour`, `Daily`, `Weekly`, and `Monthly` windows.
+- **OpenRouter Dual-Key Intelligence**: Credit runway estimates, 30-day cache analytics, per-key spend attribution, and inline guardrail controls.
+- **Zero External Packages**: Compiles directly with Apple's Swift toolchain against `AppKit`, `SwiftUI`, `Charts`, `Security`, `LocalAuthentication`, and `sqlite3`.
+
+## Supported Providers
+
+Tracks quotas, usage, and spend across **OpenRouter**, **Codex**, **Cursor**, **Droid / Factory**, **OpenCode**, **Antigravity**, **Copilot**, **Warp**, **Zed**, **Claude**, and **Grok**.

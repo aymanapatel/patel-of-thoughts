@@ -31,6 +31,18 @@ function shortSlug(slug: string): string {
 
 const techStack = [
   {
+    name: "Core",
+    items: [
+      { label: "Java", icon: "java" },
+      { label: "Spring Boot", icon: "spring" },
+      { label: "React", icon: "react" },
+      { label: "TypeScript", icon: "typescript" },
+      { label: "Module Federation (micro frontends)", icon: "webpack" },
+      { label: "PostgreSQL", icon: "postgresql" },
+      { label: "AWS", icon: null },
+    ],
+  },
+  {
     name: "Frontend",
     items: [
       { label: "React", icon: "react" },
@@ -145,7 +157,7 @@ const techStack = [
           </div>
           <div class="hero-profile-details">
             <p class="hero-profile-label">Ayman Patel</p>
-            <p class="hero-profile-status"><span aria-hidden="true"></span> Available to connect</p>
+            <p class="hero-profile-status"><span aria-hidden="true"></span> Open to senior full-stack roles · London</p>
           </div>
         </aside>
         <div class="hero-card-inner hero-terminal">
@@ -251,7 +263,16 @@ const techStack = [
         ))}
       </div>
       <div class="section-cta">
-        <a class="button cta-dark" href={profile.links.blog}>
+        <a
+          class="button cta-dark"
+          href={profile.links.hashnode}
+          target="_blank"
+          rel="noreferrer"
+        >
+          All posts
+          <span class="button-arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="button ghost" href={profile.links.blog}>
           Read the blog
           <span class="button-arrow" aria-hidden="true">→</span>
         </a>
@@ -298,7 +319,14 @@ const techStack = [
               <div class="tl-card">
                 <h3 class="tl-card-title">{item.title}</h3>
                 <p class="tl-card-org">{item.org}</p>
-                <p class="tl-card-dates">{item.start}&nbsp;–&nbsp;{item.end}</p>
+                {(item.start || item.end) && (
+                  <p class="tl-card-dates">
+                    {item.start}
+                    {item.end && item.end !== item.start && (
+                      <>&nbsp;–&nbsp;{item.end}</>
+                    )}
+                  </p>
+                )}
                 <p class="tl-card-desc">{item.description}</p>
                 {item.href && (
                   <a class="tl-card-link" href={item.href}>
@@ -416,7 +444,7 @@ const techStack = [
           </span>
           <p class="text-secondary">Career timeline and recommendations.</p>
         </a>
-        <a class="connect-card" href={profile.links.blog}
+        <a class="connect-card" href={profile.links.hashnode} target="_blank" rel="noreferrer"
            onclick="window.posthog?.capture('connect_card_clicked', { platform: 'blog' })">
           <span class="connect-title">
             <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -426,6 +454,30 @@ const techStack = [
             Blog
           </span>
           <p class="text-secondary">Every post, system deep dive, and note.</p>
+        </a>
+        <a class="connect-card" href={profile.links.email}
+           onclick="window.posthog?.capture('connect_card_clicked', { platform: 'email' })">
+          <span class="connect-title">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M4 6h16v12H4z"></path>
+              <path d="m4 7 8 6 8-6"></path>
+            </svg>
+            Email
+          </span>
+          <p class="text-secondary">ayman.patel97@gmail.com</p>
+        </a>
+        <a class="connect-card" href={profile.links.cv} target="_blank" rel="noreferrer"
+           onclick="window.posthog?.capture('connect_card_clicked', { platform: 'cv' })">
+          <span class="connect-title">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M7 3h7l5 5v13H7z"></path>
+              <path d="M14 3v5h5"></path>
+              <path d="M9 13h6"></path>
+              <path d="M9 17h6"></path>
+            </svg>
+            CV
+          </span>
+          <p class="text-secondary">Resume PDF.</p>
         </a>
       </div>
     </Section>
@@ -518,6 +570,7 @@ const techStack = [
     margin: 0;
     color: var(--color-terminal-muted);
     font-size: var(--font-size-xs);
+    line-height: 1.45;
   }
 
   .hero-profile-status span {
@@ -829,6 +882,8 @@ const techStack = [
   .section-cta {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-md);
     margin-top: var(--space-lg);
   }
 

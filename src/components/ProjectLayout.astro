@@ -1,7 +1,7 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import BaseLayout from "./BaseLayout.astro";
-import TableOfContents from "./TableOfContents";
+import TableOfContentsSidebar from "./TableOfContentsSidebar.astro";
 import ReadingProgress from "./ReadingProgress";
 import "../styles/prose.css";
 
@@ -130,11 +130,7 @@ function formatDate(date: Date): string {
         </div>
       </div>
 
-      {headings.length > 0 && (
-        <aside class="post-sidebar">
-          <TableOfContents headings={headings} client:load />
-        </aside>
-      )}
+      <TableOfContentsSidebar headings={headings} />
     </div>
   </article>
 

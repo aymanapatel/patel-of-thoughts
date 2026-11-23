@@ -1,4 +1,5 @@
 import { useEffect, useId, useRef, useState, type MouseEvent } from 'react';
+import '../styles/toc.css';
 
 interface Heading {
     depth: number;
